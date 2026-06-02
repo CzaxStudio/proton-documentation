@@ -132,7 +132,7 @@ A small rounded chip with text inside. Good for status labels, tags, counts.
 
 ```go
 // background color, text color, text
-proton.Badge(win, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "Active")
+proton.Badge(win, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "Active") // proton.RGB here sets a color
 proton.Badge(win, proton.RGB(0xa3be8c), proton.RGB(0x2e3440), "Done")
 proton.Badge(win, proton.RGB(0xbf616a), proton.RGB(0xeceff4), "Error")
 ```

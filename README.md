@@ -28,7 +28,8 @@ Pick a topic or read them in order — both work fine.
 
 ## The One Thing to Know
 
-Proton is immediate mode. Your draw function runs every frame. You call
+Other than the core Go syntax you need to know that Proton is immediate mode. 
+Your draw function runs every frame. You call
 widget functions, they appear on screen in that order. State lives in
 your own struct. That's it.
 

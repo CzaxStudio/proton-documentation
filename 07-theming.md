@@ -1,222 +1,176 @@
 # Theming
 
-Proton uses a palette system — four colors that control the look of your
-entire app. Change the palette, everything updates. No hunting through CSS
-files, no component-level overrides, no `!important`.
+Proton has three ways to set colors. Pick whichever fits your workflow.
 
 ---
 
-## The Palette
+## 1. Built-in palettes
+
+One line. Done.
 
 ```go
-type Palette struct {
-    Bg        color.NRGBA   // window background
-    Fg        color.NRGBA   // text and icons
-    Primary   color.NRGBA   // buttons, sliders, progress bars, accents
-    PrimaryFg color.NRGBA   // text drawn on top of primary elements
-}
+a.ApplyPalette(proton.NordPalette)
 ```
 
-Apply it after `proton.New()` and before `a.Run()`:
+46 palettes are included. See the full list at the bottom of this page.
+
+---
+
+## 2. Hex color codes
+
+Use `a.ThemeBuilder()` to set colors with CSS hex strings — no structs,
+no imports, just the hex codes you already know.
 
 ```go
-a := proton.New("my app")
+// full custom theme
+a.ThemeBuilder().
+    Bg("#1e1e2e").
+    Fg("#cdd6f4").
+    Primary("#89b4fa").
+    PrimaryFg("#1e1e2e").
+    Apply()
 
+// override one color on an existing palette
+a.ApplyPalette(proton.NordPalette)
+a.ThemeBuilder().Primary("#ff6b6b").Apply()
+```
+
+Supported formats:
+- `"#rrggbb"` — standard hex with hash
+- `"rrggbb"`  — hex without hash
+- `"#rgb"`    — shorthand (expands to `rrggbbr`)
+- `"#rrggbbaa"` — with alpha channel
+
+Or use `a.ColorCode(slot, code)` for a single one-liner:
+
+```go
+a.ColorCode("bg",      "#0d1117")
+a.ColorCode("fg",      "#e6edf3")
+a.ColorCode("primary", "#1f6feb")
+a.ColorCode("primaryfg", "#ffffff")
+```
+
+Slot names: `"bg"`, `"background"`, `"fg"`, `"foreground"`, `"text"`,
+`"primary"`, `"accent"`, `"primaryfg"`, `"primarytext"`.
+
+---
+
+## 3. Palette struct with RGB helpers
+
+For when you want to define the whole thing explicitly:
+
+```go
 a.ApplyPalette(proton.Palette{
     Bg:        proton.RGB(0x1e1e2e),
     Fg:        proton.RGB(0xcdd6f4),
     Primary:   proton.RGB(0x89b4fa),
     PrimaryFg: proton.RGB(0x1e1e2e),
 })
+```
 
-a.Window("My App", 800, 600, draw)
-a.Run()
+Or use `MakePalette` for slightly less typing:
+
+```go
+a.ApplyPalette(proton.MakePalette(0x1e1e2e, 0xcdd6f4, 0x89b4fa, 0x1e1e2e))
 ```
 
 ---
 
-## Built-in Palettes
-
-Four ready-made palettes. Pick one and move on with your life.
-
-### DarkPalette
-
-A clean, neutral dark theme. Good default if you want dark without committing
-to a specific aesthetic.
+## Font scale
 
 ```go
-a.ApplyPalette(proton.DarkPalette)
-```
-
-### NordPalette
-
-The blue-grey arctic one. Half the GitHub repos use this color scheme.
-You probably already like it.
-
-```go
-a.ApplyPalette(proton.NordPalette)
-```
-
-Colors: dark navy background, soft blue-white text, calm sky-blue accent.
-
-### RosePinePalette
-
-Warm, muted, and a bit moody. Good for apps where you want a calm, focused
-feel rather than the stark contrast of a typical dark theme.
-
-```go
-a.ApplyPalette(proton.RosePinePalette)
-```
-
-### CatppuccinPalette
-
-Pastel. Very popular right now. Makes your app look like it was designed in 2024
-(which it was).
-
-```go
-a.ApplyPalette(proton.CatppuccinPalette)
+a.SetFontScale(1.1)   // 10% bigger globally
+a.SetFontScale(0.9)   // a bit smaller
 ```
 
 ---
 
-## Custom Palettes
+## Live theme picker widget
 
-Build your own. You only need four hex values.
-
-### Starting from scratch
+Drop this into a settings window to let users pick their own theme at runtime:
 
 ```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x0d1117),   // near black
-    Fg:        proton.RGB(0xe6edf3),   // off white
-    Primary:   proton.RGB(0x1f6feb),   // github blue
-    PrimaryFg: proton.RGB(0xffffff),   // white text on blue
-})
+type UI struct {
+    picker proton.ThemePickerState
+}
+
+proton.ThemePicker(win, &u.picker, a)
 ```
 
-### Copy-paste presets
-
-**Hacker Green** — your app will look like it belongs in a 90s movie
-
-```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x000000),
-    Fg:        proton.RGB(0x00ff00),
-    Primary:   proton.RGB(0x008f11),
-    PrimaryFg: proton.RGB(0x000000),
-})
-```
-
-**Midnight Ocean** — dark navy with sky blue accents
-
-```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x0f172a),
-    Fg:        proton.RGB(0xf8fafc),
-    Primary:   proton.RGB(0x38bdf8),
-    PrimaryFg: proton.RGB(0x0f172a),
-})
-```
-
-**Cyberpunk Red** — neon pink on near-black, lime green accent
-
-```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x1a0b0b),
-    Fg:        proton.RGB(0xff2a6d),
-    Primary:   proton.RGB(0xd1ff00),
-    PrimaryFg: proton.RGB(0x000000),
-})
-```
-
-**Solarized Dark** — the classic
-
-```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x002b36),
-    Fg:        proton.RGB(0x839496),
-    Primary:   proton.RGB(0x268bd2),
-    PrimaryFg: proton.RGB(0xfdf6e3),
-})
-```
-
-**Dracula** — purple dark theme, extremely popular
-
-```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x282a36),
-    Fg:        proton.RGB(0xf8f8f2),
-    Primary:   proton.RGB(0xbd93f9),
-    PrimaryFg: proton.RGB(0x282a36),
-})
-```
-
-**Gruvbox Dark** — warm earthy tones
-
-```go
-a.ApplyPalette(proton.Palette{
-    Bg:        proton.RGB(0x282828),
-    Fg:        proton.RGB(0xebdbb2),
-    Primary:   proton.RGB(0xd79921),
-    PrimaryFg: proton.RGB(0x282828),
-})
-```
+The picker shows all 46 built-in palettes with color swatches. Clicking one
+applies it to the running app immediately.
 
 ---
 
-## Font Scale
+## All built-in palettes
 
-Make all text in the app bigger or smaller with a single call.
-`1.0` is the default. Go up for readability, down if you need to fit more.
+### Dark themes
 
-```go
-a.SetFontScale(1.1)   // 10% bigger — good for accessibility
-a.SetFontScale(1.2)   // 20% bigger
-a.SetFontScale(0.9)   // 10% smaller — if you're cramming a lot in
-```
+| Variable | Description |
+|---|---|
+| `DarkPalette` | Clean neutral dark |
+| `NordPalette` | Arctic blue-grey |
+| `RosePinePalette` | Warm muted purple |
+| `RosePineMoonPalette` | Rose Pine dark moon variant |
+| `CatppuccinPalette` | Catppuccin Mocha (darkest) |
+| `CatppuccinFrappePalette` | Catppuccin Frappé |
+| `CatppuccinMacchiatoPalette` | Catppuccin Macchiato |
+| `DraculaPalette` | Classic purple |
+| `GruvboxDarkPalette` | Warm earthy retro |
+| `GruvboxMaterialDarkPalette` | Gruvbox with softer colors |
+| `TokyoNightPalette` | Deep blue-purple |
+| `TokyoNightStormPalette` | Slightly lighter Tokyo Night |
+| `MonokaiPalette` | Sublime Text classic |
+| `SolarizedDarkPalette` | Tinted dark, high contrast |
+| `OneDarkPalette` | Atom One Dark |
+| `MaterialDarkPalette` | Material Design dark |
+| `AyuDarkPalette` | Ayu dark, clean modern |
+| `AyuMiragePalette` | Ayu mirage, warm medium |
+| `EverforestDarkPalette` | Muted green forest |
+| `KanagawaPalette` | Inspired by The Great Wave |
+| `VesperPalette` | Minimal warm dark |
+| `NightOwlPalette` | Designed for night coding |
+| `CarbonPalette` | IBM Carbon dark |
+| `MidnightPalette` | Deep navy, sky blue |
+| `ObsidianPalette` | Green-tinted editor dark |
+| `HackerPalette` | Terminal green on black |
+| `CyberpunkPalette` | Neon pink and lime |
+| `OleDarkPalette` | Warm lamplight brown |
+| `SlackPalette` | Slack sidebar purple |
+| `TerminalGreenPalette` | Phosphor green CRT |
+| `TerminalAmberPalette` | Phosphor amber CRT |
+| `OceanicNextPalette` | Cool ocean blues |
+| `IcebergPalette` | Cold blue-grey |
+| `SynthwavePalette` | 80s retro neon |
 
-Call this after `proton.New()` and before `a.Run()`.
+### Light themes
+
+| Variable | Description |
+|---|---|
+| `LightPalette` | Clean neutral light |
+| `SolarizedLightPalette` | Warm cream |
+| `RosePineDawnPalette` | Rose Pine light |
+| `CatppuccinLattePalette` | Catppuccin lightest |
+| `FluentLightPalette` | Microsoft Fluent |
+| `PaperPalette` | Warm off-white, ink text |
+| `GithubLightPalette` | GitHub's clean light |
+| `AyuLightPalette` | Ayu light |
+| `EverforestLightPalette` | Soft green light |
+| `NordLightPalette` | Nord warm light |
+| `GruvboxLightPalette` | Gruvbox cream |
+| `TokyoNightDayPalette` | Tokyo Night light |
 
 ---
 
-## Designing Your Own Palette
-
-A few tips from staring at color pickers for too long:
-
-**Contrast ratio matters.** Your `Fg` should be clearly readable against
-`Bg`. Light text on dark background or dark text on light background.
-Don't do grey text on grey background and call it minimalist.
-
-**Primary should pop, not scream.** It's the accent color on buttons and
-interactive elements. Something with medium-high saturation usually works
-well. Avoid full-saturation red (0xff0000) — it looks like an error.
-
-**PrimaryFg is what gets drawn ON your buttons.** Usually either white or
-the same as `Bg`. If your primary is very dark, use white. If it's light,
-use a dark color.
-
-**Test with a divider.** Call `proton.Divider(win)` with your palette.
-If you can barely see it, your Fg might be too close to your Bg.
-
----
-
-## Using Colors in Widgets
-
-The palette affects Proton's built-in widgets automatically. For custom
-elements like `Rect`, `Card`, and `Badge`, you supply colors directly:
+## Using colors in custom widgets
 
 ```go
-// using your own color
-proton.Card(win, proton.RGB(0x2a2a3e), 10, 12, func(win *proton.Win) {
-    proton.Label(win, "Custom card color")
-})
+// fixed color
+proton.Rect(win, proton.RGB(0xff6b6b), 0, 4)
 
-// using theme colors via the material theme directly
+// from current theme
 th := win.Theme()
-proton.Card(win, th.Palette.Bg, 10, 12, func(win *proton.Win) {
-    proton.Label(win, "Uses whatever Bg the palette set")
-})
+proton.Rect(win, th.Palette.ContrastBg, 0, 4)  // primary color
+proton.Rect(win, th.Palette.Bg, 0, 0)           // background
+proton.Rect(win, th.Palette.Fg, 0, 1)           // foreground/text color
 ```
-
-`win.Theme()` returns the underlying `*material.Theme` if you need access
-to the current palette colors programmatically.

@@ -21,7 +21,7 @@ proton.H4(win, "Next Section")
 
 **Signature:**
 ```go
-proton.Gap(win *Win, dp float32)
+proton.Gap(win Context, dp float32)
 ```
 
 A `dp` value of `8` is a small gap, `16` is medium, `24` is large.
@@ -36,17 +36,17 @@ width as it needs.
 
 ```go
 proton.Row(win,
-    func(win *proton.Win) { proton.Label(win, "Name:") },
-    func(win *proton.Win) { proton.Gap(win, 8) },
-    func(win *proton.Win) { proton.Label(win, "Alice") },
+    func(win proton.Context) { proton.Label(win, "Name:") },
+    func(win proton.Context) { proton.Gap(win, 8) },
+    func(win proton.Context) { proton.Label(win, "Alice") },
 )
 ```
 
-Every child is a `func(*Win)`. Inside it, call whatever widgets you want.
+Every child is a `func(Context)`. Inside it, call whatever widgets you want.
 
 **Signature:**
 ```go
-proton.Row(win *Win, widgets ...func(*Win))
+proton.Row(win Context, widgets ...func(Context))
 ```
 
 ---
@@ -60,15 +60,15 @@ stack of things.
 
 ```go
 proton.Row(win,
-    func(win *proton.Win) {
+    func(win proton.Context) {
         // left side: just a label
         proton.Label(win, "Left")
     },
-    func(win *proton.Win) {
+    func(win proton.Context) {
         // right side: a vertical stack
         proton.Column(win,
-            func(win *proton.Win) { proton.Label(win, "Right Top") },
-            func(win *proton.Win) { proton.Label(win, "Right Bottom") },
+            func(win proton.Context) { proton.Label(win, "Right Top") },
+            func(win proton.Context) { proton.Label(win, "Right Bottom") },
         )
     },
 )
@@ -76,7 +76,7 @@ proton.Row(win,
 
 **Signature:**
 ```go
-proton.Column(win *Win, widgets ...func(*Win))
+proton.Column(win Context, widgets ...func(Context))
 ```
 
 ---
@@ -89,14 +89,14 @@ pushing the first item to the left edge and the last to the right.
 ```go
 // title on the left, "v1.0" on the right
 proton.RowSpread(win,
-    func(win *proton.Win) { proton.H5(win, "My App") },
-    func(win *proton.Win) { proton.Caption(win, "v1.0") },
+    func(win proton.Context) { proton.H5(win, "My App") },
+    func(win proton.Context) { proton.Caption(win, "v1.0") },
 )
 ```
 
 **Signature:**
 ```go
-proton.RowSpread(win *Win, widgets ...func(*Win))
+proton.RowSpread(win Context, widgets ...func(Context))
 ```
 
 ---
@@ -107,11 +107,11 @@ Pushes all children to the right edge. Classic placement for action buttons.
 
 ```go
 proton.RowEnd(win,
-    func(win *proton.Win) {
+    func(win proton.Context) {
         if proton.OutlineButton(win, &u.cancel, "Cancel") { handleCancel() }
     },
-    func(win *proton.Win) { proton.Gap(win, 8) },
-    func(win *proton.Win) {
+    func(win proton.Context) { proton.Gap(win, 8) },
+    func(win proton.Context) {
         if proton.Button(win, &u.save, "Save") { handleSave() }
     },
 )
@@ -119,7 +119,7 @@ proton.RowEnd(win,
 
 **Signature:**
 ```go
-proton.RowEnd(win *Win, widgets ...func(*Win))
+proton.RowEnd(win Context, widgets ...func(Context))
 ```
 
 ---
@@ -133,13 +133,13 @@ with `GrowItem` and `FixedItem`.
 ```go
 // input stretches to fill space, label and button stay fixed size
 proton.GrowRow(win,
-    proton.FixedItem(win, func(win *proton.Win) {
+    proton.FixedItem(win, func(win proton.Context) {
         proton.Label(win, "Search:")
     }),
-    proton.GrowItem(win, func(win *proton.Win) {
+    proton.GrowItem(win, func(win proton.Context) {
         proton.Input(win, &u.search, "Type to search...")
     }),
-    proton.FixedItem(win, func(win *proton.Win) {
+    proton.FixedItem(win, func(win proton.Context) {
         if proton.Button(win, &u.searchBtn, "Go") { doSearch() }
     }),
 )
@@ -150,10 +150,10 @@ You can have multiple `GrowItem`s — they split the remaining space evenly.
 
 **Signatures:**
 ```go
-proton.GrowRow(win *Win, children ...layout.FlexChild)
-proton.GrowColumn(win *Win, children ...layout.FlexChild)
-proton.GrowItem(win *Win, fn func(*Win)) layout.FlexChild
-proton.FixedItem(win *Win, fn func(*Win)) layout.FlexChild
+proton.GrowRow(win proton.Context, children ...proton.FlexItem)
+proton.GrowColumn(win proton.Context, children ...proton.FlexItem)
+proton.GrowItem(win proton.Context, fn func(proton.Context)) proton.FlexItem
+proton.FixedItem(win proton.Context, fn func(proton.Context)) proton.FlexItem
 ```
 
 ---
@@ -166,11 +166,11 @@ proportion the left side gets (0.0–1.0).
 ```go
 // left gets 30%, right gets 70%
 proton.Split(win, 0.3,
-    func(win *proton.Win) {
+    func(win proton.Context) {
         // sidebar
         proton.Label(win, "Navigation")
     },
-    func(win *proton.Win) {
+    func(win proton.Context) {
         // main content
         proton.Label(win, "Content area")
     },
@@ -179,7 +179,7 @@ proton.Split(win, 0.3,
 
 **Signature:**
 ```go
-proton.Split(win *Win, leftFraction float32, left func(*Win), right func(*Win))
+proton.Split(win Context, leftFraction float32, left func(Context), right func(Context))
 ```
 
 ### HSplit — Top and Bottom
@@ -188,14 +188,14 @@ Same idea but vertical. `topFraction` is the proportion the top gets.
 
 ```go
 proton.HSplit(win, 0.7,
-    func(win *proton.Win) { proton.Label(win, "Main content") },
-    func(win *proton.Win) { proton.Label(win, "Status bar") },
+    func(win proton.Context) { proton.Label(win, "Main content") },
+    func(win proton.Context) { proton.Label(win, "Status bar") },
 )
 ```
 
 **Signature:**
 ```go
-proton.HSplit(win *Win, topFraction float32, top func(*Win), bottom func(*Win))
+proton.HSplit(win Context, topFraction float32, top func(Context), bottom func(Context))
 ```
 
 ---
@@ -205,7 +205,7 @@ proton.HSplit(win *Win, topFraction float32, top func(*Win), bottom func(*Win))
 Centers its content in the available space.
 
 ```go
-proton.Center(win, func(win *proton.Win) {
+proton.Center(win, func(win proton.Context) {
     proton.H3(win, "Nothing to see here yet")
 })
 ```
@@ -214,7 +214,7 @@ Great for empty states — when a list is empty, a dashboard has no data, etc.
 
 **Signature:**
 ```go
-proton.Center(win *Win, fn func(*Win))
+proton.Center(win Context, fn func(Context))
 ```
 
 ---
@@ -226,7 +226,7 @@ proton.Center(win *Win, fn func(*Win))
 Adds padding on all four sides.
 
 ```go
-proton.Pad(win, 16, func(win *proton.Win) {
+proton.Pad(win, 16, func(win proton.Context) {
     proton.Label(win, "16dp of space around me")
 })
 ```
@@ -234,7 +234,7 @@ proton.Pad(win, 16, func(win *proton.Win) {
 ### PadH — Left and Right Only
 
 ```go
-proton.PadH(win, 24, func(win *proton.Win) {
+proton.PadH(win, 24, func(win proton.Context) {
     proton.Label(win, "24dp of horizontal padding")
 })
 ```
@@ -242,7 +242,7 @@ proton.PadH(win, 24, func(win *proton.Win) {
 ### PadV — Top and Bottom Only
 
 ```go
-proton.PadV(win, 12, func(win *proton.Win) {
+proton.PadV(win, 12, func(win proton.Context) {
     proton.Label(win, "12dp of vertical padding")
 })
 ```
@@ -252,17 +252,17 @@ proton.PadV(win, 12, func(win *proton.Win) {
 Arguments are top, right, bottom, left — same order as CSS.
 
 ```go
-proton.PadSides(win, 8, 16, 8, 16, func(win *proton.Win) {
+proton.PadSides(win, 8, 16, 8, 16, func(win proton.Context) {
     proton.Label(win, "8 top/bottom, 16 left/right")
 })
 ```
 
 **Signatures:**
 ```go
-proton.Pad(win *Win, dp float32, fn func(*Win))
-proton.PadH(win *Win, dp float32, fn func(*Win))
-proton.PadV(win *Win, dp float32, fn func(*Win))
-proton.PadSides(win *Win, top, right, bottom, left float32, fn func(*Win))
+proton.Pad(win Context, dp float32, fn func(Context))
+proton.PadH(win Context, dp float32, fn func(Context))
+proton.PadV(win Context, dp float32, fn func(Context))
+proton.PadSides(win Context, top, right, bottom, left float32, fn func(Context))
 ```
 
 ---
@@ -274,11 +274,11 @@ Each cell gets an equal share of the width.
 
 ```go
 proton.Grid(win, 3, 8,   // 3 columns, 8dp gap
-    func(win *proton.Win) { proton.Label(win, "Cell 1") },
-    func(win *proton.Win) { proton.Label(win, "Cell 2") },
-    func(win *proton.Win) { proton.Label(win, "Cell 3") },
-    func(win *proton.Win) { proton.Label(win, "Cell 4") },
-    func(win *proton.Win) { proton.Label(win, "Cell 5") },
+    func(win proton.Context) { proton.Label(win, "Cell 1") },
+    func(win proton.Context) { proton.Label(win, "Cell 2") },
+    func(win proton.Context) { proton.Label(win, "Cell 3") },
+    func(win proton.Context) { proton.Label(win, "Cell 4") },
+    func(win proton.Context) { proton.Label(win, "Cell 5") },
 )
 ```
 
@@ -287,7 +287,7 @@ than `cols` cells, the remaining cells are just empty.
 
 **Signature:**
 ```go
-proton.Grid(win *Win, cols int, gapDp float32, cells ...func(*Win))
+proton.Grid(win Context, cols int, gapDp float32, cells ...func(Context))
 ```
 
 ---
@@ -297,12 +297,12 @@ proton.Grid(win *Win, cols int, gapDp float32, cells ...func(*Win))
 A typical two-column app layout:
 
 ```go
-func draw(win *proton.Win, u *UI) {
+func draw(win proton.Context, u *UI) {
     // header
-    proton.PadSides(win, 0, 0, 12, 0, func(win *proton.Win) {
+    proton.PadSides(win, 0, 0, 12, 0, func(win proton.Context) {
         proton.RowSpread(win,
-            func(win *proton.Win) { proton.H5(win, "My App") },
-            func(win *proton.Win) { proton.Caption(win, "v1.0") },
+            func(win proton.Context) { proton.H5(win, "My App") },
+            func(win proton.Context) { proton.Caption(win, "v1.0") },
         )
     })
     proton.Divider(win)
@@ -310,9 +310,9 @@ func draw(win *proton.Win, u *UI) {
 
     // two-column body
     proton.Split(win, 0.35,
-        func(win *proton.Win) { drawSidebar(win, u) },
-        func(win *proton.Win) {
-            proton.PadH(win, 16, func(win *proton.Win) {
+        func(win proton.Context) { drawSidebar(win, u) },
+        func(win proton.Context) {
+            proton.PadH(win, 16, func(win proton.Context) {
                 drawContent(win, u)
             })
         },

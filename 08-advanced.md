@@ -38,7 +38,7 @@ Call `proton.Toast` at the **end** of your draw function. This ensures it
 renders on top of everything else.
 
 ```go
-func draw(win *proton.Win, u *UI) {
+func draw(win proton.Context, u *UI) {
     // ... all your other widgets ...
 
     // always last
@@ -56,8 +56,8 @@ type UI struct {
     toast   proton.ToastState
 }
 
-func draw(win *proton.Win, u *UI) {
-    proton.Pad(win, 16, func(win *proton.Win) {
+func draw(win proton.Context, u *UI) {
+    proton.Pad(win, 16, func(win proton.Context) {
         if proton.Button(win, &u.saveBtn, "Save") {
             go func() {
                 saveToFile()
@@ -79,22 +79,22 @@ Register a function to run when a key combination is pressed.
 
 ```go
 // Ctrl+S
-proton.OnKey(win, key.ModCtrl, "S", func() {
+proton.OnKey(win, proton.ModCtrl, "S", func() {
     save()
 })
 
 // Ctrl+Z
-proton.OnKey(win, key.ModCtrl, "Z", func() {
+proton.OnKey(win, proton.ModCtrl, "Z", func() {
     undo()
 })
 
 // Just Escape (no modifier)
-proton.OnKey(win, 0, key.NameEscape, func() {
+proton.OnKey(win, proton.ModNone, proton.KeyEscape, func() {
     closeDialog()
 })
 
 // Ctrl+Shift+N
-proton.OnKey(win, key.ModCtrl|key.ModShift, "N", func() {
+proton.OnKey(win, proton.ModCtrl|proton.ModShift, "N", func() {
     newWindow()
 })
 ```
@@ -105,22 +105,20 @@ always active while the window is open.
 
 **Signature:**
 ```go
-proton.OnKey(win *Win, modifiers key.Modifiers, name key.Name, fn func())
+proton.OnKey(win proton.Context, modifiers proton.Modifier, keyName string, fn func())
 ```
 
-**Common key names** (from `gioui.org/io/key`):
-- `key.NameEscape` — Escape
-- `key.NameReturn` — Enter
-- `key.NameDeleteBackward` — Backspace
-- `key.NameDeleteForward` — Delete
-- Letter keys: just the letter as a string — `"S"`, `"Z"`, `"N"`
-- Function keys: `key.NameF1` through `key.NameF12`
+**Modifiers:** `proton.ModNone`, `proton.ModCtrl`, `proton.ModShift`, `proton.ModAlt`.
+Combine with `|`, e.g. `proton.ModCtrl|proton.ModShift`.
 
-**Modifier constants:**
-- `key.ModCtrl` — Ctrl (Command on macOS)
-- `key.ModShift` — Shift
-- `key.ModAlt` — Alt (Option on macOS)
-- `0` — no modifier, just the key alone
+**Common key names** — letter keys are just their uppercase string ("S", "Z", "N").
+For everything else, use the Key* constants:
+- `proton.KeyEscape` — Escape
+- `proton.KeyReturn` — Enter
+- `proton.KeyBackspace` — Backspace
+- `proton.KeyDelete` — Delete
+- `proton.KeyTab`, `proton.KeySpace`, `proton.KeyUp`, `proton.KeyDown`, `proton.KeyLeft`, `proton.KeyRight`
+- Letter keys: just the letter as a string — `"S"`, `"Z"`, `"N"`
 
 ---
 
@@ -136,7 +134,7 @@ type UI struct {
     result  string
 }
 
-func draw(win *proton.Win, u *UI) {
+func draw(win proton.Context, u *UI) {
     if u.loading {
         proton.Label(win, "Loading...")
         proton.ProgressBar(win, 0.5)   // indeterminate look
@@ -148,7 +146,7 @@ func draw(win *proton.Win, u *UI) {
         return
     }
 
-    proton.Pad(win, 16, func(win *proton.Win) {
+    proton.Pad(win, 16, func(win proton.Context) {
         if proton.Button(win, &u.fetchBtn, "Fetch Data") {
             u.loading = true
             go func() {
@@ -184,7 +182,7 @@ type UI struct {
     saveBtn   proton.Clickable
 }
 
-proton.Tooltip(win, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(win *proton.Win) {
+proton.Tooltip(win, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(win proton.Context) {
     if proton.Button(win, &u.saveBtn, "Save") {
         doSave()
     }
@@ -196,7 +194,7 @@ the user moves the mouse away.
 
 **Signature:**
 ```go
-proton.Tooltip(win *Win, state *proton.Clickable, tip string, content func(*Win))
+proton.Tooltip(win Context, state *proton.Clickable, tip string, content func(Context))
 ```
 
 Note: `Tooltip` uses a `proton.Clickable` for hover tracking. This is separate
@@ -217,11 +215,11 @@ func main() {
     a := proton.New("my app")
     a.ApplyPalette(proton.NordPalette)
 
-    a.Window("Main Window", 800, 600, func(win *proton.Win) {
+    a.Window("Main Window", 800, 600, func(win proton.Context) {
         drawMain(win, u)
     })
 
-    a.Window("Settings", 400, 300, func(win *proton.Win) {
+    a.Window("Settings", 400, 300, func(win proton.Context) {
         drawSettings(win, u)
     })
 
@@ -239,14 +237,14 @@ are immediately visible in the other on the next frame.
 For windows that need special behavior, use `WindowEx`:
 
 ```go
-a.WindowEx("My App", 800, 600, []app.Option{
-    app.Fullscreen.Option(),
+a.WindowEx("My App", 800, 600, []proton.WindowOption{
+    proton.Fullscreen(),
 }, draw)
 ```
 
-`WindowEx` accepts any `app.Option` from `gioui.org/app`. Common ones:
-- `app.Fullscreen.Option()` — start fullscreen
-- `app.Maximized.Option()` — start maximized
+`WindowEx` accepts Proton's own option constructors:
+- `proton.Fullscreen()` — start fullscreen
+- `proton.Maximized()` — start maximized
 
 ---
 
@@ -260,7 +258,7 @@ spinner, etc.), call `win.Invalidate()` at the end of each frame to keep
 the redraws going:
 
 ```go
-func draw(win *proton.Win, u *UI) {
+func draw(win proton.Context, u *UI) {
     if u.animating {
         u.progress += 0.016   // roughly one frame at 60fps
         if u.progress >= 1.0 {
@@ -288,7 +286,7 @@ type UI struct {
     editorTag proton.FrameTag
 }
 
-proton.FocusArea(win, &u.editorTag, key.Filter{Name: "A"}, func(win *proton.Win) {
+proton.FocusArea(win, &u.editorTag, "A", func(win proton.Context) {
     proton.TextArea(win, &u.text, "Type here...")
 })
 ```
@@ -298,14 +296,13 @@ panels and only want keyboard shortcuts active in the focused one.
 
 ---
 
-## Accessing the Material Theme Directly
+## Why Proton Hides Gio Completely
 
-Proton wraps Gio's material theme. If you need to do something Proton
-doesn't expose, you can get the underlying theme:
+Every function that takes a `proton.Context` never receives or returns
+a raw Gio type. This is deliberate: Gio's layout and event APIs have
+changed more than once as the library matures, and code written against
+`proton.Context` keeps compiling across those changes without edits.
 
-```go
-th := win.Theme()   // returns *material.Theme
-```
-
-This gives you access to everything in `gioui.org/widget/material` —
-palette colors, text sizes, and any widget Proton hasn't wrapped yet.
+If you ever hit something Proton genuinely doesn't expose, that's worth
+reporting — Proton is meant to cover the full surface you need without
+reaching past it.

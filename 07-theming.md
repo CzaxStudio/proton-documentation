@@ -167,10 +167,62 @@ applies it to the running app immediately.
 ```go
 // fixed color
 proton.Rect(win, proton.RGB(0xff6b6b), 0, 4)
-
-// from current theme
-th := win.Theme()
-proton.Rect(win, th.Palette.ContrastBg, 0, 4)  // primary color
-proton.Rect(win, th.Palette.Bg, 0, 0)           // background
-proton.Rect(win, th.Palette.Fg, 0, 1)           // foreground/text color
 ```
+
+Proton doesn't expose the live theme's colors back to your code by
+design — that would mean handing back a Gio type, which breaks the
+API-immunity guarantee. If you need a color to match your palette,
+store it yourself when you set the palette:
+
+```go
+var primaryColor = proton.RGB(0x89b4fa)
+
+a.ApplyPalette(proton.Palette{
+    Bg: proton.RGB(0x1e1e2e), Fg: proton.RGB(0xcdd6f4),
+    Primary: primaryColor, PrimaryFg: proton.RGB(0x1e1e2e),
+})
+
+// later, anywhere in your draw code:
+proton.Rect(win, primaryColor, 0, 4)
+```
+
+---
+
+## Background Colors
+
+Beyond palettes, you can set the window background directly — solid colors,
+gradients, or an animated rainbow. These override the palette's `Bg` color.
+
+### Solid color
+
+```go
+a.SetBackground(proton.RGB(0x1a1b26))
+a.SetBackgroundCode("#1a1b26")
+a.SetBackgroundRGB(26, 27, 38)
+```
+
+All three do the same thing — pick whichever input format is convenient.
+
+### Gradient
+
+```go
+a.SetBackgroundGradient("#1a1b26", "#2d1b69", "vertical")
+```
+
+`dir` is one of `"horizontal"`, `"vertical"`, `"diagonal"`, or `"radial"`.
+
+### Rainbow
+
+```go
+a.SetBackgroundRainbow()
+```
+
+An animated full-spectrum gradient that shifts slowly over time. Good for
+demos, novelty apps, or just because you can.
+
+### Precedence
+
+If you call more than one of these, the most recent call wins. Calling
+`ApplyPalette` after setting a background does not override it — backgrounds
+are independent of the palette system. Call background setters last if you
+want them to take priority.

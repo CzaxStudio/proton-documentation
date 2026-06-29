@@ -44,11 +44,11 @@ package main
 import "github.com/CzaxStudio/proton"
 
 func main() {
-    a := proton.New("my app")
-    a.Window("Hello World", 400, 300, func(win *proton.Win) {
-        proton.H3(win, "Hello from Proton!")
-    })
-    a.Run()
+	a := proton.New("hello")
+	a.Window("Hello", 400, 200, func(win proton.Context) {
+		proton.H3(win, "Hello from Proton!")
+	})
+	a.Run()
 }
 ```
 

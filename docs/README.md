@@ -3,7 +3,6 @@
 Copyright © CzaxStudio (Nexus-Proton)
 
 Everything you need to build desktop apps with Proton. 
-
 Pick a topic or read them in order — both work fine.
 
 ---

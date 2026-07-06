@@ -1,5 +1,7 @@
 # Android
 
+Build Android Apps in Proton!
+
 Proton apps run on Android through Gio's native Android support.
 The same code that runs on your desktop runs on Android — no rewrites,
 no separate UI layer.

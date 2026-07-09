@@ -1,97 +1,115 @@
 # Inputs
 
-Text fields, checkboxes, toggles, radio buttons, and sliders.
-Everything the user types or toggles.
+Text fields, checkboxes, toggles, radio buttons, sliders, number steppers,
+dropdowns, and a search field with a clear button.
 
 ---
 
-## Text Input
-
-A single-line text field. The `hint` is the placeholder text shown when
-the field is empty.
+## Input — Single-line Text Field
 
 ```go
 type UI struct {
-    name proton.Editor
+    email proton.Editor
 }
 
-proton.Input(win, &u.name, "Your name")
+proton.Input(ctx, &u.email, "your@email.com")
 
-// read the current value any time
-fmt.Println(u.name.Text())
+// read the value any time
+fmt.Println(u.email.Text())
 ```
 
-**Signature:**
+The second argument is the placeholder text shown when the field is empty.
+
 ```go
-proton.Input(win Context, state *proton.Editor, hint string)
+proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 ```
-
-The state type is `proton.Editor` — declare one per text field.
 
 ---
 
-## Text Area
+## TextArea — Multi-line Text Field
 
-Like Input but multi-line. The user can press Enter to add new lines.
-Good for messages, descriptions, or any longer text.
+Same as Input but the user can press Enter to add lines. Good for messages,
+notes, anything longer than a single line.
 
 ```go
 type UI struct {
     bio proton.Editor
 }
 
-proton.TextArea(win, &u.bio, "Write a short bio...")
+proton.TextArea(ctx, &u.bio, "Tell us something...")
 
-fmt.Println(u.bio.Text())   // same as Input
+fmt.Println(u.bio.Text())
 ```
 
-**Signature:**
 ```go
-proton.TextArea(win Context, state *proton.Editor, hint string)
+proton.TextArea(ctx proton.Context, state *proton.Editor, hint string)
+```
+
+---
+
+## SearchInput
+
+A text field with a search icon on the left and a clear (×) button that
+appears when there's something to clear. Returns the current query string.
+
+```go
+type UI struct {
+    search proton.SearchState
+}
+
+q := proton.SearchInput(ctx, &u.search, "Search notes...")
+
+// filter your data using q
+filtered := filter(items, q)
+```
+
+`SearchState` holds both the `Editor` and the internal clear button — declare
+one in your struct, don't construct it yourself.
+
+```go
+proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder string) string
 ```
 
 ---
 
 ## Checkbox
 
-A checkbox with a label. Returns `true` on the frame the user changes it.
+Returns `true` on the frame the user toggles it. Read the current value from
+`state.Value`.
 
 ```go
 type UI struct {
     agreed proton.Bool
 }
 
-if proton.Checkbox(win, &u.agreed, "I agree to the terms and conditions") {
-    // user just toggled it — u.agreed.Value is the new state
-    fmt.Println("now checked:", u.agreed.Value)
+if proton.Checkbox(ctx, &u.agreed, "I have read the terms and conditions") {
+    // just changed — u.agreed.Value is the new state
+    fmt.Println("now:", u.agreed.Value)
 }
 
-// read the current value without caring about change events
+// read it any time without caring about the change event
 if u.agreed.Value {
-    proton.Label(win, "Thanks for agreeing (nobody read it)")
+    proton.SuccessText(ctx, "Thanks for agreeing (we know you didn't read it)")
 }
 ```
 
-**Signature:**
 ```go
-proton.Checkbox(win Context, state *proton.Bool, label string) bool
+proton.Checkbox(ctx proton.Context, state *proton.Bool, label string) bool
 ```
-
-The state type is `proton.Bool`. `.Value` is `true` when checked.
 
 ---
 
-## Toggle (Switch)
+## Toggle
 
 A material-style on/off switch. Same API as Checkbox, different look.
-Use it when you're toggling a setting that takes effect immediately.
+Use for settings that take effect immediately rather than needing a Save button.
 
 ```go
 type UI struct {
     darkMode proton.Bool
 }
 
-if proton.Toggle(win, &u.darkMode, "Dark mode") {
+if proton.Toggle(ctx, &u.darkMode, "Dark mode") {
     if u.darkMode.Value {
         applyDarkTheme()
     } else {
@@ -100,52 +118,47 @@ if proton.Toggle(win, &u.darkMode, "Dark mode") {
 }
 ```
 
-**Signature:**
 ```go
-proton.Toggle(win Context, state *proton.Bool, label string) bool
+proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 ```
 
 ---
 
 ## RadioButton
 
-Radio buttons for when the user needs to pick exactly one option from a group.
-All buttons in the same group share one `proton.Enum` state field.
+For picking exactly one option from a group. All buttons in a group share
+one `proton.Enum` state field. The `key` is what gets stored in `group.Value`
+when that option is selected.
 
 ```go
 type UI struct {
-    size proton.Enum   // one field for the whole group
+    plan proton.Enum
 }
 
-proton.RadioButton(win, &u.size, "sm", "Small")
-proton.RadioButton(win, &u.size, "md", "Medium")
-proton.RadioButton(win, &u.size, "lg", "Large")
+proton.RadioButton(ctx, &u.plan, "free", "Free")
+proton.Gap(ctx, 4)
+proton.RadioButton(ctx, &u.plan, "pro", "Pro — $9/mo")
+proton.Gap(ctx, 4)
+proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 
-// read the selected key
-fmt.Println("selected:", u.size.Value)   // "sm", "md", or "lg"
-```
-
-The second argument is the `key` — what gets stored in `.Value` when that
-option is selected. The third is the label shown next to the button.
-
-**Signature:**
-```go
-proton.RadioButton(win Context, group *proton.Enum, key string, label string) bool
+fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
 Returns `true` on the frame the selection changes.
 
-### Horizontal radio buttons
+```go
+proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
+```
 
-Wrap them in `Row` to lay them out side by side:
+Horizontal radio buttons — wrap them in `Row`:
 
 ```go
-proton.Row(win,
-    func(win proton.Context) { proton.RadioButton(win, &u.size, "sm", "S") },
-    func(win proton.Context) { proton.Gap(win, 8) },
-    func(win proton.Context) { proton.RadioButton(win, &u.size, "md", "M") },
-    func(win proton.Context) { proton.Gap(win, 8) },
-    func(win proton.Context) { proton.RadioButton(win, &u.size, "lg", "L") },
+proton.Row(ctx,
+    func(ctx proton.Context) { proton.RadioButton(ctx, &u.size, "s", "S") },
+    func(ctx proton.Context) { proton.Gap(ctx, 12) },
+    func(ctx proton.Context) { proton.RadioButton(ctx, &u.size, "m", "M") },
+    func(ctx proton.Context) { proton.Gap(ctx, 12) },
+    func(ctx proton.Context) { proton.RadioButton(ctx, &u.size, "l", "L") },
 )
 ```
 
@@ -153,102 +166,155 @@ proton.Row(win,
 
 ## Slider
 
-A horizontal drag handle for choosing a value in a range.
-The value is always between `0.0` and `1.0` — scale it yourself.
+A horizontal drag handle for a value between 0.0 and 1.0. Scale it to
+whatever range you need.
 
 ```go
 type UI struct {
     vol proton.Float
 }
 
-v := proton.Slider(win, &u.vol)
+v := proton.Slider(ctx, &u.vol)
 
-// v is 0.0–1.0, scale to whatever you need
+// v is 0.0–1.0, scale it
 volume := int(v * 100)
-proton.Caption(win, fmt.Sprintf("Volume: %d%%", volume))
+proton.Caption(ctx, fmt.Sprintf("Volume: %d%%", volume))
 ```
 
 You can also read the value directly from the state:
 
 ```go
-proton.Slider(win, &u.vol)
-fmt.Println(u.vol.Value)   // 0.0 to 1.0
+proton.Slider(ctx, &u.vol)
+fmt.Println(u.vol.Value) // 0.0 to 1.0
 ```
 
-**Signature:**
 ```go
-proton.Slider(win Context, state *proton.Float) float32
+proton.Slider(ctx proton.Context, state *proton.Float) float32
 ```
-
-The state type is `proton.Float`. Returns the current value.
 
 ---
 
 ## ProgressBar
 
-Not interactive — just shows progress. Pass a `float32` between `0.0` and `1.0`.
+Not interactive — just shows progress as a filled bar. Pass a float32
+between 0.0 and 1.0.
 
 ```go
-proton.ProgressBar(win, 0.65)    // 65% done
-proton.ProgressBar(win, 1.0)     // done!
-proton.ProgressBar(win, progress) // from a variable
+proton.ProgressBar(ctx, 0.65)    // 65% done
+proton.ProgressBar(ctx, 1.0)     // done
+proton.ProgressBar(ctx, progress) // from a variable
 ```
 
-**Signature:**
 ```go
-proton.ProgressBar(win Context, progress float32)
+proton.ProgressBar(ctx proton.Context, progress float32)
 ```
+
+---
+
+## NumberInput
+
+A stepper with − and + buttons. Handles min, max, and step size for you.
+Returns the current value.
+
+```go
+type UI struct {
+    qty    proton.NumberState
+    rating proton.NumberState
+}
+
+// integers
+qty := proton.NumberInput(ctx, &u.qty, 1, 99, 1)
+proton.Caption(ctx, fmt.Sprintf("%d items", int(qty)))
+
+// floats
+rating := proton.NumberInput(ctx, &u.rating, 0, 5, 0.5)
+proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
+```
+
+```go
+proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step float64) float64
+```
+
+The value starts at `min` on first use. Step >= 1 displays integers;
+step < 1 displays two decimal places.
+
+---
+
+## SelectBox
+
+A dropdown selector. Returns the index of the currently selected option.
+
+```go
+type UI struct {
+    lang proton.SelectBoxState
+}
+
+langs := []string{"Go", "Rust", "Zig", "C", "Python"}
+
+i := proton.SelectBox(ctx, &u.lang, langs)
+proton.Caption(ctx, "You picked: "+langs[i])
+```
+
+The dropdown appears below the button when clicked. Clicking anywhere
+outside it closes it.
+
+```go
+proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int
+```
+
+`Selected` starts at 0. Check `state.Selected >= 0` if you need to know
+whether the user has explicitly picked something.
 
 ---
 
 ## Full Form Example
 
-Here's a realistic form with most of these widgets:
-
 ```go
 type SettingsUI struct {
-    username  proton.Editor
-    bio       proton.Editor
-    notify    proton.Bool
-    darkMode  proton.Bool
-    plan      proton.Enum
-    volume    proton.Float
-    save      proton.Clickable
+    username proton.Editor
+    bio      proton.Editor
+    notify   proton.Bool
+    dark     proton.Bool
+    plan     proton.Enum
+    volume   proton.Float
+    save     proton.Clickable
 }
 
-func drawSettings(win proton.Context, s *SettingsUI) {
-    proton.H4(win, "Settings")
-    proton.Gap(win, 16)
+func drawSettings(ctx proton.Context, s *SettingsUI) {
+    proton.H4(ctx, "Settings")
+    proton.Gap(ctx, 20)
 
-    proton.Label(win, "Username")
-    proton.Gap(win, 4)
-    proton.Input(win, &s.username, "your_username")
-    proton.Gap(win, 12)
+    proton.Label(ctx, "Username")
+    proton.Gap(ctx, 4)
+    proton.Input(ctx, &s.username, "your_username")
+    proton.Gap(ctx, 14)
 
-    proton.Label(win, "Bio")
-    proton.Gap(win, 4)
-    proton.TextArea(win, &s.bio, "Tell us something...")
-    proton.Gap(win, 16)
+    proton.Label(ctx, "Bio")
+    proton.Gap(ctx, 4)
+    proton.TextArea(ctx, &s.bio, "Tell us something...")
+    proton.Gap(ctx, 20)
 
-    proton.Toggle(win, &s.darkMode, "Dark mode")
-    proton.Gap(win, 8)
-    proton.Checkbox(win, &s.notify, "Email notifications")
-    proton.Gap(win, 16)
+    proton.Toggle(ctx, &s.dark, "Dark mode")
+    proton.Gap(ctx, 8)
+    proton.Checkbox(ctx, &s.notify, "Email notifications")
+    proton.Gap(ctx, 20)
 
-    proton.Label(win, "Plan")
-    proton.Gap(win, 4)
-    proton.RadioButton(win, &s.plan, "free", "Free")
-    proton.RadioButton(win, &s.plan, "pro", "Pro ($9/mo)")
-    proton.RadioButton(win, &s.plan, "team", "Team ($29/mo)")
-    proton.Gap(win, 16)
+    proton.Label(ctx, "Plan")
+    proton.Gap(ctx, 6)
+    proton.RadioButton(ctx, &s.plan, "free", "Free")
+    proton.Gap(ctx, 4)
+    proton.RadioButton(ctx, &s.plan, "pro", "Pro ($9/mo)")
+    proton.Gap(ctx, 4)
+    proton.RadioButton(ctx, &s.plan, "team", "Team ($29/mo)")
+    proton.Gap(ctx, 20)
 
-    proton.Label(win, fmt.Sprintf("Volume: %.0f%%", s.volume.Value*100))
-    proton.Gap(win, 4)
-    proton.Slider(win, &s.volume)
-    proton.Gap(win, 24)
+    proton.Label(ctx, fmt.Sprintf("Volume: %.0f%%", s.volume.Value*100))
+    proton.Gap(ctx, 4)
+    proton.Slider(ctx, &s.volume)
+    proton.Gap(ctx, 28)
 
-    proton.Pad(win, 0, func(win proton.Context) {
-        if proton.Button(win, &s.save, "Save Settings") {
+    proton.Pad(ctx, 4, func(ctx proton.Context) {
+        if proton.Button(ctx, &s.save, "Save Settings") {
             handleSave(s)
         }
     })

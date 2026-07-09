@@ -45,7 +45,7 @@ import "github.com/CzaxStudio/proton"
 func main() {
     a := proton.New("hello")
     a.Window("Hello", 480, 320, func(ctx proton.Context) {
-        proton.H3(ctx, "Hello from Proton!") // ⓘ Try changing this to proton.H1 or proton.H2 etc
+        proton.H3(ctx, "Hello from Proton!") // ⓘ You can change proton.H3 to any size you want
     })
     a.Run()
 }

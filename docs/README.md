@@ -46,6 +46,6 @@ a.Window("App", 400, 300, func(win proton.Context) {
 })
 ```
 
-Everything else in the docs is details.
+Widgets stack vertically. State lives in your struct. That's the whole model.
 
 Read about Proton on GitBook: https://nexus-65.gitbook.io/proton/

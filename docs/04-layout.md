@@ -1,319 +1,393 @@
 # Layout
 
-By default, every widget you call in your draw function stacks vertically —
-top to bottom, one after another. For anything more interesting, Proton has
-a full set of layout helpers.
+Widgets stack vertically by default. Everything else is opt-in.
 
 ---
 
-## Gap — Space Between Things
+## Gap — Put Space Between Things
 
-The most-used layout function. Inserts a blank space of `dp` density-independent
-pixels. Use it constantly.
+The most-used layout function. Inserts blank vertical space.
 
 ```go
-proton.H4(win, "Section Title")
-proton.Gap(win, 8)    // a little breathing room
-proton.Label(win, "Section content here")
-proton.Gap(win, 24)   // a bigger gap before the next section
-proton.H4(win, "Next Section")
+proton.H4(ctx, "Section Title")
+proton.Gap(ctx, 8)
+proton.Label(ctx, "Section content.")
+proton.Gap(ctx, 24)
+proton.H4(ctx, "Next Section")
 ```
 
-**Signature:**
 ```go
-proton.Gap(win Context, dp float32)
+proton.Gap(ctx proton.Context, dp float32)
 ```
 
-A `dp` value of `8` is a small gap, `16` is medium, `24` is large.
-Those three cover most cases.
+8dp is a small gap. 16dp is medium. 24dp is large. Those three cover most cases.
 
 ---
 
 ## Row — Side by Side
 
-Places widgets horizontally, left to right. Each widget takes only as much
-width as it needs.
+Places children horizontally, left to right.
 
 ```go
-proton.Row(win,
-    func(win proton.Context) { proton.Label(win, "Name:") },
-    func(win proton.Context) { proton.Gap(win, 8) },
-    func(win proton.Context) { proton.Label(win, "Alice") },
+proton.Row(ctx,
+    func(ctx proton.Context) { proton.Label(ctx, "Name:") },
+    func(ctx proton.Context) { proton.Gap(ctx, 8) },
+    func(ctx proton.Context) { proton.Label(ctx, "Alice") },
 )
 ```
 
-Every child is a `func(Context)`. Inside it, call whatever widgets you want.
+Each child is a `func(proton.Context)`. Call whatever widgets you want inside it.
 
-**Signature:**
 ```go
-proton.Row(win Context, widgets ...func(Context))
+proton.Row(ctx proton.Context, widgets ...func(proton.Context))
 ```
 
 ---
 
 ## Column — Explicit Vertical Group
 
-Stacks widgets vertically, but as a named group. You usually don't need
-this at the top level (widgets stack automatically), but it's useful inside
-layouts like `Row` or `Split` where you want the right side to be a vertical
-stack of things.
+Stacks children vertically as a named group. Rarely needed at the top level
+(widgets stack automatically), but useful inside `Row` or `Split` when the
+right side needs to be multiple stacked things.
 
 ```go
-proton.Row(win,
-    func(win proton.Context) {
-        // left side: just a label
-        proton.Label(win, "Left")
+proton.Row(ctx,
+    func(ctx proton.Context) {
+        proton.Label(ctx, "Left side")
     },
-    func(win proton.Context) {
-        // right side: a vertical stack
-        proton.Column(win,
-            func(win proton.Context) { proton.Label(win, "Right Top") },
-            func(win proton.Context) { proton.Label(win, "Right Bottom") },
+    func(ctx proton.Context) { proton.Gap(ctx, 16) },
+    func(ctx proton.Context) {
+        proton.Column(ctx,
+            func(ctx proton.Context) { proton.Label(ctx, "Right top") },
+            func(ctx proton.Context) { proton.Gap(ctx, 4) },
+            func(ctx proton.Context) { proton.Muted(ctx, "Right bottom") },
         )
     },
 )
 ```
 
-**Signature:**
 ```go
-proton.Column(win Context, widgets ...func(Context))
+proton.Column(ctx proton.Context, widgets ...func(proton.Context))
 ```
 
 ---
 
-## RowSpread — Space Between Items
+## RowSpread — Space Between
 
-Like `Row` but puts any leftover horizontal space between the children,
-pushing the first item to the left edge and the last to the right.
+Like Row but puts leftover horizontal space between the children, pushing
+the first to the left edge and the last to the right.
 
 ```go
-// title on the left, "v1.0" on the right
-proton.RowSpread(win,
-    func(win proton.Context) { proton.H5(win, "My App") },
-    func(win proton.Context) { proton.Caption(win, "v1.0") },
+// title on the left, version on the right
+proton.RowSpread(ctx,
+    func(ctx proton.Context) { proton.H5(ctx, "My App") },
+    func(ctx proton.Context) { proton.Caption(ctx, "v1.2.0") },
 )
 ```
 
-**Signature:**
 ```go
-proton.RowSpread(win Context, widgets ...func(Context))
+proton.RowSpread(ctx proton.Context, widgets ...func(proton.Context))
 ```
 
 ---
 
 ## RowEnd — Everything on the Right
 
-Pushes all children to the right edge. Classic placement for action buttons.
+Pushes all children to the right edge.
 
 ```go
-proton.RowEnd(win,
-    func(win proton.Context) {
-        if proton.OutlineButton(win, &u.cancel, "Cancel") { handleCancel() }
+proton.RowEnd(ctx,
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.OutlineButton(ctx, &u.cancel, "Cancel") { handleCancel() }
+        })
     },
-    func(win proton.Context) { proton.Gap(win, 8) },
-    func(win proton.Context) {
-        if proton.Button(win, &u.save, "Save") { handleSave() }
+    func(ctx proton.Context) { proton.Gap(ctx, 8) },
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.Button(ctx, &u.save, "Save") { handleSave() }
+        })
     },
 )
 ```
 
-**Signature:**
 ```go
-proton.RowEnd(win Context, widgets ...func(Context))
+proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 ```
 
 ---
 
 ## GrowRow and GrowColumn — Stretchy Layouts
 
-When you need one child to fill all the remaining space and the others to
-stay their natural size, use `GrowRow` (horizontal) or `GrowColumn` (vertical)
-with `GrowItem` and `FixedItem`.
+When one child needs to fill all remaining space and the others stay their
+natural size, use `GrowRow` (horizontal) or `GrowColumn` (vertical) with
+`GrowItem` and `FixedItem`.
 
 ```go
-// input stretches to fill space, label and button stay fixed size
-proton.GrowRow(win,
-    proton.FixedItem(win, func(win proton.Context) {
-        proton.Label(win, "Search:")
+// search bar: label fixed, input stretches, button fixed
+proton.GrowRow(ctx,
+    proton.FixedItem(ctx, func(ctx proton.Context) {
+        proton.Label(ctx, "Search:")
     }),
-    proton.GrowItem(win, func(win proton.Context) {
-        proton.Input(win, &u.search, "Type to search...")
+    proton.GrowItem(ctx, func(ctx proton.Context) {
+        proton.Input(ctx, &u.search, "Type to search...")
     }),
-    proton.FixedItem(win, func(win proton.Context) {
-        if proton.Button(win, &u.searchBtn, "Go") { doSearch() }
+    proton.FixedItem(ctx, func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.Button(ctx, &u.searchBtn, "Go") { doSearch() }
+        })
     }),
 )
 ```
 
 `GrowItem` takes all remaining space. `FixedItem` takes only what it needs.
-You can have multiple `GrowItem`s — they split the remaining space evenly.
+Multiple `GrowItem`s split remaining space evenly.
 
-**Signatures:**
 ```go
-proton.GrowRow(win proton.Context, children ...proton.FlexItem)
-proton.GrowColumn(win proton.Context, children ...proton.FlexItem)
-proton.GrowItem(win proton.Context, fn func(proton.Context)) proton.FlexItem
-proton.FixedItem(win proton.Context, fn func(proton.Context)) proton.FlexItem
+proton.GrowRow(ctx proton.Context, children ...proton.FlexItem)
+proton.GrowColumn(ctx proton.Context, children ...proton.FlexItem)
+proton.GrowItem(ctx proton.Context, fn func(proton.Context)) proton.FlexItem
+proton.FixedItem(ctx proton.Context, fn func(proton.Context)) proton.FlexItem
+```
+
+### FlexSpacer — Push siblings apart
+
+A stretchy empty space. Put it between `FixedItem`s to push them to opposite
+edges without using `RowSpread`.
+
+```go
+proton.GrowRow(ctx,
+    proton.FixedItem(ctx, func(ctx proton.Context) { proton.Caption(ctx, "left") }),
+    proton.FlexSpacer(),
+    proton.FixedItem(ctx, func(ctx proton.Context) { proton.Caption(ctx, "right") }),
+)
+```
+
+```go
+proton.FlexSpacer() proton.FlexItem
 ```
 
 ---
 
 ## Split — Side-by-Side Panes
 
-Divides the available width between two sections. `leftFraction` is the
-proportion the left side gets (0.0–1.0).
+Divides available width between two sections. `leftFraction` is the proportion
+the left pane gets, from 0.0 to 1.0.
 
 ```go
-// left gets 30%, right gets 70%
-proton.Split(win, 0.3,
-    func(win proton.Context) {
-        // sidebar
-        proton.Label(win, "Navigation")
+proton.Split(ctx, 0.35,
+    func(ctx proton.Context) {
+        // sidebar — gets 35% of the width
+        proton.Label(ctx, "Sidebar")
     },
-    func(win proton.Context) {
-        // main content
-        proton.Label(win, "Content area")
+    func(ctx proton.Context) {
+        // content — gets the remaining 65%
+        proton.Label(ctx, "Content")
     },
 )
 ```
 
-**Signature:**
 ```go
-proton.Split(win Context, leftFraction float32, left func(Context), right func(Context))
+proton.Split(ctx proton.Context, leftFraction float32, left func(proton.Context), right func(proton.Context))
 ```
 
 ### HSplit — Top and Bottom
 
-Same idea but vertical. `topFraction` is the proportion the top gets.
+Same idea but vertical.
 
 ```go
-proton.HSplit(win, 0.7,
-    func(win proton.Context) { proton.Label(win, "Main content") },
-    func(win proton.Context) { proton.Label(win, "Status bar") },
+proton.HSplit(ctx, 0.7,
+    func(ctx proton.Context) { proton.Label(ctx, "Main content") },
+    func(ctx proton.Context) { proton.Label(ctx, "Status bar") },
 )
 ```
 
-**Signature:**
 ```go
-proton.HSplit(win Context, topFraction float32, top func(Context), bottom func(Context))
+proton.HSplit(ctx proton.Context, topFraction float32, top func(proton.Context), bottom func(proton.Context))
+```
+
+### ResizeSplit — User Can Drag the Divider
+
+Like Split but the user can drag the handle between the two panes to
+resize them. The `defaultFraction` is the initial position.
+
+```go
+type UI struct {
+    split proton.ResizeSplitState
+}
+
+proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
+```
+
+`ResizeSplitState.Fraction` starts at 0 and gets set to `defaultFraction`
+on the first frame. After that the user's drag position is remembered.
+
+```go
+proton.ResizeSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, left func(proton.Context), right func(proton.Context))
+proton.ResizeHSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, top func(proton.Context), bottom func(proton.Context))
 ```
 
 ---
 
-## Center — Put Something in the Middle
+## Center
 
-Centers its content in the available space.
+Places content in the center of available space. Great for empty states
+and loading screens.
 
 ```go
-proton.Center(win, func(win proton.Context) {
-    proton.H3(win, "Nothing to see here yet")
+proton.Center(ctx, func(ctx proton.Context) {
+    proton.Muted(ctx, "Nothing here yet.")
 })
 ```
 
-Great for empty states — when a list is empty, a dashboard has no data, etc.
-
-**Signature:**
 ```go
-proton.Center(win Context, fn func(Context))
+proton.Center(ctx proton.Context, fn func(proton.Context))
 ```
 
 ---
 
 ## Padding
 
-### Pad — All Sides
-
-Adds padding on all four sides.
+### Pad — All Four Sides
 
 ```go
-proton.Pad(win, 16, func(win proton.Context) {
-    proton.Label(win, "16dp of space around me")
+proton.Pad(ctx, 16, func(ctx proton.Context) {
+    proton.Label(ctx, "16dp of breathing room on all sides")
 })
 ```
 
 ### PadH — Left and Right Only
 
 ```go
-proton.PadH(win, 24, func(win proton.Context) {
-    proton.Label(win, "24dp of horizontal padding")
+proton.PadH(ctx, 24, func(ctx proton.Context) {
+    proton.Label(ctx, "horizontal padding only")
 })
 ```
 
 ### PadV — Top and Bottom Only
 
 ```go
-proton.PadV(win, 12, func(win proton.Context) {
-    proton.Label(win, "12dp of vertical padding")
+proton.PadV(ctx, 12, func(ctx proton.Context) {
+    proton.Label(ctx, "vertical padding only")
 })
 ```
 
 ### PadSides — Each Edge Individually
 
-Arguments are top, right, bottom, left — same order as CSS.
+Arguments are top, right, bottom, left — same order as CSS margin/padding.
 
 ```go
-proton.PadSides(win, 8, 16, 8, 16, func(win proton.Context) {
-    proton.Label(win, "8 top/bottom, 16 left/right")
+proton.PadSides(ctx, 8, 16, 8, 16, func(ctx proton.Context) {
+    proton.Label(ctx, "8dp top/bottom, 16dp left/right")
 })
 ```
 
-**Signatures:**
 ```go
-proton.Pad(win Context, dp float32, fn func(Context))
-proton.PadH(win Context, dp float32, fn func(Context))
-proton.PadV(win Context, dp float32, fn func(Context))
-proton.PadSides(win Context, top, right, bottom, left float32, fn func(Context))
+proton.Pad(ctx proton.Context, dp float32, fn func(proton.Context))
+proton.PadH(ctx proton.Context, dp float32, fn func(proton.Context))
+proton.PadV(ctx proton.Context, dp float32, fn func(proton.Context))
+proton.PadSides(ctx proton.Context, top, right, bottom, left float32, fn func(proton.Context))
 ```
 
 ---
 
 ## Grid — Fixed-Column Grid
 
-Arranges children in a grid with a fixed number of columns.
-Each cell gets an equal share of the width.
+Arranges children in a grid with a fixed number of columns. Each cell
+gets an equal share of the available width.
 
 ```go
-proton.Grid(win, 3, 8,   // 3 columns, 8dp gap
-    func(win proton.Context) { proton.Label(win, "Cell 1") },
-    func(win proton.Context) { proton.Label(win, "Cell 2") },
-    func(win proton.Context) { proton.Label(win, "Cell 3") },
-    func(win proton.Context) { proton.Label(win, "Cell 4") },
-    func(win proton.Context) { proton.Label(win, "Cell 5") },
+proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
+    func(ctx proton.Context) { proton.Label(ctx, "one") },
+    func(ctx proton.Context) { proton.Label(ctx, "two") },
+    func(ctx proton.Context) { proton.Label(ctx, "three") },
+    func(ctx proton.Context) { proton.Label(ctx, "four") },
+    func(ctx proton.Context) { proton.Label(ctx, "five") },
 )
 ```
 
-The cells wrap onto new rows automatically. If the last row has fewer
-than `cols` cells, the remaining cells are just empty.
+Cells wrap onto new rows automatically. If the last row has fewer than
+`cols` cells, the remaining slots are empty.
 
-**Signature:**
 ```go
-proton.Grid(win Context, cols int, gapDp float32, cells ...func(Context))
+proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Context))
 ```
 
 ---
 
-## Putting It All Together
+## ZStack — Draw Things on Top of Each Other
 
-A typical two-column app layout:
+Layers multiple widgets at the same position. The first child is on the
+bottom; the last is on top.
 
 ```go
-func draw(win proton.Context, u *UI) {
+proton.ZStack(ctx,
+    func(ctx proton.Context) {
+        // bottom layer — a background shape
+        proton.RoundRect(ctx, proton.RGB(0x1e1e2e), 0, 100, 12)
+    },
+    func(ctx proton.Context) {
+        // top layer — text floating over the shape
+        proton.Center(ctx, func(ctx proton.Context) {
+            proton.Label(ctx, "Text on top")
+        })
+    },
+)
+```
+
+```go
+proton.ZStack(ctx proton.Context, layers ...func(proton.Context))
+```
+
+---
+
+## MinSize and MaxWidth — Size Constraints
+
+```go
+// at least 200dp wide and 48dp tall
+proton.MinSize(ctx, 200, 48, func(ctx proton.Context) {
+    if proton.Button(ctx, &u.btn, "OK") { handleOK() }
+})
+
+// no wider than 420dp — keeps forms readable on wide windows
+proton.MaxWidth(ctx, 420, func(ctx proton.Context) {
+    proton.Input(ctx, &u.email, "Email address")
+    proton.Gap(ctx, 8)
+    proton.Input(ctx, &u.password, "Password")
+})
+```
+
+```go
+proton.MinSize(ctx proton.Context, widthDp, heightDp float32, fn func(proton.Context))
+proton.MaxWidth(ctx proton.Context, widthDp float32, fn func(proton.Context))
+```
+
+Pass 0 for either dimension of `MinSize` to leave that axis unconstrained.
+
+---
+
+## A Typical Two-Column App
+
+```go
+func draw(ctx proton.Context, u *UI) {
     // header
-    proton.PadSides(win, 0, 0, 12, 0, func(win proton.Context) {
-        proton.RowSpread(win,
-            func(win proton.Context) { proton.H5(win, "My App") },
-            func(win proton.Context) { proton.Caption(win, "v1.0") },
+    proton.PadSides(ctx, 0, 0, 12, 0, func(ctx proton.Context) {
+        proton.RowSpread(ctx,
+            func(ctx proton.Context) { proton.H5(ctx, "My App") },
+            func(ctx proton.Context) { proton.Caption(ctx, "v1.0") },
         )
     })
-    proton.Divider(win)
-    proton.Gap(win, 16)
+    proton.Divider(ctx)
+    proton.Gap(ctx, 16)
 
-    // two-column body
-    proton.Split(win, 0.35,
-        func(win proton.Context) { drawSidebar(win, u) },
-        func(win proton.Context) {
-            proton.PadH(win, 16, func(win proton.Context) {
-                drawContent(win, u)
+    // body
+    proton.ResizeSplit(ctx, &u.split, 0.28,
+        func(ctx proton.Context) {
+            drawSidebar(ctx, u)
+        },
+        func(ctx proton.Context) {
+            proton.PadH(ctx, 16, func(ctx proton.Context) {
+                drawContent(ctx, u)
             })
         },
     )

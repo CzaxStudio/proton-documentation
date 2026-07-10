@@ -1,239 +1,396 @@
 # Visual Widgets
 
-Shapes, cards, images, badges, and dividers.
-The things that make your app look like more than a form.
+Shapes, cards, images, badges, progress rings, tables, avatars — the things
+that make your app look like it was designed on purpose.
 
 ---
 
 ## Divider
 
-A thin horizontal line. Use it to separate sections visually.
+A thin horizontal rule. Use it between sections.
 
 ```go
-proton.H5(win, "Section One")
-proton.Gap(win, 8)
-proton.Label(win, "Some content...")
-proton.Gap(win, 12)
-proton.Divider(win)
-proton.Gap(win, 12)
-proton.H5(win, "Section Two")
+proton.H5(ctx, "Section One")
+proton.Gap(ctx, 8)
+proton.Label(ctx, "Some content.")
+proton.Gap(ctx, 12)
+proton.Divider(ctx)
+proton.Gap(ctx, 12)
+proton.H5(ctx, "Section Two")
 ```
 
-The divider uses the theme's foreground color at 1dp height.
-
-**Signature:**
 ```go
-proton.Divider(win Context)
+proton.Divider(ctx proton.Context)
 ```
 
----
+### LabeledDivider
 
-## Rect — Filled Rectangle
-
-Draws a solid colored rectangle. Pass `0` for width or height to fill
-the available space on that axis.
+Same as Divider but with a centered text label.
 
 ```go
-// 100dp wide, 4dp tall red bar
-proton.Rect(win, proton.RGB(0xff4444), 100, 4)
-
-// fill full available width, 2dp tall
-proton.Rect(win, proton.RGB(0x333333), 0, 2)
-
-// fill all available space (both 0)
-proton.Rect(win, proton.RGB(0x1a1a2e), 0, 0)
+proton.LabeledDivider(ctx, "Advanced Settings")
+proton.LabeledDivider(ctx, "")   // plain divider — same as Divider
 ```
 
-**Signature:**
 ```go
-proton.Rect(win Context, c color.NRGBA, widthDp, heightDp float32)
+proton.LabeledDivider(ctx proton.Context, label string)
 ```
 
 ---
 
-## RoundRect — Rounded Rectangle
+## Rect
 
-Same as Rect but with rounded corners. The `radiusDp` parameter controls
-how round the corners are.
+A solid colored rectangle. Pass 0 for width or height to fill the
+available space on that axis.
 
 ```go
-// 200dp wide, 60dp tall, 12dp corner radius
-proton.RoundRect(win, proton.RGB(0x2a2a3e), 200, 60, 12)
+// 100dp wide, 4dp tall accent bar
+proton.Rect(ctx, proton.RGB(0x89b4fa), 100, 4)
 
-// fill width, 80dp tall, pill-shaped (radius = height/2)
-proton.RoundRect(win, proton.RGB(0x4c566a), 0, 40, 20)
+// full width, 2dp tall separator
+proton.Rect(ctx, proton.RGB(0x333344), 0, 2)
+
+// fill all available space
+proton.Rect(ctx, proton.RGB(0x1a1a2e), 0, 0)
 ```
 
-**Signature:**
 ```go
-proton.RoundRect(win Context, c color.NRGBA, widthDp, heightDp, radiusDp float32)
+proton.Rect(ctx proton.Context, c color.NRGBA, widthDp, heightDp float32)
+```
+
+### RoundRect
+
+Same as Rect but with rounded corners.
+
+```go
+proton.RoundRect(ctx, proton.RGB(0x2a2a3e), 200, 60, 12)  // 12dp corner radius
+proton.RoundRect(ctx, proton.RGB(0x4c566a), 0, 40, 20)    // full width, pill shape
+```
+
+```go
+proton.RoundRect(ctx proton.Context, c color.NRGBA, widthDp, heightDp, radiusDp float32)
 ```
 
 ---
 
 ## Card
 
-A content container with a colored rounded-rectangle background.
-Everything drawn inside the callback sits on top of the background.
+Content inside a padded, rounded-rectangle background with a subtle shadow.
+The go-to container for grouping related content.
 
 ```go
-proton.Card(win, proton.RGB(0x2a2a3e), 12, 16, func(win proton.Context) {
-    proton.H6(win, "Card Title")
-    proton.Gap(win, 4)
-    proton.Label(win, "This content sits on the card background.")
-    proton.Gap(win, 8)
-    if proton.Button(win, &u.btn, "Card Button") {
-        doThing()
-    }
-})
-```
-
-**Signature:**
-```go
-proton.Card(win Context, bg color.NRGBA, cornerDp, padDp float32, content func(Context))
-```
-
-**Parameters:**
-- `bg` — background color of the card
-- `cornerDp` — corner radius in dp (8–16 looks good for most cards)
-- `padDp` — padding between the card edge and the content
-- `content` — draw function for what goes inside the card
-
-### Cards as List Items
-
-Cards work really well as list items:
-
-```go
-type Project struct {
-    Name        string
-    Description string
-    Status      string
-}
-
-proton.List(win, &scroll, len(projects), func(win proton.Context, i int) {
-    p := projects[i]
-    proton.PadV(win, 4, func(win proton.Context) {
-        proton.Card(win, proton.RGB(0x1e1e2e), 8, 12, func(win proton.Context) {
-            proton.Label(win, p.Name)
-            proton.Gap(win, 2)
-            proton.Caption(win, p.Description)
-            proton.Gap(win, 6)
-            proton.Badge(win, proton.RGB(0x4c566a), proton.RGB(0xeceff4), p.Status)
-        })
+proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
+    proton.H6(ctx, "Card Title")
+    proton.Gap(ctx, 4)
+    proton.Label(ctx, "Card content goes here.")
+    proton.Gap(ctx, 12)
+    proton.Pad(ctx, 4, func(ctx proton.Context) {
+        if proton.Button(ctx, &u.btn, "Action") { doThing() }
     })
 })
+```
+
+```go
+proton.Card(ctx proton.Context, bg color.NRGBA, cornerDp, padDp float32, content func(proton.Context))
+```
+
+- `bg` — background color
+- `cornerDp` — corner radius (8–12 looks good for most cards)
+- `padDp` — padding between the card edge and the content
+
+### HoverCard
+
+A card that changes background color on hover. Returns true if clicked.
+
+```go
+if proton.HoverCard(ctx, &u.cardBtn,
+    proton.RGB(0x2e3440),  // normal background
+    proton.RGB(0x3b4252),  // hover background
+    8,                     // corner radius dp
+    func(ctx proton.Context) {
+        proton.PadV(ctx, 10, func(ctx proton.Context) {
+            proton.PadH(ctx, 12, func(ctx proton.Context) {
+                proton.Label(ctx, "Click this card")
+            })
+        })
+    },
+) {
+    println("card clicked")
+}
+```
+
+```go
+proton.HoverCard(ctx proton.Context, state *proton.Clickable, bg, hover color.NRGBA, cornerDp float32, content func(proton.Context)) bool
 ```
 
 ---
 
 ## Badge
 
-A small rounded chip with text inside. Good for status labels, tags, counts.
+A small rounded chip with text. For status labels, tags, counts, anything
+that needs a colored pill.
 
 ```go
-// background color, text color, text
-proton.Badge(win, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "Active")
-proton.Badge(win, proton.RGB(0xa3be8c), proton.RGB(0x2e3440), "Done")
-proton.Badge(win, proton.RGB(0xbf616a), proton.RGB(0xeceff4), "Error")
+proton.Badge(ctx, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "stable")
+proton.Badge(ctx, proton.RGB(0xa3be8c), proton.RGB(0x2e3440), "passing")
+proton.Badge(ctx, proton.RGB(0xbf616a), proton.RGB(0xeceff4), "failing")
 ```
 
-**Signature:**
 ```go
-proton.Badge(win Context, bg color.NRGBA, fg color.NRGBA, text string)
+proton.Badge(ctx proton.Context, bg, fg color.NRGBA, text string)
 ```
 
-Badges with `Row` for a row of tags:
+Badges in a row:
 
 ```go
-proton.Row(win,
-    func(win proton.Context) { proton.Badge(win, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "Go") },
-    func(win proton.Context) { proton.Gap(win, 4) },
-    func(win proton.Context) { proton.Badge(win, proton.RGB(0xa3be8c), proton.RGB(0x2e3440), "GUI") },
-    func(win proton.Context) { proton.Gap(win, 4) },
-    func(win proton.Context) { proton.Badge(win, proton.RGB(0xebcb8b), proton.RGB(0x2e3440), "v1.0") },
+proton.Row(ctx,
+    func(ctx proton.Context) { proton.Badge(ctx, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "Go") },
+    func(ctx proton.Context) { proton.Gap(ctx, 5) },
+    func(ctx proton.Context) { proton.Badge(ctx, proton.RGB(0xa3be8c), proton.RGB(0x2e3440), "v1.0") },
+    func(ctx proton.Context) { proton.Gap(ctx, 5) },
+    func(ctx proton.Context) { proton.Badge(ctx, proton.RGB(0xebcb8b), proton.RGB(0x2e3440), "MIT") },
 )
 ```
 
 ---
 
-## Images
+## StatusDot
 
-Load once at startup, draw every frame.
+A small colored circle. Online/offline indicators, build status, anything
+that needs a colored dot next to some text.
 
 ```go
-// at startup — not in the draw function
-img, err := proton.LoadImage("logo.png")
-if err != nil {
-    log.Fatal("couldn't load logo:", err)
+proton.Row(ctx,
+    func(ctx proton.Context) { proton.StatusDot(ctx, proton.RGB(0x4ade80), 9) },
+    func(ctx proton.Context) { proton.Gap(ctx, 6) },
+    func(ctx proton.Context) { proton.Caption(ctx, "Connected") },
+)
+```
+
+```go
+proton.StatusDot(ctx proton.Context, c color.NRGBA, sizeDp float32)
+```
+
+---
+
+## Avatar
+
+A circular badge showing initials. For user profile pictures when no image
+is available — which is most of the time.
+
+```go
+proton.Avatar(ctx, "AJ", proton.RGB(0x5e81ac), proton.RGB(0xeceff4), 40)
+proton.Avatar(ctx, "BC", proton.RGB(0xa3be8c), proton.RGB(0x2e3440), 32)
+```
+
+```go
+proton.Avatar(ctx proton.Context, initials string, bg, fg color.NRGBA, sizeDp float32)
+```
+
+---
+
+## ProgressRing
+
+A circular progress indicator. Good for stat cards and dashboards where
+the circular shape communicates percentage more visually than a bar does.
+
+```go
+proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
+//                       ^     ^   ^   ^
+//                  progress  sz  strokeW  color
+```
+
+```go
+proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
+```
+
+`progress` is 0.0–1.0. `sizeDp` is the diameter. `strokeDp` is the ring
+thickness — 4–6dp looks good for most sizes.
+
+---
+
+## Table
+
+A data table with a header row and alternating row shading.
+
+```go
+proton.Table(ctx,
+    []string{"Name", "Role", "Status"},
+    []proton.TableRow{
+        {"Alice", "Engineer", "Active"},
+        {"Bob",   "Designer", "Away"},
+        {"Carol", "PM",       "Active"},
+    },
+)
+```
+
+```go
+proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
+```
+
+`proton.TableRow` is just `[]string`. Columns are equally wide.
+
+---
+
+## Stepper
+
+A horizontal step-progress indicator for multi-step flows.
+
+```go
+proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
+//                  ^
+//              current step (0-based)
+```
+
+```go
+proton.Stepper(ctx proton.Context, current int, steps []string)
+```
+
+Step 0 is the first step. Completed steps (index < current) get a filled
+accent color. The current step is highlighted. Future steps are dim.
+
+---
+
+## Tooltip
+
+A small label that appears when the user hovers over something.
+
+```go
+type UI struct {
+    saveHover proton.Clickable  // for tracking hover — separate from the button's Clickable
+    saveBtn   proton.Clickable
 }
 
-// in the draw function — as many times as you want
-proton.Image(win, img, 200, 150)   // 200dp wide, 150dp tall
-
-// use the image's natural pixel size
-proton.Image(win, img, 0, 0)
+proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx proton.Context) {
+    proton.Pad(ctx, 4, func(ctx proton.Context) {
+        if proton.Button(ctx, &u.saveBtn, "Save") {
+            save()
+        }
+    })
+})
 ```
 
-**Signatures:**
+```go
+proton.Tooltip(ctx proton.Context, state *proton.Clickable, tip string, content func(proton.Context))
+```
+
+The `state` Clickable tracks hover for the tooltip area. It's separate from
+any button inside the content — declare a dedicated one for each tooltip.
+
+---
+
+## Images
+
+Load once at startup. Draw every frame.
+
+```go
+// load at startup — not in the draw function
+img, err := proton.LoadImage("photo.png")
+if err != nil {
+    log.Fatal(err)
+}
+
+// in the draw function
+proton.Image(ctx, img, 200, 150)  // 200dp wide, 150dp tall
+proton.Image(ctx, img, 0, 0)      // natural pixel size
+```
+
 ```go
 proton.LoadImage(path string) (proton.ImageOp, error)
-proton.Image(win Context, img proton.ImageOp, widthDp, heightDp float32)
+proton.Image(ctx proton.Context, img proton.ImageOp, widthDp, heightDp float32)
 ```
 
-Supported formats: PNG and JPEG.
-
-`LoadImage` does disk I/O and memory allocation — only call it once, not
-every frame. Store the returned `proton.ImageOp` in your app state.
+PNG and JPEG are both supported.
 
 ---
 
-## Size Constraints
+## Logo
 
-### MinSize
-
-Forces content to be at least `widthDp` × `heightDp`. Pass `0` on either
-axis to leave it unconstrained.
+Your app logo, loaded once and drawn anywhere. See [07-theming.md](./07-theming.md)
+for the full setup. The short version:
 
 ```go
-// buttons that are always at least 120dp wide and 40dp tall
-proton.MinSize(win, 120, 40, func(win proton.Context) {
-    if proton.Button(win, &u.btn, "OK") { handleOK() }
-})
+//go:embed logo.png
+var logoBytes []byte
+
+// at startup
+a.SetLogoBytes(logoBytes)
+
+// in the draw function
+proton.Logo(ctx, 48, 48)
 ```
 
-### MaxWidth
-
-Caps content width at `widthDp`. Good for keeping forms readable on wide windows.
-
 ```go
-// form never wider than 400dp, even on a widescreen
-proton.MaxWidth(win, 400, func(win proton.Context) {
-    proton.Input(win, &u.email, "Email address")
-    proton.Gap(win, 8)
-    proton.Input(win, &u.password, "Password")
-})
-```
-
-**Signatures:**
-```go
-proton.MinSize(win Context, widthDp, heightDp float32, fn func(Context))
-proton.MaxWidth(win Context, widthDp float32, fn func(Context))
+proton.Logo(ctx proton.Context, widthDp, heightDp float32)
+proton.HasLogo(ctx proton.Context) bool
 ```
 
 ---
 
-## Colors Quick Reference
+## CodeBlock
+
+Monospace text in a rounded bordered box. For showing commands, file paths,
+snippets — anything the user is likely to copy.
 
 ```go
-// from hex
-proton.RGB(0x1e1e2e)   // dark background
-proton.RGB(0xcdd6f4)   // light text
-proton.RGB(0x89b4fa)   // blue accent
-proton.RGB(0xa6e3a1)   // green
-proton.RGB(0xf38ba8)   // red/pink
-proton.RGB(0xfab387)   // orange
-
-// with alpha
-proton.RGBA(0, 0, 0, 128)       // 50% transparent black overlay
-proton.RGBA(255, 255, 255, 20)  // very subtle white highlight
+proton.CodeBlock(ctx, "go get github.com/CzaxStudio/proton")
+proton.CodeBlock(ctx, `a.Window("App", 480, 300, draw)
+a.Run()`)
 ```
+
+```go
+proton.CodeBlock(ctx proton.Context, code string)
+```
+
+---
+
+## ShortcutHint
+
+A small keyboard badge. Show these next to menu items or button labels
+to communicate keyboard shortcuts.
+
+```go
+proton.Row(ctx,
+    func(ctx proton.Context) { proton.Label(ctx, "Save") },
+    func(ctx proton.Context) { proton.Gap(ctx, 8) },
+    func(ctx proton.Context) { proton.ShortcutHint(ctx, "Ctrl+S") },
+)
+```
+
+```go
+proton.ShortcutHint(ctx proton.Context, keys string)
+```
+
+---
+
+## ColorSwatch
+
+A row of colored circles the user can click to select a color. Returns
+the index of the selected one, or -1 if none selected yet.
+
+```go
+type UI struct {
+    swatches     [6]proton.Clickable
+    chosenColor  int
+}
+
+palette := []color.NRGBA{
+    proton.RGB(0xf87171),
+    proton.RGB(0xfbbf24),
+    proton.RGB(0x4ade80),
+    proton.RGB(0x60a5fa),
+    proton.RGB(0xa78bfa),
+    proton.RGB(0xf472b6),
+}
+
+i := proton.ColorSwatch(ctx, u.swatches[:], palette, u.chosenColor, 26)
+if i >= 0 {
+    u.chosenColor = i
+}
+```
+
+```go
+proton.ColorSwatch(ctx proton.Context, btns []proton.Clickable, colors []color.NRGBA, selected int, sizeDp float32) int
+```
+
+The selected circle gets a ring around it.

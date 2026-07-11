@@ -1,308 +1,416 @@
-# Advanced Topics
+# Advanced
 
-Keyboard shortcuts, async updates, toast notifications, tooltips, and
-multiple windows. The stuff you'll need once your app grows beyond a single form.
+Keyboard shortcuts, async goroutines, toast notifications, modals, tabs,
+accordion, context menus, and everything else that doesn't fit neatly into
+the earlier pages.
 
 ---
 
 ## Toast Notifications
 
-A timed message that appears, stays for a few seconds, and disappears.
-No dialog box, no blocking the user. Just a small notification.
-
-### Setup
-
-Declare a `proton.ToastState` in your state struct:
+A timed message that appears, stays for a few seconds, and disappears on its
+own. No dialog, no blocking the user.
 
 ```go
 type UI struct {
     toast proton.ToastState
 }
-```
 
-### Showing a Toast
-
-Call `Show` from anywhere — including goroutines. It's goroutine-safe.
-
-```go
-// show for 2 seconds
+// trigger from anywhere — goroutine-safe
 u.toast.Show("File saved!", 2*time.Second)
 
-// show for longer
-u.toast.Show("Processing complete", 4*time.Second)
+// draw it LAST in your draw function so it renders on top of everything
+proton.Toast(ctx, &u.toast)
 ```
 
-### Drawing the Toast
-
-Call `proton.Toast` at the **end** of your draw function. This ensures it
-renders on top of everything else.
+If there's no active toast, `Toast` draws nothing. No need to check first.
 
 ```go
-func draw(win proton.Context, u *UI) {
-    // ... all your other widgets ...
-
-    // always last
-    proton.Toast(win, &u.toast)
-}
+func (t *ToastState) Show(msg string, duration time.Duration)
+proton.Toast(ctx proton.Context, state *proton.ToastState)
 ```
 
-If there's no active toast, `Toast` draws nothing. No need to check.
+---
 
-### Full Example
+## Overlay / Modal
+
+A dimmed backdrop with centered content on top of everything.
 
 ```go
 type UI struct {
-    saveBtn proton.Clickable
-    toast   proton.ToastState
+    modal    proton.OverlayState
+    openBtn  proton.Clickable
+    closeBtn proton.Clickable
 }
 
-func draw(win proton.Context, u *UI) {
-    proton.Pad(win, 16, func(win proton.Context) {
-        if proton.Button(win, &u.saveBtn, "Save") {
-            go func() {
-                saveToFile()
-                u.toast.Show("Saved!", 2*time.Second)
-                win.Invalidate()
-            }()
-        }
+// open it
+proton.Pad(ctx, 4, func(ctx proton.Context) {
+    if proton.Button(ctx, &u.openBtn, "Open dialog") {
+        u.modal.Show()
+    }
+})
+
+// draw it — also at the end of your draw function
+proton.Overlay(ctx, &u.modal, func(ctx proton.Context) {
+    proton.MinSize(ctx, 300, 0, func(ctx proton.Context) {
+        proton.Card(ctx, proton.RGB(0x2e3440), 12, 24, func(ctx proton.Context) {
+            proton.H5(ctx, "Are you sure?")
+            proton.Gap(ctx, 8)
+            proton.Label(ctx, "This cannot be undone.")
+            proton.Gap(ctx, 20)
+            proton.RowEnd(ctx,
+                func(ctx proton.Context) {
+                    proton.Pad(ctx, 4, func(ctx proton.Context) {
+                        if proton.OutlineButton(ctx, &u.closeBtn, "Cancel") {
+                            u.modal.Hide()
+                        }
+                    })
+                },
+                func(ctx proton.Context) { proton.Gap(ctx, 8) },
+                func(ctx proton.Context) {
+                    proton.Pad(ctx, 4, func(ctx proton.Context) {
+                        if proton.Button(ctx, &u.openBtn, "Confirm") {
+                            u.modal.Hide()
+                            doThing()
+                        }
+                    })
+                },
+            )
+        })
     })
-
-    proton.Toast(win, &u.toast)
-}
+})
 ```
+
+```go
+func (o *OverlayState) Show()
+func (o *OverlayState) Hide()
+func (o *OverlayState) Toggle()
+
+proton.Overlay(ctx proton.Context, state *proton.OverlayState, content func(proton.Context))
+```
+
+`Overlay` draws nothing when `state.Visible` is false, so you can call it
+every frame without any wrapping condition.
 
 ---
 
 ## Keyboard Shortcuts
 
-Register a function to run when a key combination is pressed.
+Register a function to fire when a key combination is pressed.
 
 ```go
-// Ctrl+S
-proton.OnKey(win, proton.ModCtrl, "S", func() {
-    save()
-})
+proton.OnKey(ctx, proton.ModCtrl, "S", func() { save() })
+proton.OnKey(ctx, proton.ModCtrl, "Z", func() { undo() })
+proton.OnKey(ctx, proton.ModCtrl|proton.ModShift, "N", func() { newFile() })
+proton.OnKey(ctx, proton.ModNone, proton.KeyEscape, func() { closeDialog() })
+```
 
-// Ctrl+Z
-proton.OnKey(win, proton.ModCtrl, "Z", func() {
-    undo()
-})
+Call `OnKey` inside your draw function. It registers the shortcut for that
+frame. Since the draw function runs every frame, shortcuts stay active as
+long as the window is open.
 
-// Just Escape (no modifier)
-proton.OnKey(win, proton.ModNone, proton.KeyEscape, func() {
-    closeDialog()
-})
+```go
+proton.OnKey(ctx proton.Context, modifiers proton.Modifier, keyName string, fn func())
+```
 
-// Ctrl+Shift+N
-proton.OnKey(win, proton.ModCtrl|proton.ModShift, "N", func() {
-    newWindow()
+**Modifier constants:**
+
+```go
+proton.ModNone   // no modifier — just the key
+proton.ModCtrl   // Ctrl (Cmd on macOS)
+proton.ModShift
+proton.ModAlt
+
+// combine with |
+proton.ModCtrl | proton.ModShift
+```
+
+**Key name constants** (for non-letter keys):
+
+```go
+proton.KeyEscape
+proton.KeyReturn
+proton.KeyBackspace
+proton.KeyDelete
+proton.KeyTab
+proton.KeySpace
+proton.KeyUp
+proton.KeyDown
+proton.KeyLeft
+proton.KeyRight
+```
+
+Letter keys are just strings: `"S"`, `"Z"`, `"N"`, `"A"`.
+
+---
+
+## Tabs
+
+A horizontal tab bar with one content area that switches based on the
+selected tab.
+
+```go
+type UI struct {
+    tabs    proton.TabState
+    tabBtns [3]proton.Clickable
+}
+
+proton.Tabs(ctx,
+    []string{"Files", "Settings", "About"},
+    u.tabBtns[:],
+    &u.tabs,
+    func(ctx proton.Context, i int) {
+        switch i {
+        case 0: drawFiles(ctx)
+        case 1: drawSettings(ctx)
+        case 2: drawAbout(ctx)
+        }
+    },
+)
+```
+
+`u.tabs.Selected` holds the active tab index. You can set it programmatically
+to switch tabs from code.
+
+```go
+proton.Tabs(ctx proton.Context, labels []string, btns []proton.Clickable, state *proton.TabState, content func(proton.Context, int))
+```
+
+The `btns` slice needs one `Clickable` per tab. Passing `u.tabBtns[:]` is
+the idiomatic way when you declare a fixed-size array in your struct.
+
+---
+
+## Accordion
+
+A collapsible section with a clickable header.
+
+```go
+type UI struct {
+    sec1    proton.AccordionState
+    sec1btn proton.Clickable
+}
+
+proton.Accordion(ctx, &u.sec1, &u.sec1btn, "Advanced Options", func(ctx proton.Context) {
+    proton.Label(ctx, "These options are hidden until the user expands this.")
+    proton.Gap(ctx, 8)
+    proton.Toggle(ctx, &u.expertMode, "Expert mode")
 })
 ```
 
-Call `OnKey` inside your draw function. It registers the shortcut for
-that frame. Since the draw function runs every frame, the shortcut is
-always active while the window is open.
-
-**Signature:**
 ```go
-proton.OnKey(win proton.Context, modifiers proton.Modifier, keyName string, fn func())
+proton.Accordion(ctx proton.Context, state *proton.AccordionState, btn *proton.Clickable, title string, content func(proton.Context))
 ```
 
-**Modifiers:** `proton.ModNone`, `proton.ModCtrl`, `proton.ModShift`, `proton.ModAlt`.
-Combine with `|`, e.g. `proton.ModCtrl|proton.ModShift`.
+`state.Open` tracks whether it's expanded. You can set it directly to start
+an accordion open: `u.sec1.Open = true`.
 
-**Common key names** — letter keys are just their uppercase string ("S", "Z", "N").
-For everything else, use the Key* constants:
-- `proton.KeyEscape` — Escape
-- `proton.KeyReturn` — Enter
-- `proton.KeyBackspace` — Backspace
-- `proton.KeyDelete` — Delete
-- `proton.KeyTab`, `proton.KeySpace`, `proton.KeyUp`, `proton.KeyDown`, `proton.KeyLeft`, `proton.KeyRight`
-- Letter keys: just the letter as a string — `"S"`, `"Z"`, `"N"`
+---
+
+## Context Menu
+
+A right-click menu that appears at the cursor position.
+
+```go
+type UI struct {
+    menu    proton.ContextMenuState
+    menuTag proton.FrameTag
+}
+
+items := []proton.ContextMenuItem{
+    {Label: "Copy"},
+    {Label: "Paste"},
+    {Label: "Delete"},
+    {Label: "Disabled option", Disabled: true},
+}
+
+chosen := proton.ContextMenu(ctx, &u.menu, &u.menuTag, items, func(ctx proton.Context) {
+    proton.Label(ctx, "Right-click anywhere in this area")
+})
+
+if chosen >= 0 {
+    fmt.Println("User picked:", items[chosen].Label)
+}
+```
+
+```go
+proton.ContextMenu(ctx proton.Context, state *proton.ContextMenuState, tag *proton.FrameTag, items []proton.ContextMenuItem, content func(proton.Context)) int
+```
+
+Returns -1 when nothing was selected, and the item index on the frame
+something gets clicked. The menu closes automatically after a selection.
 
 ---
 
 ## Async Updates and Goroutines
 
-Your draw function runs on the main thread. Goroutines run elsewhere.
-When a goroutine finishes work and changes your state, you need to tell
-Proton to redraw. Use `win.Invalidate()`.
+Your draw function runs on the main thread. When a goroutine finishes work
+and changes state, call `ctx.Invalidate()` to ask for a redraw.
 
 ```go
 type UI struct {
     loading bool
     result  string
+    fetchBtn proton.Clickable
 }
 
-func draw(win proton.Context, u *UI) {
-    if u.loading {
-        proton.Label(win, "Loading...")
-        proton.ProgressBar(win, 0.5)   // indeterminate look
-        return
+// in your draw function
+proton.Pad(ctx, 4, func(ctx proton.Context) {
+    if proton.Button(ctx, &u.fetchBtn, "Fetch") && !u.loading {
+        u.loading = true
+        go func() {
+            data := fetchFromAPI()        // takes a while
+            u.result = data
+            u.loading = false
+            ctx.Invalidate()              // wake up the render loop
+        }()
     }
+})
 
-    if u.result != "" {
-        proton.Label(win, u.result)
-        return
-    }
-
-    proton.Pad(win, 16, func(win proton.Context) {
-        if proton.Button(win, &u.fetchBtn, "Fetch Data") {
-            u.loading = true
-            go func() {
-                data := fetchFromAPI()       // takes a while
-                u.result = data
-                u.loading = false
-                win.Invalidate()             // ask for a redraw
-            }()
-        }
-    })
+if u.loading {
+    proton.Row(ctx,
+        func(ctx proton.Context) { proton.Spinner(ctx, &u.spin, 18) },
+        func(ctx proton.Context) { proton.Gap(ctx, 8) },
+        func(ctx proton.Context) { proton.Muted(ctx, "Loading...") },
+    )
+} else if u.result != "" {
+    proton.Label(ctx, u.result)
 }
 ```
 
-Without `win.Invalidate()`, the window won't redraw until the user moves
+Without `ctx.Invalidate()`, the window won't redraw until the user moves
 the mouse or interacts with it. Always call it after changing state from
 a goroutine.
 
-**Signature:**
-```go
-win.Invalidate()
-```
-
 ---
 
-## Tooltip
+## Spinner
 
-Shows a small label when the user hovers over something. Useful for
-explaining what a button does without cluttering the UI.
+An animated loading indicator. Calling `Spinner` automatically keeps the
+window redrawing — no `Invalidate()` loop needed.
 
 ```go
 type UI struct {
-    saveHover proton.Clickable
-    saveBtn   proton.Clickable
+    spin proton.SpinnerState
 }
 
-proton.Tooltip(win, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(win proton.Context) {
-    if proton.Button(win, &u.saveBtn, "Save") {
-        doSave()
-    }
+proton.Spinner(ctx, &u.spin, 32)  // 32dp diameter
+```
+
+```go
+proton.Spinner(ctx proton.Context, state *proton.SpinnerState, sizeDp float32)
+```
+
+`SpinnerState` tracks the animation start time. Declare one per spinner
+in your state struct.
+
+---
+
+## SelectBox (Dropdown)
+
+```go
+type UI struct {
+    langSel proton.SelectBoxState
+}
+
+langs := []string{"Go", "Rust", "Zig", "C", "Python"}
+i := proton.SelectBox(ctx, &u.langSel, langs)
+proton.Caption(ctx, "Selected: "+langs[i])
+```
+
+The dropdown opens below the button and closes on selection or outside click.
+
+```go
+proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int
+```
+
+---
+
+## If — Conditional Rendering
+
+Renders content only when a condition is true. Saves a `if` block when you
+just want to show or hide a single widget.
+
+```go
+proton.If(ctx, user.IsAdmin, func(ctx proton.Context) {
+    proton.Pad(ctx, 4, func(ctx proton.Context) {
+        if proton.Button(ctx, &u.deleteBtn, "Delete everything") {
+            deleteEverything()
+        }
+    })
 })
 ```
 
-The tooltip appears below the content when hovered. It disappears when
-the user moves the mouse away.
-
-**Signature:**
 ```go
-proton.Tooltip(win Context, state *proton.Clickable, tip string, content func(Context))
+proton.If(ctx proton.Context, cond bool, content func(proton.Context))
 ```
-
-Note: `Tooltip` uses a `proton.Clickable` for hover tracking. This is separate
-from any button state inside the content. Declare a dedicated `Clickable`
-for the tooltip itself.
-
----
-
-## Multiple Windows
-
-Register multiple windows with `a.Window()`. They all open when `a.Run()` is
-called. The app stays alive until all windows are closed.
-
-```go
-func main() {
-    u := &UI{}
-
-    a := proton.New("my app")
-    a.ApplyPalette(proton.NordPalette)
-
-    a.Window("Main Window", 800, 600, func(win proton.Context) {
-        drawMain(win, u)
-    })
-
-    a.Window("Settings", 400, 300, func(win proton.Context) {
-        drawSettings(win, u)
-    })
-
-    a.Run()
-}
-```
-
-Both windows share the same `u` state struct, so changes in one window
-are immediately visible in the other on the next frame.
-
----
-
-## Window Options
-
-For windows that need special behavior, use `WindowEx`:
-
-```go
-a.WindowEx("My App", 800, 600, []proton.WindowOption{
-    proton.Fullscreen(),
-}, draw)
-```
-
-`WindowEx` accepts Proton's own option constructors:
-- `proton.Fullscreen()` — start fullscreen
-- `proton.Maximized()` — start maximized
-
----
-
-## Keeping the Frame Rate Reasonable
-
-Proton only redraws when there's user input or you call `win.Invalidate()`.
-It doesn't spin at 60fps when nothing is happening — Gio is smart about this.
-
-If you're animating something (a progress bar that fills over time, a loading
-spinner, etc.), call `win.Invalidate()` at the end of each frame to keep
-the redraws going:
-
-```go
-func draw(win proton.Context, u *UI) {
-    if u.animating {
-        u.progress += 0.016   // roughly one frame at 60fps
-        if u.progress >= 1.0 {
-            u.progress = 0
-            u.animating = false
-        }
-        proton.ProgressBar(win, u.progress)
-        win.Invalidate()   // keep drawing next frame
-    }
-}
-```
-
-When `u.animating` becomes false, `Invalidate` stops being called and
-Proton goes back to only redrawing on user input.
 
 ---
 
 ## FocusArea — Scoped Key Handling
 
-If you need keyboard events only in a specific part of the UI (not globally),
-use `FocusArea`. It registers a region as a key event receiver.
+When you need keyboard events only active inside a specific region of the UI,
+not globally. Usually `OnKey` is enough — reach for this when you have two
+panels that should have independent keyboard shortcuts.
 
 ```go
 type UI struct {
     editorTag proton.FrameTag
 }
 
-proton.FocusArea(win, &u.editorTag, "A", func(win proton.Context) {
-    proton.TextArea(win, &u.text, "Type here...")
+proton.FocusArea(ctx, &u.editorTag, "A", func(ctx proton.Context) {
+    proton.TextArea(ctx, &u.text, "Type here...")
 })
 ```
 
-For most apps `OnKey` is enough. `FocusArea` is for when you have multiple
-panels and only want keyboard shortcuts active in the focused one.
+```go
+proton.FocusArea(ctx proton.Context, tag *proton.FrameTag, keyName string, content func(proton.Context))
+```
 
 ---
 
-## Why Proton Hides Gio Completely
+## Window Options
 
-Every function that takes a `proton.Context` never receives or returns
-a raw Gio type. This is deliberate: Gio's layout and event APIs have
-changed more than once as the library matures, and code written against
-`proton.Context` keeps compiling across those changes without edits.
+```go
+// fullscreen
+a.WindowEx("App", 800, 600, []proton.WindowOption{
+    proton.Fullscreen(),
+}, draw)
 
-If you ever hit something Proton genuinely doesn't expose, that's worth
-reporting — Proton is meant to cover the full surface you need without
-reaching past it.
+// maximized
+a.WindowEx("App", 800, 600, []proton.WindowOption{
+    proton.Maximized(),
+}, draw)
+```
+
+```go
+proton.Fullscreen() proton.WindowOption
+proton.Maximized()  proton.WindowOption
+```
+
+---
+
+## Keeping Animations Running
+
+Proton only redraws when there's user input or you call `ctx.Invalidate()`.
+For animations — progress bars that fill over time, countdowns, anything
+time-based — call `Invalidate` at the end of each frame to keep the redraws
+going:
+
+```go
+func draw(ctx proton.Context, u *UI) {
+    if u.animating {
+        u.progress += 0.01
+        if u.progress >= 1.0 {
+            u.progress = 0
+            u.animating = false
+        }
+        proton.ProgressBar(ctx, u.progress)
+        ctx.Invalidate()  // draw again next frame
+    }
+}
+```
+
+When `u.animating` goes false, `Invalidate` stops being called and Proton
+goes back to redrawing only on user input. The Spinner widget does this
+automatically — you don't need to manage it yourself.

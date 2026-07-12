@@ -1,7 +1,7 @@
 # Text
 
 Ten text functions covering every size from "I want people to read this from
-across the room" to "please nobody read this fine print."
+across the room" to "please nobody read this fine print"
 
 ---
 

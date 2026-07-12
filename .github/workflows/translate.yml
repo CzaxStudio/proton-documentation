@@ -1,0 +1,37 @@
+name: Auto Translate Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/*.md' # Triggers only when English docs change
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Auto Translate Markdown
+        uses: g1eny0ung/markdown-translate-action@v1
+        with:
+          # The languages you want to support (comma-separated)
+          target_languages: es,fr,de,ja,zh
+          # The folder where your English docs live
+          source_dir: docs
+          # Tells the action to place translations in language subfolders
+          output_dir: docs
+          # Uses Google Translate API underneath
+          provider: google
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and Push Translations
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git commit -m "docs: auto-updated language translations [skip ci]" || exit 0
+          git push

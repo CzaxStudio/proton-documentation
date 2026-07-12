@@ -5,28 +5,24 @@ on:
     branches:
       - main
     paths:
-      - 'docs/*.md' # Triggers only when English docs change
+      - 'docs/*.md'
 
 jobs:
   translate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Explicitly grants write permissions to the action
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
       - name: Auto Translate Markdown
-        uses: g1eny0ung/markdown-translate-action@v1
+        uses: lnkhed/markdown-translate-action@v1
         with:
-          # The languages you want to support (comma-separated)
           target_languages: es,fr,de,ja,zh
-          # The folder where your English docs live
           source_dir: docs
-          # Tells the action to place translations in language subfolders
           output_dir: docs
-          # Uses Google Translate API underneath
-          provider: google
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This action defaults to a free fallback provider if no key is specified
 
       - name: Commit and Push Translations
         run: |

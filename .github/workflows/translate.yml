@@ -11,23 +11,81 @@ jobs:
   translate:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Explicitly grants write permissions to the action
+      contents: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Auto Translate Markdown
-        uses: lnkhed/markdown-translate-action@v1
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          target_languages: es,fr,de,ja,zh
-          source_dir: docs
-          output_dir: docs
-          # This action defaults to a free fallback provider if no key is specified
+          python-version: '3.10'
+
+      - name: Install Translation Library
+        run: pip install deep-translator
+
+      - name: Run Translation Script
+        run: |
+          python - <<EOF
+          import os
+          import glob
+          from deep_translator import GoogleTranslator
+
+          languages = {
+              'es': 'spanish',
+              'fr': 'french',
+              'de': 'german',
+              'ja': 'japanese',
+              'zh': 'chinese (simplified)'
+          }
+
+          # Find all English markdown files directly in the docs/ folder
+          md_files = [f for f in glob.glob('docs/*.md') if os.path.isfile(f)]
+
+          for lang_code, lang_name in languages.items():
+              # Create language subfolder if it doesn't exist (e.g., docs/es/)
+              target_dir = os.path.join('docs', lang_code)
+              os.makedirs(target_dir, exist_ok=True)
+              
+              translator = GoogleTranslator(source='en', target=lang_code)
+              
+              for file_path in md_files:
+                  filename = os.path.basename(file_path)
+                  output_path = os.path.join(target_dir, filename)
+                  
+                  print(f"Translating {filename} to {lang_name}...")
+                  
+                  with open(file_path, 'r', encoding='utf-8') as f:
+                      content = f.read()
+                  
+                  # Split text into paragraphs to safely handle Google Translate length limits
+                  paragraphs = content.split('\n\n')
+                  translated_paragraphs = []
+                  
+                  for para in paragraphs:
+                      if para.strip():
+                          try:
+                              # If it's a code block or purely technical syntax, skip translation
+                              if para.strip().startswith('```') or para.strip().startswith('import '):
+                                  translated_paragraphs.append(para)
+                              else:
+                                  translated_paragraphs.append(translator.translate(para))
+                          except Exception as e:
+                              print(f"Skipped a paragraph due to error: {e}")
+                              translated_paragraphs.append(para)
+                      else:
+                          translated_paragraphs.append('')
+                          
+                  translated_content = '\n\n'.join(translated_paragraphs)
+                  
+                  with open(output_path, 'w', encoding='utf-8') as f:
+                      f.write(translated_content)
+          EOF
 
       - name: Commit and Push Translations
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/
-          git commit -m "docs: auto-updated language translations [skip ci]" || exit 0
+          git commit -m "docs: native auto-updated translations [skip ci]" || exit 0
           git push

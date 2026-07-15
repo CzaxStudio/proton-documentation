@@ -32,10 +32,11 @@ jobs:
           import time
           from deep_translator import GoogleTranslator
 
-          # Keeping only Spanish and French per your request
+          # French, Spanish, and Chinese
           languages = {
               'es': 'spanish',
-              'fr': 'french'
+              'fr': 'french',
+              'zh': 'chinese (simplified)'
           }
 
           # Find all English markdown files directly in the docs/ folder

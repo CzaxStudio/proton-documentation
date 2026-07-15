@@ -392,7 +392,7 @@ proton.Maximized()  proton.WindowOption
 
 ## Maintenir les animations en cours d'exécution
 
-Proton ne se redessine que lorsqu'il y a une entrée de l'utilisateur ou que vous appelez `ctx.Invalidate()`.
+Proton ne redessine que lorsqu'il y a une entrée de l'utilisateur ou que vous appelez `ctx.Invalidate()`.
 Pour les animations : barres de progression qui se remplissent au fil du temps, comptes à rebours, n'importe quoi
 basé sur le temps — appelez « Invalidate » à la fin de chaque image pour conserver les redessins
 va:

@@ -220,7 +220,7 @@ proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
 ```
 
 Το "ResizeSplitState.Fraction" ξεκινά από το 0 και ορίζεται σε "defaultFraction"
-στο πρώτο πλαίσιο. Στη συνέχεια απομνημονεύεται η θέση μεταφοράς του χρήστη.
+στο πρώτο πλαίσιο. Μετά από αυτό, η θέση μεταφοράς του χρήστη απομνημονεύεται.
 
 ```go
 proton.ResizeSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, left func(proton.Context), right func(proton.Context))

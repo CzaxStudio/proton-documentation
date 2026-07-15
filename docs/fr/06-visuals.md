@@ -154,7 +154,7 @@ proton.Row(ctx,
 
 ---
 
-## Point d'état
+## StatutDot
 
 Un petit cercle coloré. Indicateurs en ligne/hors ligne, statut de build, tout
 qui a besoin d'un point coloré à côté d'un texte.
@@ -247,7 +247,7 @@ proton.Stepper(ctx proton.Context, current int, steps []string)
 ```
 
 L'étape 0 est la première étape. Les étapes terminées (index <actuel) obtiennent un remplissage
-couleur d'accent. L'étape en cours est mise en surbrillance. Les prochaines étapes sont floues.
+couleur d'accent. L'étape en cours est mise en surbrillance. Les prochaines étapes sont sombres.
 
 ---
 
@@ -327,9 +327,9 @@ proton.HasLogo(ctx proton.Context) bool
 
 ---
 
-## CodeBlock
+## CodeBlock
 
-Texte à espacement fixe dans une zone à bordure arrondie. Pour afficher les commandes, les chemins de fichiers,
+Texte monospace dans une zone à bordure arrondie. Pour afficher les commandes, les chemins de fichiers,
 extraits - tout ce que l'utilisateur est susceptible de copier.
 
 ```go

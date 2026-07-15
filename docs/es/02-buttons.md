@@ -1,7 +1,7 @@
 # Botones
 
 Los botones son la forma en que los usuarios le dicen a su aplicación que haga cosas. El protón tiene cuatro tipos,
-además de enlaces en los que se puede hacer clic y una forma de hacer que, literalmente, cualquier cosa se pueda tocar.
+además de enlaces en los que se puede hacer clic y una forma de hacer que, literalmente, se pueda tocar cualquier cosa.
 
 ---
 

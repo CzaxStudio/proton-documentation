@@ -106,7 +106,7 @@ proton.Text(ctx, "Normal weight, bigger", 20, proton.NRGBA{}, false)
 proton.Text(ctx proton.Context, s string, size float32, c color.NRGBA, bold bool)
 ```
 
-Το μέγεθος είναι σε `sp` (κλιμακωμένα pixel). Το προεπιλεγμένο μέγεθος σώματος είναι περίπου 14sp.
+Το μέγεθος είναι σε `sp` (κλιμακωμένα εικονοστοιχεία). Το προεπιλεγμένο μέγεθος σώματος είναι περίπου 14sp.
 
 ---
 

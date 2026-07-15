@@ -5,7 +5,7 @@ Pas de recherche dans les feuilles de style des composants. Pas de guerre de sp√
 
 ---
 
-## La palette
+## La Palette
 
 ```go
 type Palette struct {

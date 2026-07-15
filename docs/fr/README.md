@@ -1,5 +1,7 @@
 # Documents sur les protons
 
+**Lisez la documentation dans votre langue :** [anglais](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Espagnol](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md)
+
 Copyright © [CzaxStudio](https://github.com/CzaxStudio/) (Nexus-Proton)
 
 Tout ce dont vous avez besoin pour créer des applications de bureau avec Proton. 

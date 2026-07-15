@@ -392,7 +392,7 @@ proton.Maximized()  proton.WindowOption
 
 ## Mantener las animaciones en ejecución
 
-Proton solo se vuelve a dibujar cuando hay entrada del usuario o usted llama a `ctx.Invalidate()`.
+Proton solo se vuelve a dibujar cuando hay una entrada del usuario o usted llama a `ctx.Invalidate()`.
 Para animaciones: barras de progreso que se van llenando con el tiempo, cuentas atrás, cualquier cosa.
 basado en el tiempo: llame a "Invalidar" al final de cada cuadro para mantener los redibujados
 yendo:

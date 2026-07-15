@@ -1,13 +1,13 @@
-#Aparatos visuales
+# Οπτικά γραφικά στοιχεία
 
-Formas, tarjetas, imágenes, insignias, anillos de progreso, tablas, avatares: las cosas
-que hacen que su aplicación parezca diseñada específicamente.
+Σχήματα, κάρτες, εικόνες, σήματα, δαχτυλίδια προόδου, πίνακες, είδωλα — τα πράγματα
+που κάνουν την εφαρμογή σας να μοιάζει σαν να έχει σχεδιαστεί επίτηδες.
 
 ---
 
-## Divisor
+## Διαιρέτης
 
-Una delgada regla horizontal. Úselo entre secciones.
+Ένας λεπτός οριζόντιος κανόνας. Χρησιμοποιήστε το μεταξύ των ενοτήτων.
 
 ```go
 proton.H5(ctx, "Section One")
@@ -23,9 +23,9 @@ proton.H5(ctx, "Section Two")
 proton.Divider(ctx proton.Context)
 ```
 
-###Divisor etiquetado
+### LabeledDivider
 
-Igual que Divisor pero con una etiqueta de texto centrada.
+Ίδιο με το Divider αλλά με κεντραρισμένη ετικέτα κειμένου.
 
 ```go
 proton.LabeledDivider(ctx, "Advanced Settings")
@@ -38,10 +38,10 @@ proton.LabeledDivider(ctx proton.Context, label string)
 
 ---
 
-## Rectificado
+## Rect
 
-Un rectángulo de color sólido. Pase 0 para ancho o alto para llenar el
-espacio disponible en ese eje.
+Ένα μονόχρωμο ορθογώνιο. Περάστε το 0 για πλάτος ή ύψος για να γεμίσετε το
+διαθέσιμο χώρο σε αυτόν τον άξονα.
 
 ```go
 // 100dp wide, 4dp tall accent bar
@@ -58,9 +58,9 @@ proton.Rect(ctx, proton.RGB(0x1a1a2e), 0, 0)
 proton.Rect(ctx proton.Context, c color.NRGBA, widthDp, heightDp float32)
 ```
 
-### RedondoRecto
+### RoundRect
 
-Igual que Rect pero con esquinas redondeadas.
+Ίδιο με το Rect αλλά με στρογγυλεμένες γωνίες.
 
 ```go
 proton.RoundRect(ctx, proton.RGB(0x2a2a3e), 200, 60, 12)  // 12dp corner radius
@@ -73,10 +73,10 @@ proton.RoundRect(ctx proton.Context, c color.NRGBA, widthDp, heightDp, radiusDp 
 
 ---
 
-## Tarjeta
+## Κάρτα
 
-Contenido dentro de un fondo acolchado de rectángulo redondeado con una sombra sutil.
-El contenedor de referencia para agrupar contenido relacionado.
+Περιεχόμενο μέσα σε ένα παραγεμισμένο, στρογγυλεμένο ορθογώνιο φόντο με μια λεπτή σκιά.
+Το κοντέινερ μετάβασης για ομαδοποίηση σχετικού περιεχομένου.
 
 ```go
 proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
@@ -94,13 +94,13 @@ proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
 proton.Card(ctx proton.Context, bg color.NRGBA, cornerDp, padDp float32, content func(proton.Context))
 ```
 
-- `bg` — color de fondo
-- `cornerDp` — radio de esquina (8–12 se ve bien para la mayoría de las tarjetas)
-- `padDp` — relleno entre el borde de la tarjeta y el contenido
+- `bg` — χρώμα φόντου
+- `cornerDp` — ακτίνα γωνίας (8–12 φαίνεται καλό για τα περισσότερα φύλλα)
+- «padDp» — γέμιση μεταξύ της άκρης της κάρτας και του περιεχομένου
 
-### Tarjeta flotante
+### HoverCard
 
-Una tarjeta que cambia el color de fondo al pasar el mouse. Devuelve verdadero si se hace clic.
+Μια κάρτα που αλλάζει χρώμα φόντου κατά την τοποθέτηση του δείκτη. Επιστρέφει true αν γίνει κλικ.
 
 ```go
 if proton.HoverCard(ctx, &u.cardBtn,
@@ -125,10 +125,10 @@ proton.HoverCard(ctx proton.Context, state *proton.Clickable, bg, hover color.NR
 
 ---
 
-## Insignia
+## Σήμα
 
-Un pequeño chip redondeado con texto. Para etiquetas de estado, etiquetas, recuentos, cualquier cosa
-eso necesita una pastilla de color.
+Ένα μικρό στρογγυλεμένο τσιπ με κείμενο. Για ετικέτες κατάστασης, ετικέτες, μετρήσεις, οτιδήποτε
+που χρειάζεται ένα χρωματιστό χάπι.
 
 ```go
 proton.Badge(ctx, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "stable")
@@ -140,7 +140,7 @@ proton.Badge(ctx, proton.RGB(0xbf616a), proton.RGB(0xeceff4), "failing")
 proton.Badge(ctx proton.Context, bg, fg color.NRGBA, text string)
 ```
 
-Insignias seguidas:
+Σήματα στη σειρά:
 
 ```go
 proton.Row(ctx,
@@ -154,10 +154,10 @@ proton.Row(ctx,
 
 ---
 
-## Punto de estado
+## StatusDot
 
-Un pequeño círculo de color. Indicadores en línea/fuera de línea, estado de compilación, cualquier cosa
-eso necesita un punto de color al lado de algún texto.
+Ένας μικρός έγχρωμος κύκλος. Ενδείξεις σε απευθείας σύνδεση/εκτός σύνδεσης, κατάσταση κατασκευής, οτιδήποτε
+που χρειάζεται μια έγχρωμη κουκκίδα δίπλα σε κάποιο κείμενο.
 
 ```go
 proton.Row(ctx,
@@ -173,10 +173,10 @@ proton.StatusDot(ctx proton.Context, c color.NRGBA, sizeDp float32)
 
 ---
 
-##Avatar
+## Avatar
 
-Una insignia circular que muestra las iniciales. Para imágenes de perfil de usuario cuando no hay imagen
-está disponible, que es la mayor parte del tiempo.
+Ένα κυκλικό σήμα που δείχνει τα αρχικά. Για φωτογραφίες προφίλ χρήστη όταν δεν υπάρχει εικόνα
+είναι διαθέσιμο — το οποίο είναι τις περισσότερες φορές.
 
 ```go
 proton.Avatar(ctx, "AJ", proton.RGB(0x5e81ac), proton.RGB(0xeceff4), 40)
@@ -189,10 +189,10 @@ proton.Avatar(ctx proton.Context, initials string, bg, fg color.NRGBA, sizeDp fl
 
 ---
 
-## Anillo de progreso
+## ProgressRing
 
-Un indicador de progreso circular. Bueno para tarjetas de estadísticas y paneles donde
-la forma circular comunica el porcentaje de forma más visual que una barra.
+Ένας κυκλικός δείκτης προόδου. Καλό για κάρτες στατιστικών και πίνακες εργαλείων όπου
+το κυκλικό σχήμα επικοινωνεί περισσότερο οπτικά το ποσοστό από μια μπάρα.
 
 ```go
 proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
@@ -204,14 +204,14 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-El "progreso" es 0,0–1,0. `sizeDp` es el diámetro. `strokeDp` es el anillo
-espesor: 4 a 6 dp se ve bien para la mayoría de los tamaños.
+Η «πρόοδος» είναι 0,0–1,0. Το "sizeDp" είναι η διάμετρος. Το "strokeDp" είναι το δαχτυλίδι
+πάχος — 4–6dp φαίνεται καλό για τα περισσότερα μεγέθη.
 
 ---
 
-## Mesa
+## Πίνακας
 
-Una tabla de datos con una fila de encabezado y filas sombreadas alternas.
+Ένας πίνακας δεδομένων με μια σειρά κεφαλίδας και εναλλασσόμενη σκίαση σειρών.
 
 ```go
 proton.Table(ctx,
@@ -228,13 +228,13 @@ proton.Table(ctx,
 proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
 ```
 
-`proton.TableRow` es simplemente `[]cadena`. Las columnas son igualmente anchas.
+Το "proton.TableRow" είναι απλώς "[]string". Οι στήλες είναι εξίσου φαρδιές.
 
 ---
 
-## paso a paso
+## Βήμα
 
-Un indicador horizontal de progreso escalonado para flujos de varios pasos.
+Ένας οριζόντιος δείκτης προόδου βήματος για ροές πολλαπλών βημάτων.
 
 ```go
 proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
@@ -246,14 +246,14 @@ proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
 proton.Stepper(ctx proton.Context, current int, steps []string)
 ```
 
-El paso 0 es el primer paso. Los pasos completados (índice <actual) se completan
-color de acento. El paso actual está resaltado. Los pasos futuros son oscuros.
+Το βήμα 0 είναι το πρώτο βήμα. Τα ολοκληρωμένα βήματα (ευρετήριο < τρέχον) έχουν συμπληρωθεί
+χρώμα έμφασης. Το τρέχον βήμα επισημαίνεται. Τα μελλοντικά βήματα είναι αμυδρά.
 
 ---
 
-## Información sobre herramientas
+## Επεξήγηση εργαλείου
 
-Una pequeña etiqueta que aparece cuando el usuario pasa el cursor sobre algo.
+Μια μικρή ετικέτα που εμφανίζεται όταν ο χρήστης τοποθετεί τον δείκτη του ποντικιού πάνω από κάτι.
 
 ```go
 type UI struct {
@@ -274,14 +274,14 @@ proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx p
 proton.Tooltip(ctx proton.Context, state *proton.Clickable, tip string, content func(proton.Context))
 ```
 
-Las pistas en las que se puede hacer clic en "estado" se desplazan sobre el área de información sobre herramientas. esta separado de
-cualquier botón dentro del contenido: declare uno dedicado para cada información sobre herramientas.
+Τα κομμάτια "κατάσταση" με δυνατότητα κλικ αιωρούνται για την περιοχή συμβουλών εργαλείων. Είναι ξεχωριστό από
+οποιοδήποτε κουμπί μέσα στο περιεχόμενο — δηλώστε ένα αποκλειστικό για κάθε επεξήγηση εργαλείου.
 
 ---
 
-## Imágenes
+## Εικόνες
 
-Cargue una vez al inicio. Dibuja cada cuadro.
+Φόρτωση μία φορά κατά την εκκίνηση. Σχεδιάστε κάθε πλαίσιο.
 
 ```go
 // load at startup — not in the draw function
@@ -300,14 +300,14 @@ proton.LoadImage(path string) (proton.ImageOp, error)
 proton.Image(ctx proton.Context, img proton.ImageOp, widthDp, heightDp float32)
 ```
 
-Se admiten PNG y JPEG.
+Υποστηρίζονται και τα δύο PNG και JPEG.
 
 ---
 
-## Logotipo
+## Λογότυπο
 
-El logotipo de tu aplicación, cargado una vez y dibujado en cualquier lugar. Ver [07-theming.md](./07-theming.md)
-para la configuración completa. La versión corta:
+Το λογότυπο της εφαρμογής σας, φορτώθηκε μία φορά και σχεδιάστηκε οπουδήποτε. Δείτε το [07-theming.md](./07-theming.md)
+για την πλήρη εγκατάσταση. Η σύντομη έκδοση:
 
 ```go
 //go:embed logo.png
@@ -327,10 +327,10 @@ proton.HasLogo(ctx proton.Context) bool
 
 ---
 
-## Bloque de código
+## CodeBlock
 
-Texto monoespaciado en un cuadro con borde redondeado. Para mostrar comandos, rutas de archivos,
-fragmentos: cualquier cosa que el usuario pueda copiar.
+Monospace κείμενο σε ένα στρογγυλεμένο πλαίσιο με περίγραμμα. Για εμφάνιση εντολών, μονοπατιών αρχείων,
+αποσπάσματα — οτιδήποτε είναι πιθανό να αντιγράψει ο χρήστης.
 
 ```go
 proton.CodeBlock(ctx, "go get github.com/CzaxStudio/proton")
@@ -344,10 +344,10 @@ proton.CodeBlock(ctx proton.Context, code string)
 
 ---
 
-## Sugerencia de acceso directo
+## Συμβουλή συντόμευσης
 
-Una pequeña insignia de teclado. Mostrarlos junto a los elementos del menú o las etiquetas de los botones.
-para comunicar atajos de teclado.
+Ένα μικρό σήμα πληκτρολογίου. Εμφάνιση αυτών δίπλα σε στοιχεία μενού ή ετικέτες κουμπιών
+για την επικοινωνία συντομεύσεων πληκτρολογίου.
 
 ```go
 proton.Row(ctx,
@@ -363,10 +363,10 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ---
 
-## Muestra de color
+## ColorSwatch
 
-Una fila de círculos de colores en los que el usuario puede hacer clic para seleccionar un color. Devoluciones
-el índice del seleccionado, o -1 si aún no se ha seleccionado ninguno.
+Μια σειρά από έγχρωμους κύκλους στους οποίους ο χρήστης μπορεί να κάνει κλικ για να επιλέξει ένα χρώμα. Επιστροφές
+το ευρετήριο του επιλεγμένου ή -1 εάν δεν έχει επιλεγεί ακόμη κανένα.
 
 ```go
 type UI struct {
@@ -393,4 +393,4 @@ if i >= 0 {
 proton.ColorSwatch(ctx proton.Context, btns []proton.Clickable, colors []color.NRGBA, selected int, sizeDp float32) int
 ```
 
-El círculo seleccionado recibe un anillo alrededor.
+Ο επιλεγμένος κύκλος παίρνει ένα δαχτυλίδι γύρω του.

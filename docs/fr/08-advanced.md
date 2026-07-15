@@ -16,10 +16,10 @@ type UI struct {
     toast proton.ToastState
 }
 
-// déclenche depuis n'importe où - goroutine-safe
-u.toast.Show("Fichier enregistré!", 2*time.Second)
+// trigger from anywhere — goroutine-safe
+u.toast.Show("File saved!", 2*time.Second)
 
-// dessinez-le en DERNIER dans votre fonction de dessin pour qu'il s'affiche au-dessus de tout
+// draw it LAST in your draw function so it renders on top of everything
 proton.Toast(ctx, &u.toast)
 ```
 
@@ -43,25 +43,25 @@ type UI struct {
     closeBtn proton.Clickable
 }
 
-// ouvre-le
+// open it
 proton.Pad(ctx, 4, func(ctx proton.Context) {
-    if proton.Button(ctx, &u.openBtn, "Ouvrir la boîte de dialogue") {
+    if proton.Button(ctx, &u.openBtn, "Open dialog") {
         u.modal.Show()
     }
 })
 
-// dessine-le — également à la fin de votre fonction draw
+// draw it — also at the end of your draw function
 proton.Overlay(ctx, &u.modal, func(ctx proton.Context) {
     proton.MinSize(ctx, 300, 0, func(ctx proton.Context) {
         proton.Card(ctx, proton.RGB(0x2e3440), 12, 24, func(ctx proton.Context) {
-            proton.H5(ctx, "Etes-vous sûr ?")
-            proton.Gap (ctx, 8)
-            proton.Label(ctx, "Cela ne peut pas être annulé.")
-            proton.Gap (ctx, 20)
+            proton.H5(ctx, "Are you sure?")
+            proton.Gap(ctx, 8)
+            proton.Label(ctx, "This cannot be undone.")
+            proton.Gap(ctx, 20)
             proton.RowEnd(ctx,
                 func(ctx proton.Context) {
                     proton.Pad(ctx, 4, func(ctx proton.Context) {
-                        if proton.OutlineButton(ctx, &u.closeBtn, "Annuler") {
+                        if proton.OutlineButton(ctx, &u.closeBtn, "Cancel") {
                             u.modal.Hide()
                         }
                     })
@@ -69,9 +69,9 @@ proton.Overlay(ctx, &u.modal, func(ctx proton.Context) {
                 func(ctx proton.Context) { proton.Gap(ctx, 8) },
                 func(ctx proton.Context) {
                     proton.Pad(ctx, 4, func(ctx proton.Context) {
-                        if proton.Button(ctx, &u.openBtn, "Confirmer") {
+                        if proton.Button(ctx, &u.openBtn, "Confirm") {
                             u.modal.Hide()
-                            faire une chose()
+                            doThing()
                         }
                     })
                 },
@@ -86,7 +86,7 @@ func (o *OverlayState) Show()
 func (o *OverlayState) Hide()
 func (o *OverlayState) Toggle()
 
-proton.Overlay (ctx proton.Context, état *proton.OverlayState, fonction de contenu (proton.Context))
+proton.Overlay(ctx proton.Context, state *proton.OverlayState, content func(proton.Context))
 ```
 
 `Overlay` ne dessine rien lorsque `state.Visible` est faux, vous pouvez donc l'appeler
@@ -121,7 +121,7 @@ proton.ModCtrl   // Ctrl (Cmd on macOS)
 proton.ModShift
 proton.ModAlt
 
-// combiner avec |
+// combine with |
 proton.ModCtrl | proton.ModShift
 ```
 
@@ -147,7 +147,7 @@ Les clés alphabétiques ne sont que des chaînes : `"S"`, `"Z"`, `"N"`, `"A"`.
 ## Onglets
 
 Une barre d'onglets horizontale avec une zone de contenu qui change en fonction du
-selected tab.
+onglet sélectionné.
 
 ```go
 type UI struct {
@@ -156,13 +156,13 @@ type UI struct {
 }
 
 proton.Tabs(ctx,
-    []string{"Fichiers", "Paramètres", "À propos"},
+    []string{"Files", "Settings", "About"},
     u.tabBtns[:],
     &u.tabs,
     func(ctx proton.Context, i int) {
         switch i {
         case 0: drawFiles(ctx)
-        cas 1 : drawSettings(ctx)
+        case 1: drawSettings(ctx)
         case 2: drawAbout(ctx)
         }
     },
@@ -177,7 +177,7 @@ proton.Tabs(ctx proton.Context, labels []string, btns []proton.Clickable, state 
 ```
 
 La tranche `btns` a besoin d'un `Clickable` par onglet. Passer `u.tabBtns[:]` est
-the idiomatic way when you declare a fixed-size array in your struct.
+la manière idiomatique lorsque vous déclarez un tableau de taille fixe dans votre structure.
 
 ---
 
@@ -191,10 +191,10 @@ type UI struct {
     sec1btn proton.Clickable
 }
 
-proton.Accordion(ctx, &u.sec1, &u.sec1btn, "Options avancées", func(ctx proton.Context) {
-    proton.Label(ctx, "Ces options sont masquées jusqu'à ce que l'utilisateur les développe.")
-    proton.Gap (ctx, 8)
-    proton.Toggle(ctx, &u.expertMode, "Mode expert")
+proton.Accordion(ctx, &u.sec1, &u.sec1btn, "Advanced Options", func(ctx proton.Context) {
+    proton.Label(ctx, "These options are hidden until the user expands this.")
+    proton.Gap(ctx, 8)
+    proton.Toggle(ctx, &u.expertMode, "Expert mode")
 })
 ```
 
@@ -217,19 +217,19 @@ type UI struct {
     menuTag proton.FrameTag
 }
 
-éléments := []proton.ContextMenuItem{
-    {Étiquette : "Copier"},
-    {Étiquette : "Coller"},
-    {Étiquette : "Supprimer"},
-    {Étiquette : "Option désactivée", Désactivée : vrai},
+items := []proton.ContextMenuItem{
+    {Label: "Copy"},
+    {Label: "Paste"},
+    {Label: "Delete"},
+    {Label: "Disabled option", Disabled: true},
 }
 
-choisi := proton.ContextMenu(ctx, &u.menu, &u.menuTag, items, func(ctx proton.Context) {
-    proton.Label(ctx, "Cliquez avec le bouton droit n'importe où dans cette zone")
+chosen := proton.ContextMenu(ctx, &u.menu, &u.menuTag, items, func(ctx proton.Context) {
+    proton.Label(ctx, "Right-click anywhere in this area")
 })
 
-si choisi >= 0 {
-    fmt.Println("Sélectionné par l'utilisateur :", éléments[choisis].Étiquette)
+if chosen >= 0 {
+    fmt.Println("User picked:", items[chosen].Label)
 }
 ```
 
@@ -254,26 +254,26 @@ type UI struct {
     fetchBtn proton.Clickable
 }
 
-// dans votre fonction draw
+// in your draw function
 proton.Pad(ctx, 4, func(ctx proton.Context) {
     if proton.Button(ctx, &u.fetchBtn, "Fetch") && !u.loading {
-        u.loading = vrai
-        allez func() {
-            data := fetchFromAPI() // prend un certain temps
-            u.result = données
-            u.loading = faux
-            ctx.Invalidate() // réveille la boucle de rendu
+        u.loading = true
+        go func() {
+            data := fetchFromAPI()        // takes a while
+            u.result = data
+            u.loading = false
+            ctx.Invalidate()              // wake up the render loop
         }()
     }
 })
 
-si vous chargez {
+if u.loading {
     proton.Row(ctx,
         func(ctx proton.Context) { proton.Spinner(ctx, &u.spin, 18) },
         func(ctx proton.Context) { proton.Gap(ctx, 8) },
-        func(ctx proton.Context) { proton.Muted(ctx, "Chargement...") },
+        func(ctx proton.Context) { proton.Muted(ctx, "Loading...") },
     )
-} sinon si u.result != "" {
+} else if u.result != "" {
     proton.Label(ctx, u.result)
 }
 ```
@@ -294,7 +294,7 @@ type UI struct {
     spin proton.SpinnerState
 }
 
-proton.Spinner(ctx, &u.spin, 32) // diamètre 32dp
+proton.Spinner(ctx, &u.spin, 32)  // 32dp diameter
 ```
 
 ```go
@@ -314,8 +314,8 @@ type UI struct {
 }
 
 langs := []string{"Go", "Rust", "Zig", "C", "Python"}
-je := proton.SelectBox(ctx, &u.langSel, langs)
-proton.Caption(ctx, "Sélectionné : "+langs[i])
+i := proton.SelectBox(ctx, &u.langSel, langs)
+proton.Caption(ctx, "Selected: "+langs[i])
 ```
 
 La liste déroulante s'ouvre sous le bouton et se ferme lors d'une sélection ou d'un clic extérieur.
@@ -359,7 +359,7 @@ type UI struct {
 }
 
 proton.FocusArea(ctx, &u.editorTag, "A", func(ctx proton.Context) {
-    proton.TextArea(ctx, &u.text, "Tapez ici...")
+    proton.TextArea(ctx, &u.text, "Type here...")
 })
 ```
 
@@ -392,7 +392,7 @@ proton.Maximized()  proton.WindowOption
 
 ## Maintenir les animations en cours d'exécution
 
-Proton ne redessine que lorsqu'il y a une entrée de l'utilisateur ou que vous appelez `ctx.Invalidate()`.
+Proton ne se redessine que lorsqu'il y a une entrée de l'utilisateur ou que vous appelez `ctx.Invalidate()`.
 Pour les animations : barres de progression qui se remplissent au fil du temps, comptes à rebours, n'importe quoi
 basé sur le temps — appelez « Invalidate » à la fin de chaque image pour conserver les redessins
 va:

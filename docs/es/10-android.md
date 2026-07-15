@@ -1,4 +1,4 @@
-#Androide
+# Androide
 
 ¡Crea aplicaciones para Android usando Proton!
 
@@ -109,15 +109,15 @@ para dibujarlo dentro de la propia interfaz de usuario:
 //go:embed assets/logo.png
 var logoBytes []byte
 
-función principal() {
-    a := protón.Nuevo("miaplicación")
-    a.SetLogoBytes(logoBytes) // cargar una vez
+func main() {
+    a := proton.New("myapp")
+    a.SetLogoBytes(logoBytes) // load once
 
-a.Window("Mi aplicación", 480, 800, func(ctx proton.Context) {
-        proton.Logo(ctx, 64, 64) // dibujarlo en el diseño
-        protón.H4(ctx, "Mi aplicación")
+    a.Window("My App", 480, 800, func(ctx proton.Context) {
+        proton.Logo(ctx, 64, 64) // draw it in the layout
+        proton.H4(ctx, "My App")
     })
-    a.Ejecutar()
+    a.Run()
 }
 ```
 
@@ -146,27 +146,27 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-escriba estructura de interfaz de usuario {
-    btn protón. Se puede hacer clic
-    contar entero
+type UI struct {
+    btn proton.Clickable
+    count int
 }
 
-función principal() {
-    tu := &UI{}
-    a := protón.Nuevo("contador")
-    a.ApplyPalette (protón.NordPalette)
-    a.Window("Contador", 480, 800, func(ctx proton.Context) {
-        protón.Centro(ctx, func(ctx protón.Contexto) {
-            protón.H2(ctx, fmt.Sprintf("%d", u.count))
-            protón.Gap(ctx, 24)
-            protón.Pad(ctx, 8, func(ctx protón.Context) {
-                if proton.Button(ctx, &u.btn, "Tocame") {
+func main() {
+    u := &UI{}
+    a := proton.New("counter")
+    a.ApplyPalette(proton.NordPalette)
+    a.Window("Counter", 480, 800, func(ctx proton.Context) {
+        proton.Center(ctx, func(ctx proton.Context) {
+            proton.H2(ctx, fmt.Sprintf("%d", u.count))
+            proton.Gap(ctx, 24)
+            proton.Pad(ctx, 8, func(ctx proton.Context) {
+                if proton.Button(ctx, &u.btn, "Tap me") {
                     u.count++
                 }
             })
         })
     })
-    a.Ejecutar()
+    a.Run()
 }
 ```
 

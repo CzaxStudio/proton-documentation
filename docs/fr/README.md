@@ -36,11 +36,11 @@ type UI struct {
 u := &UI{}
 
 a.Window("App", 400, 300, func(win proton.Context) {
-    proton.Label(win, "Cliquez sur le bouton.")
-    proton.Gap (victoire, 8)
-    proton.Pad (gagner, 8, func (gagner proton.Context) {
-        if proton.Button(win, &u.btn, "Bonjour") {
-            println("Bonjour!")
+    proton.Label(win, "Click the button.")
+    proton.Gap(win, 8)
+    proton.Pad(win, 8, func(win proton.Context) {
+        if proton.Button(win, &u.btn, "Hello") {
+            println("hello!")
         }
     })
 })

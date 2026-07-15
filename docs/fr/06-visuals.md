@@ -47,10 +47,10 @@ espace disponible sur cet axe.
 // 100dp wide, 4dp tall accent bar
 proton.Rect(ctx, proton.RGB(0x89b4fa), 100, 4)
 
-// pleine largeur, séparateur haut 2dp
+// full width, 2dp tall separator
 proton.Rect(ctx, proton.RGB(0x333344), 0, 2)
 
-// remplit tout l'espace disponible
+// fill all available space
 proton.Rect(ctx, proton.RGB(0x1a1a2e), 0, 0)
 ```
 
@@ -154,7 +154,7 @@ proton.Row(ctx,
 
 ---
 
-## StatutDot
+## Point d'état
 
 Un petit cercle coloré. Indicateurs en ligne/hors ligne, statut de build, tout
 qui a besoin d'un point coloré à côté d'un texte.
@@ -247,7 +247,7 @@ proton.Stepper(ctx proton.Context, current int, steps []string)
 ```
 
 L'étape 0 est la première étape. Les étapes terminées (index <actuel) obtiennent un remplissage
-couleur d'accent. L'étape en cours est mise en surbrillance. Les prochaines étapes sont sombres.
+couleur d'accent. L'étape en cours est mise en surbrillance. Les prochaines étapes sont floues.
 
 ---
 
@@ -261,10 +261,10 @@ type UI struct {
     saveBtn   proton.Clickable
 }
 
-proton.Tooltip(ctx, &u.saveHover, "Enregistre votre travail sur le disque (Ctrl+S)", func(ctx proton.Context) {
+proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx proton.Context) {
     proton.Pad(ctx, 4, func(ctx proton.Context) {
-        if proton.Button(ctx, &u.saveBtn, "Enregistrer") {
-            sauvegarder()
+        if proton.Button(ctx, &u.saveBtn, "Save") {
+            save()
         }
     })
 })
@@ -290,9 +290,9 @@ if err != nil {
     log.Fatal(err)
 }
 
-// dans la fonction draw
-proton.Image(ctx, img, 200, 150) // 200 dp de large, 150 dp de haut
-proton.Image(ctx, img, 0, 0) // taille naturelle des pixels
+// in the draw function
+proton.Image(ctx, img, 200, 150)  // 200dp wide, 150dp tall
+proton.Image(ctx, img, 0, 0)      // natural pixel size
 ```
 
 ```go
@@ -313,10 +313,10 @@ pour la configuration complète. La version courte :
 //go:embed logo.png
 var logoBytes []byte
 
-// au démarrage
+// at startup
 a.SetLogoBytes(logoBytes)
 
-// dans la fonction draw
+// in the draw function
 proton.Logo(ctx, 48, 48)
 ```
 
@@ -327,9 +327,9 @@ proton.HasLogo(ctx proton.Context) bool
 
 ---
 
-## CodeBlock
+## CodeBlock
 
-Texte monospace dans une zone à bordure arrondie. Pour afficher les commandes, les chemins de fichiers,
+Texte à espacement fixe dans une zone à bordure arrondie. Pour afficher les commandes, les chemins de fichiers,
 extraits - tout ce que l'utilisateur est susceptible de copier.
 
 ```go
@@ -383,9 +383,9 @@ palette := []color.NRGBA{
     proton.RGB(0xf472b6),
 }
 
-je := proton.ColorSwatch(ctx, u.swatches[:], palette, u.chosenColor, 26)
-si je >= 0 {
-    u.chosenColor = je
+i := proton.ColorSwatch(ctx, u.swatches[:], palette, u.chosenColor, 26)
+if i >= 0 {
+    u.chosenColor = i
 }
 ```
 

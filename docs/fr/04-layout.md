@@ -216,7 +216,7 @@ type UI struct {
     split proton.ResizeSplitState
 }
 
-proton.ResizeSplit(ctx, &u.split, 0,30, leftFn, rightFn)
+proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
 ```
 
 `ResizeSplitState.Fraction` commence à 0 et est défini sur `defaultFraction`
@@ -349,11 +349,11 @@ proton.MinSize(ctx, 200, 48, func(ctx proton.Context) {
     if proton.Button(ctx, &u.btn, "OK") { handleOK() }
 })
 
-// pas plus large que 420 dp — garde les formulaires lisibles sur de larges fenêtres
+// no wider than 420dp — keeps forms readable on wide windows
 proton.MaxWidth(ctx, 420, func(ctx proton.Context) {
-    proton.Input(ctx, &u.email, "Adresse e-mail")
-    proton.Gap (ctx, 8)
-    proton.Input(ctx, &u.password, "Mot de passe")
+    proton.Input(ctx, &u.email, "Email address")
+    proton.Gap(ctx, 8)
+    proton.Input(ctx, &u.password, "Password")
 })
 ```
 
@@ -380,14 +380,14 @@ func draw(ctx proton.Context, u *UI) {
     proton.Divider(ctx)
     proton.Gap(ctx, 16)
 
-// corps
-    proton.ResizeSplit(ctx, &u.split, 0,28,
+    // body
+    proton.ResizeSplit(ctx, &u.split, 0.28,
         func(ctx proton.Context) {
-            drawSidebar (ctx, u)
+            drawSidebar(ctx, u)
         },
         func(ctx proton.Context) {
             proton.PadH(ctx, 16, func(ctx proton.Context) {
-                drawContent (ctx, u)
+                drawContent(ctx, u)
             })
         },
     )

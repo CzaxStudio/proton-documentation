@@ -1,6 +1,6 @@
 # Commencer
 
-Vous souhaitez créer une application de bureau dans Go. Vous êtes au bon endroit
+Vous souhaitez créer une application de bureau dans Go. Vous êtes au bon endroit.
 
 ---
 
@@ -42,12 +42,12 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-fonction main() {
-    a := proton.New("bonjour")
-    a.Window("Bonjour", 480, 320, func(ctx proton.Context) {
-        proton.H3(ctx, "Bonjour de Proton !") // ⓘ Vous pouvez changer proton.H3 à la taille de votre choix
+func main() {
+    a := proton.New("hello")
+    a.Window("Hello", 480, 320, func(ctx proton.Context) {
+        proton.H3(ctx, "Hello from Proton!") // ⓘ You can change proton.H3 to any size you want
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -73,25 +73,25 @@ import (
     "github.com/CzaxStudio/proton"
 )
 
-tapez la structure de l'interface utilisateur {
-    nom proton.Editor
-    btn proton.Cliquable
+type UI struct {
+    name proton.Editor
+    btn  proton.Clickable
 }
 
-fonction main() {
+func main() {
     u := &UI{}
 
-a := proton.New("greeter")
+    a := proton.New("greeter")
     a.Window("Greeter", 400, 240, func(ctx proton.Context) {
-        proton.Input(ctx, &u.name, "Votre nom")
-        proton.Gap (ctx, 8)
+        proton.Input(ctx, &u.name, "Your name")
+        proton.Gap(ctx, 8)
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            if proton.Button(ctx, &u.btn, "Dites bonjour") {
-                fmt.Println("Bonjour,", u.name.Text())
+            if proton.Button(ctx, &u.btn, "Say hello") {
+                fmt.Println("Hello,", u.name.Text())
             }
         })
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -142,7 +142,7 @@ Pour une disposition côte à côte, utilisez « Row ». Pour plus de contrôl
 ## Les boutons nécessitent un wrapper de mise en page
 
 Les boutons (et autres widgets interactifs) doivent se trouver dans un assistant de mise en page pour
-clics pour vous inscrire correctement. C'est une affaire de Gio - la passe de mise en page est ce que
+clique pour s’inscrire correctement. C'est une affaire de Gio - la passe de mise en page est ce que
 établit les zones touchées à l'écran.
 
 ```go
@@ -153,11 +153,11 @@ proton.Pad(ctx, 8, func(ctx proton.Context) {
     }
 })
 
-// également correct — le bouton est à l'intérieur de la ligne
+// also correct — button is inside Row
 proton.Row(ctx,
     func(ctx proton.Context) {
-        if proton.Button(ctx, &u.btn, "Enregistrer") {
-            sauvegarder()
+        if proton.Button(ctx, &u.btn, "Save") {
+            save()
         }
     },
 )

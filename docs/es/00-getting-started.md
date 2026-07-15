@@ -1,6 +1,6 @@
 # Empezando
 
-Quieres crear una aplicación de escritorio en Go. Has venido al lugar correcto
+Quieres crear una aplicación de escritorio en Go. Has venido al lugar correcto.
 
 ---
 
@@ -42,12 +42,12 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-función principal() {
-    a := protón.Nuevo("hola")
-    a.Window("Hola", 480, 320, func(ctx proton.Context) {
-        proton.H3(ctx, "¡Hola desde Proton!") // ⓘ Puedes cambiar proton.H3 al tamaño que desees
+func main() {
+    a := proton.New("hello")
+    a.Window("Hello", 480, 320, func(ctx proton.Context) {
+        proton.H3(ctx, "Hello from Proton!") // ⓘ You can change proton.H3 to any size you want
     })
-    a.Ejecutar()
+    a.Run()
 }
 ```
 
@@ -73,25 +73,25 @@ import (
     "github.com/CzaxStudio/proton"
 )
 
-escriba estructura de interfaz de usuario {
-    nombre protón.Editor
-    btn protón. Se puede hacer clic
+type UI struct {
+    name proton.Editor
+    btn  proton.Clickable
 }
 
-función principal() {
-    tu := &UI{}
+func main() {
+    u := &UI{}
 
-a := protón.Nuevo("saludador")
-    a.Window("Saludador", 400, 240, func(ctx proton.Context) {
-        proton.Input(ctx, &u.name, "Tu nombre")
-        protón.Gap(ctx, 8)
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            if proton.Button(ctx, &u.btn, "Saluda") {
-                fmt.Println("Hola", u.nombre.Texto())
+    a := proton.New("greeter")
+    a.Window("Greeter", 400, 240, func(ctx proton.Context) {
+        proton.Input(ctx, &u.name, "Your name")
+        proton.Gap(ctx, 8)
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.Button(ctx, &u.btn, "Say hello") {
+                fmt.Println("Hello,", u.name.Text())
             }
         })
     })
-    a.Ejecutar()
+    a.Run()
 }
 ```
 
@@ -153,11 +153,11 @@ proton.Pad(ctx, 8, func(ctx proton.Context) {
     }
 })
 
-// también correcto: el botón está dentro de la fila
-protón.Fila(ctx,
-    func(ctx protón.Contexto) {
-        if proton.Button(ctx, &u.btn, "Guardar") {
-            guardar()
+// also correct — button is inside Row
+proton.Row(ctx,
+    func(ctx proton.Context) {
+        if proton.Button(ctx, &u.btn, "Save") {
+            save()
         }
     },
 )

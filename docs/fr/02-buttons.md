@@ -34,8 +34,8 @@ l'utilisateur à cliquer.
 var save proton.Clickable
 
 proton.Pad(ctx, 8, func(ctx proton.Context) {
-    if proton.Button(ctx, &save, "Enregistrer") {
-        faireEnregistrer()
+    if proton.Button(ctx, &save, "Save") {
+        doSave()
     }
 })
 ```
@@ -62,15 +62,15 @@ var cancel proton.Clickable
 proton.Row(ctx,
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            if proton.OutlineButton(ctx, &cancel, "Annuler") {
-                handleAnnuler()
+            if proton.OutlineButton(ctx, &cancel, "Cancel") {
+                handleCancel()
             }
         })
     },
     func(ctx proton.Context) { proton.Gap(ctx, 8) },
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            if proton.Button(ctx, &save, "Enregistrer") {
+            if proton.Button(ctx, &save, "Save") {
                 handleSave()
             }
         })
@@ -95,7 +95,7 @@ Un bouton contenant uniquement une icône. Pas de texte, juste une icône. Commu
 // icon is a *proton.Icon — load one with widget.NewIcon() from gioui.org/widget
 var closeBtn proton.Clickable
 
-if proton.IconButton(ctx, &closeBtn, closeIcon, "Fermer la fenêtre") {
+if proton.IconButton(ctx, &closeBtn, closeIcon, "Close window") {
     win.Close()
 }
 ```
@@ -109,7 +109,7 @@ proton.IconButton(ctx proton.Context, state *proton.Clickable, icon *proton.Icon
 
 ---
 
-## Tapable
+## Exploitable
 
 Rend n'importe quel contenu cliquable. La zone entière que vous dessinez à l'intérieur du rappel
 devient la cible touchée. Utilisez-le pour les cartes, les lignes de liste, les boutons personnalisés ou
@@ -118,14 +118,14 @@ tout ce où une étiquette de bouton standard n'est pas ce que vous voulez.
 ```go
 var rowClick proton.Clickable
 
-si proton.Tappable(ctx, &rowClick, func(ctx proton.Context) {
+if proton.Tappable(ctx, &rowClick, func(ctx proton.Context) {
     proton.Card(ctx, proton.RGB(0x2a2a3e), 8, 12, func(ctx proton.Context) {
-        proton.Label(ctx, "Cliquez n'importe où sur cette carte")
-        proton.Gap (ctx, 4)
-        proton.Muted(ctx, "Le tout est un bouton")
+        proton.Label(ctx, "Click anywhere on this card")
+        proton.Gap(ctx, 4)
+        proton.Muted(ctx, "The whole thing is a button")
     })
 }) {
-    println("carte cliquée")
+    println("card clicked")
 }
 ```
 
@@ -143,7 +143,7 @@ Proton n'ouvre pas les URL pour vous, il vous indique simplement que l'utilisate
 ```go
 var githubLink proton.Clickable
 
-if proton.Link(ctx, &githubLink, "Voir sur GitHub") {
+if proton.Link(ctx, &githubLink, "View on GitHub") {
     openBrowser("https://github.com/CzaxStudio/proton")
 }
 ```
@@ -153,7 +153,7 @@ if proton.Link(ctx, &githubLink, "Voir sur GitHub") {
 ```go
 var termsLink proton.Clickable
 
-if proton.LinkSmall(ctx, &termsLink, "Conditions de service") {
+if proton.LinkSmall(ctx, &termsLink, "Terms of service") {
     showTerms()
 }
 ```
@@ -178,15 +178,15 @@ type UI struct {
 proton.RowEnd(ctx,
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            if proton.OutlineButton(ctx, &u.cancel, "Annuler") {
-                handleAnnuler()
+            if proton.OutlineButton(ctx, &u.cancel, "Cancel") {
+                handleCancel()
             }
         })
     },
     func(ctx proton.Context) { proton.Gap(ctx, 8) },
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            if proton.Button(ctx, &u.save, "Enregistrer les modifications") {
+            if proton.Button(ctx, &u.save, "Save changes") {
                 handleSave()
             }
         })
@@ -209,19 +209,19 @@ type UI struct {
 proton.Row(ctx,
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            si proton.Button(ctx, &u.newFile, "New") { handleNew() }
+            if proton.Button(ctx, &u.newFile, "New") { handleNew() }
         })
     },
     func(ctx proton.Context) { proton.Gap(ctx, 4) },
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            si proton.OutlineButton(ctx, &u.openFile, "Open") { handleOpen() }
+            if proton.OutlineButton(ctx, &u.openFile, "Open") { handleOpen() }
         })
     },
     func(ctx proton.Context) { proton.Gap(ctx, 4) },
     func(ctx proton.Context) {
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            si proton.OutlineButton(ctx, &u.saveFile, "Save") { handleSave() }
+            if proton.OutlineButton(ctx, &u.saveFile, "Save") { handleSave() }
         })
     },
 )
@@ -235,18 +235,18 @@ type UI struct {
     chosen int
 }
 
-éléments := []string{"Alpha", "Beta", "Gamma", "Delta"}
+items := []string{"Alpha", "Beta", "Gamma", "Delta"}
 
-proton.List(ctx, &u.scroll, len(articles), func(ctx proton.Context, i int) {
-    si proton.Tappable(ctx, &u.rows[i], func(ctx proton.Context) {
+proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+    if proton.Tappable(ctx, &u.rows[i], func(ctx proton.Context) {
         proton.PadV(ctx, 10, func(ctx proton.Context) {
             proton.PadH(ctx, 12, func(ctx proton.Context) {
-                proton.Label(ctx, éléments[i])
+                proton.Label(ctx, items[i])
             })
         })
     }) {
-        u.choisi = je
+        u.chosen = i
     }
-    proton.Diviseur (ctx)
+    proton.Divider(ctx)
 })
 ```

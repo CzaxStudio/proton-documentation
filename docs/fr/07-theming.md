@@ -22,14 +22,14 @@ Appliquez-le après `proton.New()` et avant `a.Run()` :
 a := proton.New("myapp")
 
 a.ApplyPalette(proton.Palette{
-    Bg : proton.RGB(0x1e1e2e),
-    Fg : proton.RGB(0xcdd6f4),
-    Primaire : proton.RGB(0x89b4fa),
-    PrimaryFg : proton.RGB(0x1e1e2e),
+    Bg:        proton.RGB(0x1e1e2e),
+    Fg:        proton.RGB(0xcdd6f4),
+    Primary:   proton.RGB(0x89b4fa),
+    PrimaryFg: proton.RGB(0x1e1e2e),
 })
 
-a.Fenêtre("App", 800, 600, dessiner)
-a.Exécuter()
+a.Window("App", 800, 600, draw)
+a.Run()
 ```
 
 ---
@@ -146,13 +146,13 @@ a.SetBackground(proton.RGB(0x1a1b26))
 a.SetBackgroundCode("#1a1b26")
 a.SetBackgroundRGB(26, 27, 38)
 
-// dégradé bicolore
+// two-color gradient
 a.SetBackgroundGradient("#1a1b26", "#2d1b69", "vertical")
 a.SetBackgroundGradient("#0f172a", "#1e1b4b", "horizontal")
-a.SetBackgroundGradient("#000000", "#1a1b26", "diagonale")
+a.SetBackgroundGradient("#000000", "#1a1b26", "diagonal")
 a.SetBackgroundGradient("#1e1e2e", "#6d28d9", "radial")
 
-// arc-en-ciel animé à spectre complet
+// animated full-spectrum rainbow
 a.SetBackgroundRainbow()
 ```
 
@@ -229,27 +229,22 @@ imprimer les 46 noms pour voir ce qui est disponible.
 
 Quelques favoris si vous ne souhaitez pas choisir parmi les éléments intégrés :
 
-**GitHub sombre**
-``` va
+**GitHub sombre**```go
 a.ThemeBuilder().Bg("#0d1117").Fg("#e6edf3").Primary("#1f6feb").PrimaryFg("#ffffff").Apply()
 ```
 
-**Hacker Vert**
-``` va
+**Hacker Vert**```go
 a.ThemeBuilder().Bg("#000000").Fg("#00ff00").Primary("#008f11").PrimaryFg("#000000").Apply()
 ```
 
-**Océan de minuit**
-``` va
+**Océan de minuit**```go
 a.ThemeBuilder().Bg("#0f172a").Fg("#f8fafc").Primary("#38bdf8").PrimaryFg("#0f172a").Apply()
 ```
 
-**Papier chaud**
-``` va
+**Papier chaud**```go
 a.ThemeBuilder().Bg("#f5f0e8").Fg("#2c2416").Primary("#8b4513").PrimaryFg("#f5f0e8").Apply()
 ```
 
-**Cyberpunk**
-``` va
+**Cyberpunk**```go
 a.ThemeBuilder().Bg("#1a0b0b").Fg("#ff2a6d").Primary("#d1ff00").PrimaryFg("#000000").Apply()
 ```

@@ -1,6 +1,6 @@
 #Androïde
 
-Créez des applications Android avec Proton !
+Créez des applications Android à l'aide de Proton !
 
 Les applications Proton fonctionnent sur Android via la prise en charge Android native de Gio.
 Le même code qui s'exécute sur votre bureau s'exécute sur Android — pas de réécriture,
@@ -109,15 +109,15 @@ pour le dessiner dans l'interface utilisateur elle-même :
 //go:embed assets/logo.png
 var logoBytes []byte
 
-fonction main() {
-    a := proton.New("monapplication")
-    a.SetLogoBytes(logoBytes) // charger une fois
+func main() {
+    a := proton.New("myapp")
+    a.SetLogoBytes(logoBytes) // load once
 
-a.Window("Mon application", 480, 800, func(ctx proton.Context) {
-        proton.Logo(ctx, 64, 64) // dessine-le dans la mise en page
-        proton.H4(ctx, "Mon application")
+    a.Window("My App", 480, 800, func(ctx proton.Context) {
+        proton.Logo(ctx, 64, 64) // draw it in the layout
+        proton.H4(ctx, "My App")
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -146,27 +146,27 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-tapez la structure de l'interface utilisateur {
-    btn proton.Cliquable
-    compte entier
+type UI struct {
+    btn proton.Clickable
+    count int
 }
 
-fonction main() {
+func main() {
     u := &UI{}
-    a := proton.New("compteur")
+    a := proton.New("counter")
     a.ApplyPalette(proton.NordPalette)
-    a.Window("Compteur", 480, 800, func(ctx proton.Context) {
+    a.Window("Counter", 480, 800, func(ctx proton.Context) {
         proton.Center(ctx, func(ctx proton.Context) {
             proton.H2(ctx, fmt.Sprintf("%d", u.count))
-            proton.Gap (ctx, 24)
+            proton.Gap(ctx, 24)
             proton.Pad(ctx, 8, func(ctx proton.Context) {
-                if proton.Button(ctx, &u.btn, "Appuyez-moi") {
+                if proton.Button(ctx, &u.btn, "Tap me") {
                     u.count++
                 }
             })
         })
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -177,5 +177,5 @@ gogio -target android -appid com.example.counter .
 adb install counter.apk
 ```
 
-C'est ça. Le même binaire que vous exécutez avec « go run ». sur votre ordinateur portable devient
+C'est ça. Le même binaire que vous exécutez avec « go run . » sur votre ordinateur portable devient
 un APK Android avec une seule commande.

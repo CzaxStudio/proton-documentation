@@ -14,10 +14,10 @@ type UI struct {
     scroll proton.Scrollable
 }
 
-items := []string{"Pommes", "Bananes", "Cerises", "Durian (pourquoi)"}
+items := []string{"Apples", "Bananas", "Cherries", "Durian (why)"}
 
-proton.List(ctx, &u.scroll, len(articles), func(ctx proton.Context, i int) {
-    proton.Label(ctx, éléments[i])
+proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+    proton.Label(ctx, items[i])
 })
 ```
 
@@ -62,13 +62,13 @@ type UI struct {
 }
 
 proton.Scroll(ctx, &u.scroll, func(ctx proton.Context) {
-    proton.H5(ctx, "Une très longue page")
-    proton.Gap (ctx, 8)
-    proton.Label(ctx, "Paragraphe un...")
-    proton.Gap (ctx, 8)
-    proton.Label(ctx, "Paragraphe deux...")
-    proton.Gap (ctx, 8)
-    // autant de widgets que nécessaire
+    proton.H5(ctx, "A very long page")
+    proton.Gap(ctx, 8)
+    proton.Label(ctx, "Paragraph one...")
+    proton.Gap(ctx, 8)
+    proton.Label(ctx, "Paragraph two...")
+    proton.Gap(ctx, 8)
+    // as many widgets as you need
 })
 ```
 
@@ -113,10 +113,10 @@ type UI struct {
     logText   string
 }
 
-// ajouter au logText depuis n'importe où
-u.logText += fmt.Sprintf("[OK] Étape terminée à %s\n", time.Now().Format("15:04:05"))
+// append to logText from anywhere
+u.logText += fmt.Sprintf("[OK] Step completed at %s\n", time.Now().Format("15:04:05"))
 
-// dessine-le — défile automatiquement jusqu'à la dernière ligne
+// draw it — auto-scrolls to the latest line
 proton.LogView(ctx, &u.logScroll, u.logText)
 ```
 
@@ -164,15 +164,15 @@ type Contact struct {
 }
 
 proton.List(ctx, &u.scroll, len(contacts), func(ctx proton.Context, i int) {
-    c := contacts[je]
+    c := contacts[i]
     proton.PadV(ctx, 10, func(ctx proton.Context) {
         proton.PadH(ctx, 12, func(ctx proton.Context) {
             proton.Label(ctx, c.Name)
-            proton.Gap (ctx, 3)
+            proton.Gap(ctx, 3)
             proton.Muted(ctx, c.Email)
         })
     })
-    proton.Diviseur (ctx)
+    proton.Divider(ctx)
 })
 ```
 
@@ -185,24 +185,24 @@ type UI struct {
     scroll   proton.Scrollable
 }
 
-proton.List(ctx, &u.scroll, len(articles), func(ctx proton.Context, i int) {
-    bg := proton.RGB(0x2e3440)
+proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+    bg  := proton.RGB(0x2e3440)
     hov := proton.RGB(0x3b4252)
-    si u.selected == je {
-        bg = proton.RGB(0x4c566a)
+    if u.selected == i {
+        bg  = proton.RGB(0x4c566a)
         hov = bg
     }
     proton.PadV(ctx, 2, func(ctx proton.Context) {
-        si proton.HoverCard(ctx, &u.rows[i], bg, hov, 6, func(ctx proton.Context) {
+        if proton.HoverCard(ctx, &u.rows[i], bg, hov, 6, func(ctx proton.Context) {
             proton.PadV(ctx, 10, func(ctx proton.Context) {
                 proton.PadH(ctx, 12, func(ctx proton.Context) {
-                    proton.Label(ctx, éléments[i].Nom)
-                    proton.Gap (ctx, 2)
+                    proton.Label(ctx, items[i].Name)
+                    proton.Gap(ctx, 2)
                     proton.Muted(ctx, items[i].Sub)
                 })
             })
         }) {
-            u.selected = je
+            u.selected = i
         }
     })
 })

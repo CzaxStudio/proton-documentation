@@ -1,11 +1,11 @@
-# Tematización
+# Θέμα
 
-Cuatro colores controlan el aspecto de toda tu aplicación. Cambialos, todo se actualiza.
-No se permite buscar en las hojas de estilo de los componentes. No hay guerras de especificidad de CSS.
+Τέσσερα χρώματα ελέγχουν την εμφάνιση ολόκληρης της εφαρμογής σας. Αλλάξτε τα, όλα ενημερώνονται.
+Χωρίς κυνήγι μέσω φύλλων στυλ συστατικών. Δεν υπάρχουν πόλεμοι ειδικοτήτων CSS.
 
 ---
 
-## La paleta
+## Η Παλέτα
 
 ```go
 type Palette struct {
@@ -16,7 +16,7 @@ type Palette struct {
 }
 ```
 
-Aplíquelo después de `proton.New()` y antes de `a.Run()`:
+Εφαρμόστε το μετά το «proton.New()» και πριν το «a.Run()»:
 
 ```go
 a := proton.New("myapp")
@@ -34,11 +34,11 @@ a.Run()
 
 ---
 
-## Paletas integradas
+## Ενσωματωμένες παλέτες
 
-46 paletas. Una línea cada uno.
+46 παλέτες. Μία γραμμή το καθένα.
 
-### Temas oscuros
+### Σκούρα θέματα
 
 ```go
 a.ApplyPalette(proton.DarkPalette)           // neutral dark
@@ -77,7 +77,7 @@ a.ApplyPalette(proton.IcebergPalette)
 a.ApplyPalette(proton.SynthwavePalette)      // 80s neon
 ```
 
-### Temas ligeros
+### Φωτεινά θέματα
 
 ```go
 a.ApplyPalette(proton.LightPalette)
@@ -96,9 +96,9 @@ a.ApplyPalette(proton.TokyoNightDayPalette)
 
 ---
 
-## Códigos de colores hexadecimales
+## Hex Color Codes
 
-Si mirar los prefijos 0x hace que tus ojos se pongan vidriosos, usa cadenas hexadecimales en su lugar.
+Αν κοιτάζοντας επίμονα προθέματα 0x τα μάτια σας γυαλίζουν, χρησιμοποιήστε αντ' αυτού εξάγωνες χορδές.
 
 ```go
 a.ThemeBuilder().
@@ -109,7 +109,7 @@ a.ThemeBuilder().
     Apply()
 ```
 
-Comience desde cero o desarrolle una paleta existente:
+Ξεκινήστε από το μηδέν ή χτίστε σε μια υπάρχουσα παλέτα:
 
 ```go
 // start from Nord, override just the primary color
@@ -117,10 +117,10 @@ a.ApplyPalette(proton.NordPalette)
 a.ThemeBuilder().Primary("#ff6b6b").Apply()
 ```
 
-`ThemeBuilder()` está precargado con los colores de la paleta actual, por lo que llamar
-después de "ApplyPalette" le permite parchear ranuras individuales sin tocar el resto.
+Το `ThemeBuilder()` είναι προφορτωμένο με τα τρέχοντα χρώματα της παλέτας, έτσι καλώντας
+μετά το "ApplyPalette" σας επιτρέπει να επιδιορθώσετε μεμονωμένες υποδοχές χωρίς να αγγίξετε τις υπόλοιπες.
 
-### Acceso directo de una sola ranura
+### Συντόμευση μονής υποδοχής
 
 ```go
 a.ColorCode("bg",        "#0d1117")
@@ -129,16 +129,16 @@ a.ColorCode("primary",   "#1f6feb")
 a.ColorCode("primaryfg", "#ffffff")
 ```
 
-Nombres de ranura válidos: `"bg"`, `"fondo"`, `"fg"`, `"primer plano"`, `"texto"`,
-`"primario"`, `"acento"`, `"primariofg"`, `"textoprimario"`.
+Έγκυρα ονόματα θέσεων: `"bg"`, `"φόντο"`, `"fg"`, `"προσκηνίου"`, "κείμενο"`,
+""κύριο"", ""προφορά"", ""πρωτεύον"", "πρωτεύον κείμενο"".
 
-Formatos hexadecimales aceptados: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, `"#rrggbbaa"`.
+Αποδεκτές μορφές δεκαεξαδικού: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, "#rrggbbaa"`.
 
 ---
 
-## Colores de fondo
+## Χρώματα φόντου
 
-Estos anulan el color "Bg" de la paleta con algo más interesante.
+Αυτά αντικαθιστούν το χρώμα «Bg» της παλέτας με κάτι πιο ενδιαφέρον.
 
 ```go
 // solid color — three ways to say the same thing
@@ -156,14 +156,14 @@ a.SetBackgroundGradient("#1e1e2e", "#6d28d9", "radial")
 a.SetBackgroundRainbow()
 ```
 
-La opción del arco iris circula lentamente con el tiempo y sigue llamando a `Invalidate()`
-automáticamente para controlar la animación.
+Η επιλογή του ουράνιου τόξου ανακυκλώνεται αργά με την πάροδο του χρόνου και συνεχίζει να καλεί "Invalidate()".
+αυτόματα για να οδηγήσετε το κινούμενο σχέδιο.
 
 ---
 
-## Escala de fuente
+## Κλίμακα γραμματοσειράς
 
-Haz que todo el texto sea más grande o más pequeño globalmente.
+Κάντε όλο το κείμενο μεγαλύτερο ή μικρότερο παγκοσμίως.
 
 ```go
 a.SetFontScale(1.1)  // 10% bigger — good for accessibility
@@ -171,13 +171,13 @@ a.SetFontScale(1.2)  // 20% bigger
 a.SetFontScale(0.9)  // a bit smaller
 ```
 
-Llame después de `proton.New()` y antes de `a.Run()`. `1.0` es el valor predeterminado.
+Καλέστε μετά το «proton.New()» και πριν το «a.Run()». Το "1.0" είναι η προεπιλογή.
 
 ---
 
-## Widget de selección de temas en vivo
+## Γραφικό στοιχείο επιλογής ζωντανού θέματος
 
-Permita que los usuarios elijan su propio tema en tiempo de ejecución. Suelte esto en cualquier ventana de configuración.
+Επιτρέψτε στους χρήστες να επιλέξουν το δικό τους θέμα κατά την εκτέλεση. Ρίξτε το σε οποιοδήποτε παράθυρο ρυθμίσεων.
 
 ```go
 type UI struct {
@@ -187,14 +187,14 @@ type UI struct {
 proton.ThemePicker(ctx, &u.picker, a)
 ```
 
-El selector muestra las 46 paletas integradas con cuatro muestras de color cada una.
-Al hacer clic en uno, se aplica inmediatamente a la aplicación en ejecución.
+Το εργαλείο επιλογής εμφανίζει και τις 46 ενσωματωμένες παλέτες με τέσσερα δείγματα χρωμάτων η καθεμία.
+Κάνοντας κλικ σε ένα, εφαρμόζεται αμέσως στην εφαρμογή που εκτελείται.
 
 ---
 
-## Ayudante de creación de paleta
+## Βοηθός MakePalette
 
-Si prefiere los enteros hexadecimales a la sintaxis literal de estructura:
+Εάν προτιμάτε τους δεκαεξαδικούς ακέραιους από την κυριολεκτική σύνταξη της δομής:
 
 ```go
 // MakePalette(bg, fg, primary, primaryFg uint32)
@@ -204,7 +204,7 @@ a.ApplyPalette(p)
 
 ---
 
-## AllPalettes: iterar sobre cada paleta incorporada
+## Όλες οι παλέτες — Επανάληψη σε κάθε ενσωματωμένη παλέτα
 
 ```go
 // proton.AllPalettes is []proton.NamedPalette
@@ -220,31 +220,31 @@ type NamedPalette struct {
 }
 ```
 
-Útil para crear selectores de temas personalizados, navegadores de paletas o simplemente
-imprimiendo los 46 nombres para ver qué hay disponible.
+Χρήσιμο για τη δημιουργία προσαρμοσμένων επιλογέων θεμάτων, προγραμμάτων περιήγησης παλέτας ή απλώς
+εκτύπωση και των 46 ονομάτων για να δείτε τι είναι διαθέσιμο.
 
 ---
 
-## Copiar y pegar paletas personalizadas
+## Αντιγραφή-Επικόλληση προσαρμοσμένων παλετών
 
-Algunos favoritos si no quieres elegir entre los integrados:
+Μερικά αγαπημένα αν δεν θέλετε να επιλέξετε από τα ενσωματωμένα:
 
-**GitHub Oscuro**```go
+**GitHub Dark**```go
 a.ThemeBuilder().Bg("#0d1117").Fg("#e6edf3").Primary("#1f6feb").PrimaryFg("#ffffff").Apply()
 ```
 
-**Hacker verde**```go
+**Hacker Green**```go
 a.ThemeBuilder().Bg("#000000").Fg("#00ff00").Primary("#008f11").PrimaryFg("#000000").Apply()
 ```
 
-**Océano de medianoche**```go
+**Μεσάνυχτα Ωκεανό**```go
 a.ThemeBuilder().Bg("#0f172a").Fg("#f8fafc").Primary("#38bdf8").PrimaryFg("#0f172a").Apply()
 ```
 
-**Papel caliente**```go
+**Ζεστό χαρτί**```go
 a.ThemeBuilder().Bg("#f5f0e8").Fg("#2c2416").Primary("#8b4513").PrimaryFg("#f5f0e8").Apply()
 ```
 
-**Ciberpunk**```go
+**Κυμπερπανκ**```go
 a.ThemeBuilder().Bg("#1a0b0b").Fg("#ff2a6d").Primary("#d1ff00").PrimaryFg("#000000").Apply()
 ```

@@ -1,12 +1,12 @@
-# Disposición
+# Διάταξη
 
-Los widgets se apilan verticalmente de forma predeterminada. Todo lo demás es voluntaria.
+Τα γραφικά στοιχεία στοιβάζονται κατακόρυφα από προεπιλογή. Όλα τα άλλα είναι opt-in.
 
 ---
 
-## Brecha: ponga espacio entre las cosas
+## Κενό — Βάλτε χώρο μεταξύ πραγμάτων
 
-La función de diseño más utilizada. Inserta un espacio vertical en blanco.
+Η πιο χρησιμοποιούμενη λειτουργία διάταξης. Εισάγει κενό κατακόρυφο χώρο.
 
 ```go
 proton.H4(ctx, "Section Title")
@@ -20,13 +20,13 @@ proton.H4(ctx, "Next Section")
 proton.Gap(ctx proton.Context, dp float32)
 ```
 
-8dp es una pequeña brecha. 16dp es medio. 24dp es grande. Esos tres cubren la mayoría de los casos.
+Το 8dp είναι ένα μικρό κενό. 16dp είναι μέτρια. Το 24dp είναι μεγάλο. Αυτά τα τρία καλύπτουν τις περισσότερες περιπτώσεις.
 
 ---
 
-## Fila - Lado a lado
+## Σειρά — Δίπλα δίπλα
 
-Coloca a los niños horizontalmente, de izquierda a derecha.
+Τοποθετεί τα παιδιά οριζόντια, από αριστερά προς τα δεξιά.
 
 ```go
 proton.Row(ctx,
@@ -36,7 +36,7 @@ proton.Row(ctx,
 )
 ```
 
-Cada niño es una `func(proton.Context)`. Llama a los widgets que quieras dentro de él.
+Κάθε παιδί είναι ένα «func(proton.Context)». Καλέστε ό,τι widget θέλετε μέσα σε αυτό.
 
 ```go
 proton.Row(ctx proton.Context, widgets ...func(proton.Context))
@@ -44,11 +44,11 @@ proton.Row(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## Columna: grupo vertical explícito
+## Στήλη — Ρητή κάθετη ομάδα
 
-Apila a los niños verticalmente como un grupo con nombre. Rara vez se necesita en el nivel superior
-(los widgets se apilan automáticamente), pero son útiles dentro de `Row` o `Split` cuando el
-El lado derecho debe tener varias cosas apiladas.
+Στοιβάζει τα παιδιά κάθετα ως ομάδα με όνομα. Σπάνια χρειάζεται στο κορυφαίο επίπεδο
+(τα γραφικά στοιχεία στοιβάζονται αυτόματα), αλλά χρήσιμα μέσα στη «Σειρά» ή στο «Διαίρεση» όταν το
+η δεξιά πλευρά πρέπει να είναι πολλά στοιβαγμένα πράγματα.
 
 ```go
 proton.Row(ctx,
@@ -72,10 +72,10 @@ proton.Column(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## RowSpread — Espacio entre
+## RowSpread — Διάστημα μεταξύ
 
-Como Row pero coloca el espacio horizontal sobrante entre los niños, empujando
-el primero hacia el borde izquierdo y el último hacia la derecha.
+Όπως το Row αλλά αφήνει εναπομείναν οριζόντιο διάστημα μεταξύ των παιδιών, σπρώχνοντας
+ο πρώτος στο αριστερό άκρο και ο τελευταίος στη δεξιά.
 
 ```go
 // title on the left, version on the right
@@ -91,9 +91,9 @@ proton.RowSpread(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## RowEnd: todo lo que está a la derecha
+## RowEnd — Όλα στα δεξιά
 
-Empuja a todos los niños hacia el borde derecho.
+Σπρώχνει όλα τα παιδιά στη δεξιά άκρη.
 
 ```go
 proton.RowEnd(ctx,
@@ -117,11 +117,11 @@ proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## GrowRow y GrowColumn: diseños elásticos
+## GrowRow και GrowColumn — Strechy Layouts
 
-Cuando un niño necesita llenar todo el espacio restante y los demás permanecen en su lugar
-tamaño natural, use `GrowRow` (horizontal) o `GrowColumn` (vertical) con
-`GrowItem` y `FixedItem`.
+Όταν ένα παιδί χρειάζεται να γεμίσει όλο τον υπόλοιπο χώρο και τα άλλα μένουν δικά τους
+φυσικό μέγεθος, χρησιμοποιήστε το "GrowRow" (οριζόντια) ή το "GrowColumn" (κάθετο) με
+"GrowItem" και "FixedItem".
 
 ```go
 // search bar: label fixed, input stretches, button fixed
@@ -140,8 +140,8 @@ proton.GrowRow(ctx,
 )
 ```
 
-`GrowItem` ocupa todo el espacio restante. `FixedItem` toma solo lo que necesita.
-Múltiples `GrowItem`s dividen el espacio restante de manera uniforme.
+Το "GrowItem" καταλαμβάνει όλο τον υπόλοιπο χώρο. Το "FixedItem" παίρνει μόνο ό,τι χρειάζεται.
+Πολλαπλά «GrowItem» χωρίζουν ομοιόμορφα τον υπόλοιπο χώρο.
 
 ```go
 proton.GrowRow(ctx proton.Context, children ...proton.FlexItem)
@@ -150,10 +150,10 @@ proton.GrowItem(ctx proton.Context, fn func(proton.Context)) proton.FlexItem
 proton.FixedItem(ctx proton.Context, fn func(proton.Context)) proton.FlexItem
 ```
 
-### FlexSpacer: separa a los hermanos
+### FlexSpacer — Απομακρύνετε τα αδέρφια
 
-Un espacio vacío y elástico. Colóquelo entre `FixedItem`s para empujarlos hacia el lado opuesto.
-bordes sin usar `RowSpread`.
+Ένας ελαστικός κενός χώρος. Τοποθετήστε το ανάμεσα στα «FixedItem» για να τα ωθήσετε στο αντίθετο
+άκρες χωρίς τη χρήση «RowSpread».
 
 ```go
 proton.GrowRow(ctx,
@@ -169,10 +169,10 @@ proton.FlexSpacer() proton.FlexItem
 
 ---
 
-## Dividir: paneles uno al lado del otro
+## Διαχωρισμός — Παράθυρα δίπλα-δίπλα
 
-Divide el ancho disponible entre dos secciones. `leftFraction` es la proporción
-el panel izquierdo obtiene, de 0,0 a 1,0.
+Χωρίζει το διαθέσιμο πλάτος σε δύο τμήματα. Το «αριστερό κλάσμα» είναι η αναλογία
+το αριστερό παράθυρο γίνεται από 0,0 σε 1,0.
 
 ```go
 proton.Split(ctx, 0.35,
@@ -191,9 +191,9 @@ proton.Split(ctx, 0.35,
 proton.Split(ctx proton.Context, leftFraction float32, left func(proton.Context), right func(proton.Context))
 ```
 
-### HSplit: superior e inferior
+### HSplit — Πάνω και κάτω
 
-Misma idea pero vertical.
+Ίδια ιδέα αλλά κάθετη.
 
 ```go
 proton.HSplit(ctx, 0.7,
@@ -206,10 +206,10 @@ proton.HSplit(ctx, 0.7,
 proton.HSplit(ctx proton.Context, topFraction float32, top func(proton.Context), bottom func(proton.Context))
 ```
 
-### ResizeSplit: el usuario puede arrastrar el divisor
+### ResizeSplit — Ο χρήστης μπορεί να σύρει το διαχωριστικό
 
-Como Split pero el usuario puede arrastrar el controlador entre los dos paneles para
-cambiar su tamaño. La `fracción predeterminada` es la posición inicial.
+Μου αρέσει το Split αλλά ο χρήστης μπορεί να σύρει τη λαβή ανάμεσα στα δύο παράθυρα σε
+αλλάξτε το μέγεθός τους. Το «defaultFraction» είναι η αρχική θέση.
 
 ```go
 type UI struct {
@@ -219,8 +219,8 @@ type UI struct {
 proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
 ```
 
-`ResizeSplitState.Fraction` comienza en 0 y se establece en `defaultFraction`
-en el primer cuadro. Después de eso, se recuerda la posición de arrastre del usuario.
+Το "ResizeSplitState.Fraction" ξεκινά από το 0 και ορίζεται σε "defaultFraction"
+στο πρώτο πλαίσιο. Στη συνέχεια απομνημονεύεται η θέση μεταφοράς του χρήστη.
 
 ```go
 proton.ResizeSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, left func(proton.Context), right func(proton.Context))
@@ -229,10 +229,10 @@ proton.ResizeHSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultF
 
 ---
 
-## Centro
+## Κέντρο
 
-Coloca el contenido en el centro del espacio disponible. Genial para estados vacíos
-y pantallas de carga.
+Τοποθετεί το περιεχόμενο στο κέντρο του διαθέσιμου χώρου. Ιδανικό για κενές πολιτείες
+και οθόνες φόρτωσης.
 
 ```go
 proton.Center(ctx, func(ctx proton.Context) {
@@ -246,9 +246,9 @@ proton.Center(ctx proton.Context, fn func(proton.Context))
 
 ---
 
-## Relleno
+## Γέμισμα
 
-### Almohadilla: los cuatro lados
+### Μαξιλάρι — Και οι τέσσερις πλευρές
 
 ```go
 proton.Pad(ctx, 16, func(ctx proton.Context) {
@@ -256,7 +256,7 @@ proton.Pad(ctx, 16, func(ctx proton.Context) {
 })
 ```
 
-### PadH: solo izquierda y derecha
+### PadH — Μόνο αριστερά και δεξιά
 
 ```go
 proton.PadH(ctx, 24, func(ctx proton.Context) {
@@ -264,7 +264,7 @@ proton.PadH(ctx, 24, func(ctx proton.Context) {
 })
 ```
 
-### PadV: solo arriba y abajo
+### PadV — Μόνο πάνω και κάτω
 
 ```go
 proton.PadV(ctx, 12, func(ctx proton.Context) {
@@ -272,9 +272,9 @@ proton.PadV(ctx, 12, func(ctx proton.Context) {
 })
 ```
 
-### PadSides: cada borde individualmente
+### PadSides — Κάθε άκρη ξεχωριστά
 
-Los argumentos son arriba, derecha, abajo, izquierda, en el mismo orden que el margen/relleno de CSS.
+Τα ορίσματα είναι πάνω, δεξιά, κάτω, αριστερά — ίδια σειρά με το περιθώριο/επένδυση CSS.
 
 ```go
 proton.PadSides(ctx, 8, 16, 8, 16, func(ctx proton.Context) {
@@ -291,10 +291,10 @@ proton.PadSides(ctx proton.Context, top, right, bottom, left float32, fn func(pr
 
 ---
 
-## Cuadrícula: cuadrícula de columnas fijas
+## Πλέγμα — Πλέγμα σταθερής στήλης
 
-Organiza a los niños en una cuadrícula con un número fijo de columnas. cada celda
-obtiene una parte igual del ancho disponible.
+Τακτοποιεί τα παιδιά σε ένα πλέγμα με σταθερό αριθμό στηλών. Κάθε κύτταρο
+παίρνει ίσο μερίδιο του διαθέσιμου πλάτους.
 
 ```go
 proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
@@ -306,8 +306,8 @@ proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
 )
 ```
 
-Las celdas se ajustan a nuevas filas automáticamente. Si la última fila tiene menos de
-Celdas `cols`, las ranuras restantes están vacías.
+Τα κελιά αναδιπλώνονται αυτόματα σε νέες σειρές. Αν η τελευταία σειρά έχει λιγότερα από
+κελιά "cols", οι υπόλοιπες υποδοχές είναι κενές.
 
 ```go
 proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Context))
@@ -315,10 +315,10 @@ proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Co
 
 ---
 
-## ZStack: dibuja cosas una encima de la otra
+## ZStack — Σχεδιάστε τα πράγματα το ένα πάνω στο άλλο
 
-Coloca múltiples widgets en capas en la misma posición. El primer niño está en el
-abajo; el último está arriba.
+Επίπεδα πολλαπλών γραφικών στοιχείων στην ίδια θέση. Το πρώτο παιδί είναι στο
+κάτω? το τελευταίο είναι στην κορυφή.
 
 ```go
 proton.ZStack(ctx,
@@ -341,7 +341,7 @@ proton.ZStack(ctx proton.Context, layers ...func(proton.Context))
 
 ---
 
-## MinSize y MaxWidth: restricciones de tamaño
+## MinSize και MaxWidth — Περιορισμοί μεγέθους
 
 ```go
 // at least 200dp wide and 48dp tall
@@ -362,11 +362,11 @@ proton.MinSize(ctx proton.Context, widthDp, heightDp float32, fn func(proton.Con
 proton.MaxWidth(ctx proton.Context, widthDp float32, fn func(proton.Context))
 ```
 
-Pase 0 para cualquier dimensión de `MinSize` para dejar ese eje sin restricciones.
+Περάστε το 0 για οποιαδήποτε διάσταση του "MinSize" για να αφήσετε αυτόν τον άξονα απεριόριστο.
 
 ---
 
-## Una aplicación típica de dos columnas
+## Μια τυπική εφαρμογή δύο στηλών
 
 ```go
 func draw(ctx proton.Context, u *UI) {

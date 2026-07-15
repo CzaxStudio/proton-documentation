@@ -14,12 +14,12 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-fonction main() {
-    a := proton.New("bonjour")
-    a.Window("Bonjour", 400, 200, func(ctx proton.Context) {
-        proton.H3(ctx, "Bonjour de Proton !")
+func main() {
+    a := proton.New("hello")
+    a.Window("Hello", 400, 200, func(ctx proton.Context) {
+        proton.H3(ctx, "Hello from Proton!")
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -38,25 +38,25 @@ import (
     "github.com/CzaxStudio/proton"
 )
 
-tapez la structure de l'interface utilisateur {
-    compte entier
-    inc proton.Cliquable
-    déc proton.Cliquable
-    réinitialiser le proton.Cliquable
+type UI struct {
+    count int
+    inc   proton.Clickable
+    dec   proton.Clickable
+    reset proton.Clickable
 }
 
-fonction main() {
+func main() {
     u := &UI{}
-    a := proton.New("compteur")
+    a := proton.New("counter")
     a.ApplyPalette(proton.NordPalette)
-    a.Window("Compteur", 320, 240, func(ctx proton.Context) {
+    a.Window("Counter", 320, 240, func(ctx proton.Context) {
         proton.Center(ctx, func(ctx proton.Context) {
             proton.H1(ctx, fmt.Sprintf("%d", u.count))
-            proton.Gap (ctx, 20)
+            proton.Gap(ctx, 20)
             proton.Row(ctx,
                 func(ctx proton.Context) {
                     proton.Pad(ctx, 4, func(ctx proton.Context) {
-                        si proton.OutlineButton(ctx, &u.dec, "−") {
+                        if proton.OutlineButton(ctx, &u.dec, "−") {
                             u.count--
                         }
                     })
@@ -64,7 +64,7 @@ fonction main() {
                 func(ctx proton.Context) { proton.Gap(ctx, 8) },
                 func(ctx proton.Context) {
                     proton.Pad(ctx, 4, func(ctx proton.Context) {
-                        si proton.Button(ctx, &u.inc, "+") {
+                        if proton.Button(ctx, &u.inc, "+") {
                             u.count++
                         }
                     })
@@ -80,7 +80,7 @@ fonction main() {
             )
         })
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -95,37 +95,37 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-tapez la structure de l'élément {
-    chaîne de texte
-    fait proton.Bool
+type item struct {
+    text string
+    done proton.Bool
 }
 
-tapez la structure de l'interface utilisateur {
-    proton d'entrée.Editeur
-    addBtn proton.Cliquable
-    articles []article
-    proton de défilement.Scrollable
+type UI struct {
+    input  proton.Editor
+    addBtn proton.Clickable
+    items  []item
+    scroll proton.Scrollable
 }
 
-fonction main() {
+func main() {
     u := &UI{}
     a := proton.New("todo")
     a.ApplyPalette(proton.CatppuccinPalette)
     a.Window("Todo", 420, 560, func(ctx proton.Context) {
         proton.H4(ctx, "Todo")
-        proton.Gap (ctx, 12)
+        proton.Gap(ctx, 12)
 
-// ajoute une ligne
+        // add row
         proton.GrowRow(ctx,
             proton.GrowItem(ctx, func(ctx proton.Context) {
-                proton.Input(ctx, &u.input, "Que faut-il faire ?")
+                proton.Input(ctx, &u.input, "What needs doing?")
             }),
             proton.FixedItem(ctx, func(ctx proton.Context) { proton.Gap(ctx, 8) }),
             proton.FixedItem(ctx, func(ctx proton.Context) {
                 proton.Pad(ctx, 4, func(ctx proton.Context) {
-                    if proton.Button(ctx, &u.addBtn, "Ajouter") {
-                        si t := u.input.Text(); t != "" {
-                            u.items = append(u.items, item{texte : t})
+                    if proton.Button(ctx, &u.addBtn, "Add") {
+                        if t := u.input.Text(); t != "" {
+                            u.items = append(u.items, item{text: t})
                             u.input.SetText("")
                         }
                     }
@@ -133,24 +133,24 @@ fonction main() {
             }),
         )
 
-proton.Gap (ctx, 8)
-        proton.Diviseur (ctx)
-        proton.Gap (ctx, 8)
+        proton.Gap(ctx, 8)
+        proton.Divider(ctx)
+        proton.Gap(ctx, 8)
 
-si len(u.items) == 0 {
+        if len(u.items) == 0 {
             proton.Center(ctx, func(ctx proton.Context) {
-                proton.Muted(ctx, "Rien ici. Ajoutez quelque chose ci-dessus.")
+                proton.Muted(ctx, "Nothing here. Add something above.")
             })
-            retour
+            return
         }
 
-proton.List(ctx, &u.scroll, len(u.items), func(ctx proton.Context, i int) {
+        proton.List(ctx, &u.scroll, len(u.items), func(ctx proton.Context, i int) {
             proton.PadV(ctx, 6, func(ctx proton.Context) {
                 proton.Checkbox(ctx, &u.items[i].done, u.items[i].text)
             })
         })
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -168,66 +168,66 @@ import (
     "github.com/CzaxStudio/proton"
 )
 
-tapez la structure de l'interface utilisateur {
-    email proton.Editeur
-    mot de passe proton.Editeur
-    soumettre un proton.Cliquable
-    chaîne errMsg
-    succès booléen
+type UI struct {
+    email    proton.Editor
+    password proton.Editor
+    submit   proton.Clickable
+    errMsg   string
+    success  bool
 }
 
-fonction main() {
+func main() {
     u := &UI{}
-    a := proton.New("connexion")
+    a := proton.New("login")
     a.ApplyPalette(proton.MidnightPalette)
-    a.Window("Connexion", 400, 360, func(ctx proton.Context) {
+    a.Window("Sign In", 400, 360, func(ctx proton.Context) {
         proton.Center(ctx, func(ctx proton.Context) {
             proton.MaxWidth(ctx, 300, func(ctx proton.Context) {
-                proton.H4(ctx, "Connexion")
-                proton.Gap (ctx, 24)
+                proton.H4(ctx, "Sign In")
+                proton.Gap(ctx, 24)
 
-proton.Label(ctx, "Email")
-                proton.Gap (ctx, 4)
-                proton.Input(ctx, &u.email, "vous@exemple.com")
-                proton.Gap (ctx, 12)
+                proton.Label(ctx, "Email")
+                proton.Gap(ctx, 4)
+                proton.Input(ctx, &u.email, "you@example.com")
+                proton.Gap(ctx, 12)
 
-proton.Label(ctx, "Mot de passe")
-                proton.Gap (ctx, 4)
-                proton.Input(ctx, &u.password, "mot de passe")
-                proton.Gap (ctx, 8)
+                proton.Label(ctx, "Password")
+                proton.Gap(ctx, 4)
+                proton.Input(ctx, &u.password, "password")
+                proton.Gap(ctx, 8)
 
-proton.ErrorText(ctx, u.errMsg)
-                si u.errMsg != "" {
-                    proton.Gap (ctx, 6)
+                proton.ErrorText(ctx, u.errMsg)
+                if u.errMsg != "" {
+                    proton.Gap(ctx, 6)
                 }
 
-si tu réussis {
-                    proton.SuccessText(ctx, "Connecté avec succès !")
-                    retour
+                if u.success {
+                    proton.SuccessText(ctx, "Signed in successfully!")
+                    return
                 }
 
-proton.Pad(ctx, 4, func(ctx proton.Context) {
-                    if proton.Button(ctx, &u.submit, "Connexion") {
-                        u.errMsg = valider(u.email.Text(), u.password.Text())
-                        si u.errMsg == "" {
-                            u.succès = vrai
+                proton.Pad(ctx, 4, func(ctx proton.Context) {
+                    if proton.Button(ctx, &u.submit, "Sign In") {
+                        u.errMsg = validate(u.email.Text(), u.password.Text())
+                        if u.errMsg == "" {
+                            u.success = true
                         }
                     }
                 })
             })
         })
     })
-    a.Exécuter()
+    a.Run()
 }
 
-func validate (e-mail, chaîne de mot de passe) chaîne {
-    si !strings.Contains(email, "@") {
-        return "Entrez une adresse e-mail valide."
+func validate(email, password string) string {
+    if !strings.Contains(email, "@") {
+        return "Enter a valid email address."
     }
-    si len(mot de passe) < 8 {
-        return "Le mot de passe doit comporter au moins 8 caractères."
+    if len(password) < 8 {
+        return "Password must be at least 8 characters."
     }
-    retourner ""
+    return ""
 }
 ```
 
@@ -246,63 +246,63 @@ import (
     "github.com/CzaxStudio/proton"
 )
 
-tapez Paramètres struct {
+type Settings struct {
     notifications proton.Bool
-    proton DarkMode.Bool
-    langage proton.Enum
-    fontSize proton.Float
-    saveBtn proton.Cliquable
-    proton grillé.ToastState
+    darkMode      proton.Bool
+    language      proton.Enum
+    fontSize      proton.Float
+    saveBtn       proton.Clickable
+    toast         proton.ToastState
 }
 
 import "time"
 
-fonction main() {
-    s := &Paramètres{}
-    s.fontSize.Value = 0,5
+func main() {
+    s := &Settings{}
+    s.fontSize.Value = 0.5
 
-a := proton.New("paramètres")
+    a := proton.New("settings")
     a.ApplyPalette(proton.DraculaPalette)
-    a.Window("Paramètres", 480, 520, func(ctx proton.Context) {
-        proton.H4(ctx, "Paramètres")
-        proton.Gap (ctx, 24)
+    a.Window("Settings", 480, 520, func(ctx proton.Context) {
+        proton.H4(ctx, "Settings")
+        proton.Gap(ctx, 24)
 
-proton.H6(ctx, "Apparence")
-        proton.Gap (ctx, 10)
-        proton.Toggle(ctx, &s.darkMode, "Mode sombre")
-        proton.Gap (ctx, 8)
-        proton.Label(ctx, fmt.Sprintf("Taille de police : %.0f%%", 80+s.fontSize.Value*40))
-        proton.Gap (ctx, 4)
+        proton.H6(ctx, "Appearance")
+        proton.Gap(ctx, 10)
+        proton.Toggle(ctx, &s.darkMode, "Dark mode")
+        proton.Gap(ctx, 8)
+        proton.Label(ctx, fmt.Sprintf("Font size: %.0f%%", 80+s.fontSize.Value*40))
+        proton.Gap(ctx, 4)
         proton.Slider(ctx, &s.fontSize)
-        proton.Gap (ctx, 24)
+        proton.Gap(ctx, 24)
 
-proton.H6(ctx, "Notifications")
-        proton.Gap (ctx, 10)
-        proton.Checkbox(ctx, &s.notifications, "Notifications par e-mail")
-        proton.Gap (ctx, 24)
+        proton.H6(ctx, "Notifications")
+        proton.Gap(ctx, 10)
+        proton.Checkbox(ctx, &s.notifications, "Email notifications")
+        proton.Gap(ctx, 24)
 
-proton.H6(ctx, "Langage")
-        proton.Gap (ctx, 10)
-        proton.RadioButton(ctx, &s.langue, "en", "anglais")
-        proton.Gap (ctx, 6)
-        proton.RadioButton(ctx, &s.langue, "es", "Español")
-        proton.Gap (ctx, 6)
-        proton.RadioButton(ctx, &s.langue, "fr", "Français")
-        proton.Gap (ctx, 28)
+        proton.H6(ctx, "Language")
+        proton.Gap(ctx, 10)
+        proton.RadioButton(ctx, &s.language, "en", "English")
+        proton.Gap(ctx, 6)
+        proton.RadioButton(ctx, &s.language, "es", "Español")
+        proton.Gap(ctx, 6)
+        proton.RadioButton(ctx, &s.language, "fr", "Français")
+        proton.Gap(ctx, 28)
 
-proton.RowEnd(ctx,
+        proton.RowEnd(ctx,
             func(ctx proton.Context) {
                 proton.Pad(ctx, 4, func(ctx proton.Context) {
-                    if proton.Button(ctx, &s.saveBtn, "Enregistrer les paramètres") {
-                        s.toast.Show("Paramètres enregistrés.", 2*time.Second)
+                    if proton.Button(ctx, &s.saveBtn, "Save Settings") {
+                        s.toast.Show("Settings saved.", 2*time.Second)
                     }
                 })
             },
         )
 
-proton.Toast(ctx, &s.toast)
+        proton.Toast(ctx, &s.toast)
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -322,47 +322,47 @@ import (
     "github.com/CzaxStudio/proton"
 )
 
-//go:intégrer le logo.png
-var logoOctets []octet
+//go:embed logo.png
+var logoBytes []byte
 
-tapez la structure de l'interface utilisateur {
-    compte entier
-    btn proton.Cliquable
-    proton grillé.ToastState
+type UI struct {
+    count int
+    btn   proton.Clickable
+    toast proton.ToastState
 }
 
-fonction main() {
+func main() {
     u := &UI{}
 
-a := proton.New("logoapp")
+    a := proton.New("logoapp")
     a.ApplyPalette(proton.NordPalette)
     a.SetLogoBytes(logoBytes)
 
-a.Window("Mon application", 420, 300, func(ctx proton.Context) {
-        // en-tête avec logo
+    a.Window("My App", 420, 300, func(ctx proton.Context) {
+        // header with logo
         proton.Row(ctx,
             func(ctx proton.Context) { proton.Logo(ctx, 36, 36) },
             func(ctx proton.Context) { proton.Gap(ctx, 10) },
-            func(ctx proton.Context) { proton.H5(ctx, "Mon application") },
+            func(ctx proton.Context) { proton.H5(ctx, "My App") },
         )
-        proton.Gap (ctx, 16)
-        proton.Diviseur (ctx)
-        proton.Gap (ctx, 16)
+        proton.Gap(ctx, 16)
+        proton.Divider(ctx)
+        proton.Gap(ctx, 16)
 
-proton.Label(ctx, fmt.Sprintf("Bouton cliqué %d fois", u.count))
-        proton.Gap (ctx, 10)
+        proton.Label(ctx, fmt.Sprintf("Button clicked %d times", u.count))
+        proton.Gap(ctx, 10)
         proton.Pad(ctx, 4, func(ctx proton.Context) {
-            if proton.Button(ctx, &u.btn, "Cliquez sur moi") {
+            if proton.Button(ctx, &u.btn, "Click me") {
                 u.count++
-                si u.count%5 == 0 {
-                    u.toast.Show(fmt.Sprintf("%d clics!", u.count), 2*time.Second)
+                if u.count%5 == 0 {
+                    u.toast.Show(fmt.Sprintf("%d clicks!", u.count), 2*time.Second)
                 }
             }
         })
 
-proton.Toast(ctx, &u.toast)
+        proton.Toast(ctx, &u.toast)
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 
@@ -379,50 +379,50 @@ package main
 
 import "github.com/CzaxStudio/proton"
 
-tapez la structure de l'interface utilisateur {
-    proton divisé.ResizeSplitState
-    proton de défilement.Scrollable
-    rowBtns [10]proton.Clickable
-    entier sélectionné
-    saveBtn proton.Cliquable
-    éditeur proton.Editor
-    proton grillé.ToastState
+type UI struct {
+    split    proton.ResizeSplitState
+    scroll   proton.Scrollable
+    rowBtns  [10]proton.Clickable
+    selected int
+    saveBtn  proton.Clickable
+    editor   proton.Editor
+    toast    proton.ToastState
 }
 
-var éléments = []chaîne{
-    "Projet Alpha", "Projet Bêta", "Projet Gamma",
-    « Notes de réunion », « Idées », « Carnet de retard »,
+var items = []string{
+    "Project Alpha", "Project Beta", "Project Gamma",
+    "Meeting Notes", "Ideas", "Backlog",
 }
 
 import "time"
 
-fonction main() {
-    u := &UI{sélectionné : 0}
-    u.editor.SetText("Sélectionnez un élément à gauche pour le modifier.")
+func main() {
+    u := &UI{selected: 0}
+    u.editor.SetText("Select an item on the left to edit it.")
 
-a := proton.New("deux volets")
+    a := proton.New("twopane")
     a.ApplyPalette(proton.TokyoNightPalette)
-    a.Window("Application à deux volets", 700, 500, func(ctx proton.Context) {
-        proton.ResizeSplit(ctx, &u.split, 0,30,
+    a.Window("Two-Pane App", 700, 500, func(ctx proton.Context) {
+        proton.ResizeSplit(ctx, &u.split, 0.30,
             func(ctx proton.Context) {
-                proton.H6(ctx, "Articles")
-                proton.Gap (ctx, 8)
-                proton.List(ctx, &u.scroll, len(articles), func(ctx proton.Context, i int) {
-                    bg := proton.RGB(0x1a1b26)
+                proton.H6(ctx, "Items")
+                proton.Gap(ctx, 8)
+                proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+                    bg  := proton.RGB(0x1a1b26)
                     hov := proton.RGB(0x24283b)
-                    si u.selected == je {
-                        bg = proton.RGB(0x364a82)
+                    if u.selected == i {
+                        bg  = proton.RGB(0x364a82)
                         hov = bg
                     }
                     proton.PadV(ctx, 2, func(ctx proton.Context) {
-                        si proton.HoverCard(ctx, &u.rowBtns[i], bg, hov, 5, func(ctx proton.Context) {
+                        if proton.HoverCard(ctx, &u.rowBtns[i], bg, hov, 5, func(ctx proton.Context) {
                             proton.PadV(ctx, 8, func(ctx proton.Context) {
                                 proton.PadH(ctx, 10, func(ctx proton.Context) {
-                                    proton.Label(ctx, éléments[i])
+                                    proton.Label(ctx, items[i])
                                 })
                             })
                         }) {
-                            u.selected = je
+                            u.selected = i
                         }
                     })
                 })
@@ -433,16 +433,16 @@ a := proton.New("deux volets")
                         func(ctx proton.Context) { proton.H6(ctx, items[u.selected]) },
                         func(ctx proton.Context) {
                             proton.Pad(ctx, 4, func(ctx proton.Context) {
-                                if proton.Button(ctx, &u.saveBtn, "Enregistrer") {
-                                    u.toast.Show("Enregistré.", 2*time.Second)
+                                if proton.Button(ctx, &u.saveBtn, "Save") {
+                                    u.toast.Show("Saved.", 2*time.Second)
                                 }
                             })
                         },
                     )
-                    proton.Gap (ctx, 12)
+                    proton.Gap(ctx, 12)
                     proton.GrowColumn(ctx,
                         proton.GrowItem(ctx, func(ctx proton.Context) {
-                            proton.TextArea(ctx, &u.editor, "Écrivez quelque chose...")
+                            proton.TextArea(ctx, &u.editor, "Write something...")
                         }),
                     )
                 })
@@ -450,7 +450,7 @@ a := proton.New("deux volets")
         )
         proton.Toast(ctx, &u.toast)
     })
-    a.Exécuter()
+    a.Run()
 }
 ```
 

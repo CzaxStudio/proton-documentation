@@ -1,7 +1,7 @@
 # Botones
 
 Los botones son la forma en que los usuarios le dicen a su aplicación que haga cosas. El protón tiene cuatro tipos,
-además de enlaces en los que se puede hacer clic y una forma de hacer que, literalmente, se pueda tocar cualquier cosa.
+además de enlaces en los que se puede hacer clic y una forma de hacer que, literalmente, cualquier cosa se pueda tocar.
 
 ---
 
@@ -33,9 +33,9 @@ usuario haga clic.
 ```go
 var save proton.Clickable
 
-protón.Pad(ctx, 8, func(ctx protón.Context) {
-    si proton.Button(ctx, &save, "Guardar") {
-        guardar()
+proton.Pad(ctx, 8, func(ctx proton.Context) {
+    if proton.Button(ctx, &save, "Save") {
+        doSave()
     }
 })
 ```
@@ -59,19 +59,19 @@ hacer, pero esa no es la acción principal.
 var save   proton.Clickable
 var cancel proton.Clickable
 
-protón.Fila(ctx,
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            si protón.OutlineButton(ctx, & cancelar, "Cancelar") {
-                manejarCancelar()
+proton.Row(ctx,
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.OutlineButton(ctx, &cancel, "Cancel") {
+                handleCancel()
             }
         })
     },
-    func(ctx protón.Context) { protón.Gap(ctx, 8) },
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            si proton.Button(ctx, &save, "Guardar") {
-                manejarGuardar()
+    func(ctx proton.Context) { proton.Gap(ctx, 8) },
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.Button(ctx, &save, "Save") {
+                handleSave()
             }
         })
     },
@@ -95,8 +95,8 @@ Un botón de solo ícono. Sin texto, solo un ícono. Común en barras de herrami
 // icon is a *proton.Icon — load one with widget.NewIcon() from gioui.org/widget
 var closeBtn proton.Clickable
 
-if proton.IconButton(ctx, &closeBtn, closeIcon, "Cerrar ventana") {
-    ganar.Cerrar()
+if proton.IconButton(ctx, &closeBtn, closeIcon, "Close window") {
+    win.Close()
 }
 ```
 
@@ -118,14 +118,14 @@ cualquier cosa donde una etiqueta de botón estándar no sea lo que desea.
 ```go
 var rowClick proton.Clickable
 
-si protón.Tappable(ctx, &rowClick, func(ctx protón.Context) {
-    protón.Card(ctx, protón.RGB(0x2a2a3e), 8, 12, func(ctx protón.Context) {
-        proton.Label(ctx, "Haga clic en cualquier lugar de esta tarjeta")
-        protón.Gap(ctx, 4)
-        proton.Muted(ctx, "Todo es un botón")
+if proton.Tappable(ctx, &rowClick, func(ctx proton.Context) {
+    proton.Card(ctx, proton.RGB(0x2a2a3e), 8, 12, func(ctx proton.Context) {
+        proton.Label(ctx, "Click anywhere on this card")
+        proton.Gap(ctx, 4)
+        proton.Muted(ctx, "The whole thing is a button")
     })
 }) {
-    println("se hizo clic en la tarjeta")
+    println("card clicked")
 }
 ```
 
@@ -143,8 +143,8 @@ Proton no abre las URL, solo le dice que el usuario hizo clic.
 ```go
 var githubLink proton.Clickable
 
-if proton.Link(ctx, &githubLink, "Ver en GitHub") {
-    openBrowser ("https://github.com/CzaxStudio/proton")
+if proton.Link(ctx, &githubLink, "View on GitHub") {
+    openBrowser("https://github.com/CzaxStudio/proton")
 }
 ```
 
@@ -153,8 +153,8 @@ if proton.Link(ctx, &githubLink, "Ver en GitHub") {
 ```go
 var termsLink proton.Clickable
 
-if proton.LinkSmall(ctx, &termsLink, "Términos de servicio") {
-    mostrar términos()
+if proton.LinkSmall(ctx, &termsLink, "Terms of service") {
+    showTerms()
 }
 ```
 
@@ -175,19 +175,19 @@ type UI struct {
     cancel proton.Clickable
 }
 
-protón.RowEnd(ctx,
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            if protón.OutlineButton(ctx, &u.cancel, "Cancelar") {
-                manejarCancelar()
+proton.RowEnd(ctx,
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.OutlineButton(ctx, &u.cancel, "Cancel") {
+                handleCancel()
             }
         })
     },
-    func(ctx protón.Context) { protón.Gap(ctx, 8) },
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            if proton.Button(ctx, &u.save, "Guardar cambios") {
-                manejarGuardar()
+    func(ctx proton.Context) { proton.Gap(ctx, 8) },
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.Button(ctx, &u.save, "Save changes") {
+                handleSave()
             }
         })
     },
@@ -206,22 +206,22 @@ type UI struct {
     saveFile proton.Clickable
 }
 
-protón.Fila(ctx,
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            if proton.Button(ctx, &u.newFile, "Nuevo") { handleNew() }
+proton.Row(ctx,
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.Button(ctx, &u.newFile, "New") { handleNew() }
         })
     },
-    func(ctx protón.Context) { protón.Gap(ctx, 4) },
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            if proton.OutlineButton(ctx, &u.openFile, "Abrir") { handleOpen() }
+    func(ctx proton.Context) { proton.Gap(ctx, 4) },
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.OutlineButton(ctx, &u.openFile, "Open") { handleOpen() }
         })
     },
-    func(ctx protón.Context) { protón.Gap(ctx, 4) },
-    func(ctx protón.Contexto) {
-        protón.Pad(ctx, 4, func(ctx protón.Context) {
-            if proton.OutlineButton(ctx, &u.saveFile, "Guardar") { handleSave() }
+    func(ctx proton.Context) { proton.Gap(ctx, 4) },
+    func(ctx proton.Context) {
+        proton.Pad(ctx, 4, func(ctx proton.Context) {
+            if proton.OutlineButton(ctx, &u.saveFile, "Save") { handleSave() }
         })
     },
 )
@@ -235,18 +235,18 @@ type UI struct {
     chosen int
 }
 
-elementos := []cadena{"Alfa", "Beta", "Gamma", "Delta"}
+items := []string{"Alpha", "Beta", "Gamma", "Delta"}
 
-proton.List(ctx, &u.scroll, len(elementos), func(ctx proton.Context, i int) {
-    si protón.Tappable(ctx, &u.rows[i], func(ctx protón.Context) {
-        protón.PadV(ctx, 10, func(ctx protón.Context) {
-            protón.PadH(ctx, 12, func(ctx protón.Context) {
-                protón.Label(ctx, elementos[i])
+proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+    if proton.Tappable(ctx, &u.rows[i], func(ctx proton.Context) {
+        proton.PadV(ctx, 10, func(ctx proton.Context) {
+            proton.PadH(ctx, 12, func(ctx proton.Context) {
+                proton.Label(ctx, items[i])
             })
         })
     }) {
-        u.elegido = yo
+        u.chosen = i
     }
-    protón.Divisor(ctx)
+    proton.Divider(ctx)
 })
 ```

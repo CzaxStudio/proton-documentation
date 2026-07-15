@@ -19,9 +19,8 @@ proton.H6(ctx, "Small heading with dignity")
 Escala del mismo tamaño que HTML. H1 es para cuando realmente quieres hacer una declaración.
 H4 y H5 son los que utilizarás con más frecuencia.
 
-**Firma** (igual para los seis):
-```ir
-proton.H1(ctx proton.Context, cadena de texto)
+**Firma** (igual para los seis):```go
+proton.H1(ctx proton.Context, text string)
 ```
 
 ---
@@ -96,11 +95,11 @@ y peso directamente.
 // 28sp, coral red, bold
 proton.Text(ctx, "Warning!", 28, proton.RGB(0xf87171), true)
 
-// 16sp, azul personalizado, sin negrita
-protón.Text(ctx, "Nota", 16, protón.RGB(0x60a5fa), falso)
+// 16sp, custom blue, not bold
+proton.Text(ctx, "Note", 16, proton.RGB(0x60a5fa), false)
 
-// pasa color.NRGBA{} para usar el color de texto predeterminado del tema
-proton.Text(ctx, "Peso normal, mayor", 20, proton.NRGBA{}, false)
+// pass color.NRGBA{} to use the theme's default text color
+proton.Text(ctx, "Normal weight, bigger", 20, proton.NRGBA{}, false)
 ```
 
 ```go
@@ -160,14 +159,14 @@ proton.RGB(0x4ecdc4)   // teal
 proton.RGB(0xffffff)   // white
 proton.RGB(0x000000)   // black
 
-// con alfa explícito (0 = transparente, 255 = completamente opaco)
-proton.RGBA(255, 107, 107, 255) // mismo coral, completamente opaco
-proton.RGBA(0, 0, 0, 128) // 50% negro transparente
+// with explicit alpha (0 = transparent, 255 = fully opaque)
+proton.RGBA(255, 107, 107, 255)  // same coral, fully opaque
+proton.RGBA(0, 0, 0, 128)        // 50% transparent black
 
-// desde una cadena hexadecimal CSS
-protón.HexColor("#ff6b6b")
-proton.HexColor("ff6b6b") // el hash es opcional
-proton.HexColor("#f66") // la taquigrafía también funciona
+// from a CSS hex string
+proton.HexColor("#ff6b6b")
+proton.HexColor("ff6b6b")   // hash is optional
+proton.HexColor("#f66")     // shorthand also works
 ```
 
 ---

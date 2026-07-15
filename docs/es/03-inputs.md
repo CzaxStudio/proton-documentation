@@ -12,9 +12,9 @@ type UI struct {
     email proton.Editor
 }
 
-proton.Input(ctx, &u.email, "tu@correo electrónico.com")
+proton.Input(ctx, &u.email, "your@email.com")
 
-// lee el valor en cualquier momento
+// read the value any time
 fmt.Println(u.email.Text())
 ```
 
@@ -36,7 +36,7 @@ type UI struct {
     bio proton.Editor
 }
 
-proton.TextArea(ctx, &u.bio, "Cuéntanos algo...")
+proton.TextArea(ctx, &u.bio, "Tell us something...")
 
 fmt.Println(u.bio.Text())
 ```
@@ -57,10 +57,10 @@ type UI struct {
     search proton.SearchState
 }
 
-q := proton.SearchInput(ctx, &u.search, "Buscar notas...")
+q := proton.SearchInput(ctx, &u.search, "Search notes...")
 
-//filtra tus datos usando q
-filtrado: = filtro (elementos, q)
+// filter your data using q
+filtered := filter(items, q)
 ```
 
 `SearchState` contiene tanto el `Editor` como el botón interno de borrar: declarar
@@ -82,14 +82,14 @@ type UI struct {
     agreed proton.Bool
 }
 
-if proton.Checkbox(ctx, &u.agreed, "He leído los términos y condiciones") {
-    // acaba de cambiar: u.agreed.Value es el nuevo estado
-    fmt.Println("ahora:", u.agreed.Value)
+if proton.Checkbox(ctx, &u.agreed, "I have read the terms and conditions") {
+    // just changed — u.agreed.Value is the new state
+    fmt.Println("now:", u.agreed.Value)
 }
 
-// leerlo en cualquier momento sin importar el evento de cambio
-si está de acuerdo.Valor {
-    proton.SuccessText(ctx, "Gracias por aceptar (sabemos que no lo leíste)")
+// read it any time without caring about the change event
+if u.agreed.Value {
+    proton.SuccessText(ctx, "Thanks for agreeing (we know you didn't read it)")
 }
 ```
 
@@ -109,11 +109,11 @@ type UI struct {
     darkMode proton.Bool
 }
 
-if proton.Toggle(ctx, &u.darkMode, "Modo oscuro") {
-    si u.darkMode.Value {
-        aplicarDarkTheme()
-    } más {
-        aplicarLightTheme()
+if proton.Toggle(ctx, &u.darkMode, "Dark mode") {
+    if u.darkMode.Value {
+        applyDarkTheme()
+    } else {
+        applyLightTheme()
     }
 }
 ```
@@ -135,13 +135,13 @@ type UI struct {
     plan proton.Enum
 }
 
-protón.RadioButton(ctx, &u.plan, "gratis", "Gratis")
-protón.Gap(ctx, 4)
-proton.RadioButton(ctx, &u.plan, "pro", "Pro — $9/mes")
-protón.Gap(ctx, 4)
-proton.RadioButton(ctx, &u.plan, "equipo", "Equipo — $29/mes")
+proton.RadioButton(ctx, &u.plan, "free", "Free")
+proton.Gap(ctx, 4)
+proton.RadioButton(ctx, &u.plan, "pro", "Pro — $9/mo")
+proton.Gap(ctx, 4)
+proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 
-fmt.Println("seleccionado:", u.plan.Value) // "gratis", "pro" o "equipo"
+fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
 Devuelve "verdadero" en el marco en el que cambia la selección.
@@ -174,11 +174,11 @@ type UI struct {
     vol proton.Float
 }
 
-v := protón.Slider(ctx, &u.vol)
+v := proton.Slider(ctx, &u.vol)
 
-// v es 0,0–1,0, escalarlo
-volumen := int(v * 100)
-proton.Caption(ctx, fmt.Sprintf("Volumen: %d%%", volumen))
+// v is 0.0–1.0, scale it
+volume := int(v * 100)
+proton.Caption(ctx, fmt.Sprintf("Volume: %d%%", volume))
 ```
 
 También puedes leer el valor directamente del estado:
@@ -222,13 +222,13 @@ type UI struct {
     rating proton.NumberState
 }
 
-// números enteros
-cantidad: = protón.NumberInput(ctx, &u.qty, 1, 99, 1)
-proton.Caption(ctx, fmt.Sprintf("%d elementos", int(cantidad)))
+// integers
+qty := proton.NumberInput(ctx, &u.qty, 1, 99, 1)
+proton.Caption(ctx, fmt.Sprintf("%d items", int(qty)))
 
-// flota
-calificación: = protón.NumberInput(ctx, &u.rating, 0, 5, 0.5)
-proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", clasificación))
+// floats
+rating := proton.NumberInput(ctx, &u.rating, 0, 5, 0.5)
+proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
 ```
 
 ```go
@@ -249,10 +249,10 @@ type UI struct {
     lang proton.SelectBoxState
 }
 
-idiomas := []cadena{"Ir", "Rust", "Zig", "C", "Python"}
+langs := []string{"Go", "Rust", "Zig", "C", "Python"}
 
-i := protón.SelectBox(ctx, &u.lang, idiomas)
-proton.Caption(ctx, "Elegiste: "+idiomas[i])
+i := proton.SelectBox(ctx, &u.lang, langs)
+proton.Caption(ctx, "You picked: "+langs[i])
 ```
 
 El menú desplegable aparece debajo del botón cuando se hace clic. Haciendo clic en cualquier lugar
@@ -280,42 +280,42 @@ type SettingsUI struct {
     save     proton.Clickable
 }
 
-func dibujarConfiguración(ctx proton.Context, s *ConfiguraciónUI) {
-    protón.H4(ctx, "Configuración")
-    protón.Gap(ctx, 20)
+func drawSettings(ctx proton.Context, s *SettingsUI) {
+    proton.H4(ctx, "Settings")
+    proton.Gap(ctx, 20)
 
-proton.Label(ctx, "Nombre de usuario")
-    protón.Gap(ctx, 4)
-    proton.Input(ctx, &s.nombre de usuario, "tu_nombre de usuario")
-    protón.Gap(ctx, 14)
+    proton.Label(ctx, "Username")
+    proton.Gap(ctx, 4)
+    proton.Input(ctx, &s.username, "your_username")
+    proton.Gap(ctx, 14)
 
-protón.Label(ctx, "Bio")
-    protón.Gap(ctx, 4)
-    proton.TextArea(ctx, &s.bio, "Cuéntanos algo...")
-    protón.Gap(ctx, 20)
+    proton.Label(ctx, "Bio")
+    proton.Gap(ctx, 4)
+    proton.TextArea(ctx, &s.bio, "Tell us something...")
+    proton.Gap(ctx, 20)
 
-proton.Toggle(ctx, &s.dark, "modo oscuro")
-    protón.Gap(ctx, 8)
-    proton.Checkbox(ctx, &s.notify, "Notificaciones por correo electrónico")
-    protón.Gap(ctx, 20)
+    proton.Toggle(ctx, &s.dark, "Dark mode")
+    proton.Gap(ctx, 8)
+    proton.Checkbox(ctx, &s.notify, "Email notifications")
+    proton.Gap(ctx, 20)
 
-protón.Label(ctx, "Plan")
-    protón.Gap(ctx, 6)
-    protón.RadioButton(ctx, &s.plan, "gratis", "Gratis")
-    protón.Gap(ctx, 4)
-    proton.RadioButton(ctx, &s.plan, "pro", "Pro ($9/mes)")
-    protón.Gap(ctx, 4)
-    proton.RadioButton(ctx, &s.plan, "equipo", "Equipo ($29/mes)")
-    protón.Gap(ctx, 20)
+    proton.Label(ctx, "Plan")
+    proton.Gap(ctx, 6)
+    proton.RadioButton(ctx, &s.plan, "free", "Free")
+    proton.Gap(ctx, 4)
+    proton.RadioButton(ctx, &s.plan, "pro", "Pro ($9/mo)")
+    proton.Gap(ctx, 4)
+    proton.RadioButton(ctx, &s.plan, "team", "Team ($29/mo)")
+    proton.Gap(ctx, 20)
 
-proton.Label(ctx, fmt.Sprintf("Volumen: %.0f%%", s.volume.Value*100))
-    protón.Gap(ctx, 4)
-    protón.Control deslizante (ctx, &s.volumen)
-    protón.Gap(ctx, 28)
+    proton.Label(ctx, fmt.Sprintf("Volume: %.0f%%", s.volume.Value*100))
+    proton.Gap(ctx, 4)
+    proton.Slider(ctx, &s.volume)
+    proton.Gap(ctx, 28)
 
-protón.Pad(ctx, 4, func(ctx protón.Context) {
-        if proton.Button(ctx, &s.save, "Guardar configuración") {
-            manejarGuardar(es)
+    proton.Pad(ctx, 4, func(ctx proton.Context) {
+        if proton.Button(ctx, &s.save, "Save Settings") {
+            handleSave(s)
         }
     })
 }

@@ -19,9 +19,8 @@ proton.H6(ctx, "Small heading with dignity")
 Même échelle de taille que HTML. H1 est destiné lorsque vous voulez vraiment faire une déclaration.
 H4 et H5 sont ceux que vous utiliserez le plus souvent.
 
-**Signature** (identique pour les six) :
-``` va
-proton.H1(ctx proton.Context, chaîne de texte)
+**Signature** (identique pour les six) :```go
+proton.H1(ctx proton.Context, text string)
 ```
 
 ---
@@ -96,18 +95,18 @@ et le poids directement.
 // 28sp, coral red, bold
 proton.Text(ctx, "Warning!", 28, proton.RGB(0xf87171), true)
 
-// 16sp, bleu personnalisé, pas gras
-proton.Text(ctx, "Note", 16, proton.RGB(0x60a5fa), faux)
+// 16sp, custom blue, not bold
+proton.Text(ctx, "Note", 16, proton.RGB(0x60a5fa), false)
 
-// passe color.NRGBA{} pour utiliser la couleur de texte par défaut du thème
-proton.Text(ctx, "Poids normal, plus gros", 20, proton.NRGBA{}, false)
+// pass color.NRGBA{} to use the theme's default text color
+proton.Text(ctx, "Normal weight, bigger", 20, proton.NRGBA{}, false)
 ```
 
 ```go
 proton.Text(ctx proton.Context, s string, size float32, c color.NRGBA, bold bool)
 ```
 
-La taille est en `sp` (pixels mis à l'échelle). La taille du corps par défaut est d'environ 14 sp.
+La taille est en `sp` (pixels mis à l'échelle). La taille du corps par défaut est d'environ 14sp.
 
 ---
 
@@ -160,14 +159,14 @@ proton.RGB(0x4ecdc4)   // teal
 proton.RGB(0xffffff)   // white
 proton.RGB(0x000000)   // black
 
-// avec alpha explicite (0 = transparent, 255 = entièrement opaque)
-proton.RGBA(255, 107, 107, 255) // même corail, entièrement opaque
-proton.RGBA(0, 0, 0, 128) // 50% noir transparent
+// with explicit alpha (0 = transparent, 255 = fully opaque)
+proton.RGBA(255, 107, 107, 255)  // same coral, fully opaque
+proton.RGBA(0, 0, 0, 128)        // 50% transparent black
 
-// à partir d'une chaîne hexadécimale CSS
+// from a CSS hex string
 proton.HexColor("#ff6b6b")
-proton.HexColor("ff6b6b") // le hachage est facultatif
-proton.HexColor("#f66") // le raccourci fonctionne également
+proton.HexColor("ff6b6b")   // hash is optional
+proton.HexColor("#f66")     // shorthand also works
 ```
 
 ---

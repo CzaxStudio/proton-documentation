@@ -33,14 +33,14 @@ type UI struct {
     btn proton.Clickable
 }
 
-tu := &UI{}
+u := &UI{}
 
-a.Window("Aplicación", 400, 300, func(win proton.Context) {
-    proton.Label(win, "Haga clic en el botón").
-    protón.Gap(ganar, 8)
-    protón.Pad(win, 8, func(ganar proton.Context) {
-        if proton.Button(win, &u.btn, "Hola") {
-            println("¡hola!")
+a.Window("App", 400, 300, func(win proton.Context) {
+    proton.Label(win, "Click the button.")
+    proton.Gap(win, 8)
+    proton.Pad(win, 8, func(win proton.Context) {
+        if proton.Button(win, &u.btn, "Hello") {
+            println("hello!")
         }
     })
 })

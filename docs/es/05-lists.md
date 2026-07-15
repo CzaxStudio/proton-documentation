@@ -14,10 +14,10 @@ type UI struct {
     scroll proton.Scrollable
 }
 
-elementos := []string{"Manzanas", "Plátanos", "Cerezas", "Durian (por qué)"}
+items := []string{"Apples", "Bananas", "Cherries", "Durian (why)"}
 
-proton.List(ctx, &u.scroll, len(elementos), func(ctx proton.Context, i int) {
-    protón.Label(ctx, elementos[i])
+proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+    proton.Label(ctx, items[i])
 })
 ```
 
@@ -62,13 +62,13 @@ type UI struct {
 }
 
 proton.Scroll(ctx, &u.scroll, func(ctx proton.Context) {
-    proton.H5(ctx, "Una página muy larga")
-    protón.Gap(ctx, 8)
-    proton.Label(ctx, "Párrafo uno...")
-    protón.Gap(ctx, 8)
-    proton.Label(ctx, "Párrafo dos...")
-    protón.Gap(ctx, 8)
-    // tantos widgets como necesites
+    proton.H5(ctx, "A very long page")
+    proton.Gap(ctx, 8)
+    proton.Label(ctx, "Paragraph one...")
+    proton.Gap(ctx, 8)
+    proton.Label(ctx, "Paragraph two...")
+    proton.Gap(ctx, 8)
+    // as many widgets as you need
 })
 ```
 
@@ -90,7 +90,7 @@ type UI struct {
     scroll proton.Scrollable
 }
 
-proton.TextView(ctx, &u.scroll, texto largo)
+proton.TextView(ctx, &u.scroll, longText)
 ```
 
 ```go
@@ -113,11 +113,11 @@ type UI struct {
     logText   string
 }
 
-// agregar a logText desde cualquier lugar
-u.logText += fmt.Sprintf("[OK] Paso completado en %s\n", time.Now().Format("15:04:05"))
+// append to logText from anywhere
+u.logText += fmt.Sprintf("[OK] Step completed at %s\n", time.Now().Format("15:04:05"))
 
-// dibujarlo: se desplaza automáticamente a la última línea
-protón.LogView(ctx, &u.logScroll, u.logText)
+// draw it — auto-scrolls to the latest line
+proton.LogView(ctx, &u.logScroll, u.logText)
 ```
 
 ```go
@@ -163,16 +163,16 @@ type Contact struct {
     Email string
 }
 
-proton.List(ctx, &u.scroll, len(contactos), func(ctx proton.Context, i int) {
-    c := contactos[i]
-    protón.PadV(ctx, 10, func(ctx protón.Context) {
-        protón.PadH(ctx, 12, func(ctx protón.Context) {
-            protón.Label(ctx, c.Nombre)
-            protón.Gap(ctx, 3)
-            protón.Silenciado(ctx, c.Email)
+proton.List(ctx, &u.scroll, len(contacts), func(ctx proton.Context, i int) {
+    c := contacts[i]
+    proton.PadV(ctx, 10, func(ctx proton.Context) {
+        proton.PadH(ctx, 12, func(ctx proton.Context) {
+            proton.Label(ctx, c.Name)
+            proton.Gap(ctx, 3)
+            proton.Muted(ctx, c.Email)
         })
     })
-    protón.Divisor(ctx)
+    proton.Divider(ctx)
 })
 ```
 
@@ -185,24 +185,24 @@ type UI struct {
     scroll   proton.Scrollable
 }
 
-proton.List(ctx, &u.scroll, len(elementos), func(ctx proton.Context, i int) {
-    bg := protón.RGB(0x2e3440)
-    hov := protón.RGB(0x3b4252)
-    si u.seleccionado == i {
-        bg = protón.RGB(0x4c566a)
+proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
+    bg  := proton.RGB(0x2e3440)
+    hov := proton.RGB(0x3b4252)
+    if u.selected == i {
+        bg  = proton.RGB(0x4c566a)
         hov = bg
     }
-    protón.PadV(ctx, 2, func(ctx protón.Context) {
-        si proton.HoverCard(ctx, &u.rows[i], bg, hov, 6, func(ctx proton.Context) {
-            protón.PadV(ctx, 10, func(ctx protón.Context) {
-                protón.PadH(ctx, 12, func(ctx protón.Context) {
-                    proton.Label(ctx, elementos[i].Nombre)
-                    protón.Gap(ctx, 2)
-                    protón.Silenciado(ctx, elementos[i].Sub)
+    proton.PadV(ctx, 2, func(ctx proton.Context) {
+        if proton.HoverCard(ctx, &u.rows[i], bg, hov, 6, func(ctx proton.Context) {
+            proton.PadV(ctx, 10, func(ctx proton.Context) {
+                proton.PadH(ctx, 12, func(ctx proton.Context) {
+                    proton.Label(ctx, items[i].Name)
+                    proton.Gap(ctx, 2)
+                    proton.Muted(ctx, items[i].Sub)
                 })
             })
         }) {
-            u.seleccionado = i
+            u.selected = i
         }
     })
 })
@@ -229,7 +229,7 @@ proton.Card(ctx, proton.RGB(0x1e1e2e), 10, 0, func(ctx proton.Context) {
 
 ## Actuación
 
-`List` y `HList` usan renderizado virtual: solo los elementos visibles obtienen su
+`List` y `HList` usan representación virtual: solo los elementos visibles obtienen su
 función de dibujo llamada. Una porción de 50.000 elementos se desplaza a 60 fps sin
 rompiendo a sudar.
 

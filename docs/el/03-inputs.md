@@ -1,11 +1,11 @@
-# Entrées
+# Είσοδοι
 
-Champs de texte, cases à cocher, bascules, boutons radio, curseurs, steppers numériques,
-des listes déroulantes et un champ de recherche avec un bouton clair.
+Πεδία κειμένου, πλαίσια ελέγχου, εναλλαγές, κουμπιά επιλογής, ρυθμιστικά, βήματα αριθμών,
+αναπτυσσόμενα μενού και ένα πεδίο αναζήτησης με ένα κουμπί διαγραφής.
 
 ---
 
-## Entrée — Champ de texte sur une seule ligne
+## Είσοδος — Πεδίο κειμένου μονής γραμμής
 
 ```go
 type UI struct {
@@ -18,7 +18,7 @@ proton.Input(ctx, &u.email, "your@email.com")
 fmt.Println(u.email.Text())
 ```
 
-Le deuxième argument est le texte d'espace réservé affiché lorsque le champ est vide.
+Το δεύτερο όρισμα είναι το κείμενο κράτησης θέσης που εμφανίζεται όταν το πεδίο είναι κενό.
 
 ```go
 proton.Input(ctx proton.Context, state *proton.Editor, hint string)
@@ -26,10 +26,10 @@ proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## TextArea — Champ de texte multiligne
+## Περιοχή κειμένου — Πεδίο κειμένου πολλών γραμμών
 
-Identique à Input mais l'utilisateur peut appuyer sur Entrée pour ajouter des lignes. Bon pour les messages,
-notes, quelque chose de plus long qu’une seule ligne.
+Το ίδιο με το Input αλλά ο χρήστης μπορεί να πατήσει Enter για να προσθέσει γραμμές. Καλό για μηνύματα,
+σημειώσεις, οτιδήποτε μεγαλύτερο από μία γραμμή.
 
 ```go
 type UI struct {
@@ -47,10 +47,10 @@ proton.TextArea(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## Entrée de recherche
+## Εισαγωγή αναζήτησης
 
-Un champ de texte avec une icône de recherche à gauche et un bouton d'effacement (×) qui
-apparaît quand il y a quelque chose à effacer. Renvoie la chaîne de requête actuelle.
+Ένα πεδίο κειμένου με ένα εικονίδιο αναζήτησης στα αριστερά και ένα κουμπί διαγραφής (×).
+εμφανίζεται όταν υπάρχει κάτι να καθαριστεί. Επιστρέφει την τρέχουσα συμβολοσειρά ερωτήματος.
 
 ```go
 type UI struct {
@@ -63,8 +63,8 @@ q := proton.SearchInput(ctx, &u.search, "Search notes...")
 filtered := filter(items, q)
 ```
 
-`SearchState` contient à la fois l'éditeur et le bouton d'effacement interne — déclarez
-un dans votre structure, ne le construisez pas vous-même.
+Το «SearchState» κρατά και το «Editor» και το εσωτερικό κουμπί διαγραφής — δήλωση
+ένα στη δομή σας, μην το κατασκευάζετε μόνοι σας.
 
 ```go
 proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder string) string
@@ -72,10 +72,10 @@ proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder st
 
 ---
 
-## Case à cocher
+## Πλαίσιο ελέγχου
 
-Renvoie « true » sur le cadre sur lequel l'utilisateur le fait basculer. Lire la valeur actuelle à partir de
-`état.Valeur`.
+Επιστρέφει "true" στο πλαίσιο που ο χρήστης το αλλάζει. Διαβάστε την τρέχουσα τιμή από
+«κατάσταση.Αξία».
 
 ```go
 type UI struct {
@@ -99,10 +99,10 @@ proton.Checkbox(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## Basculer
+## Εναλλαγή
 
-Un interrupteur marche/arrêt de style matériel. Même API que Checkbox, look différent.
-À utiliser pour les paramètres qui prennent effet immédiatement plutôt que de nécessiter un bouton Enregistrer.
+Διακόπτης on/off σε στυλ υλικού. Ίδιο API με το πλαίσιο ελέγχου, διαφορετική εμφάνιση.
+Χρησιμοποιήστε το για ρυθμίσεις που τίθενται σε ισχύ αμέσως αντί να χρειάζεστε ένα κουμπί Αποθήκευση.
 
 ```go
 type UI struct {
@@ -124,11 +124,11 @@ proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## Bouton Radio
+## RadioButton
 
-Pour choisir exactement une option dans un groupe. Tous les boutons d'un partage de groupe
-un champ d'état `proton.Enum`. La « clé » est ce qui est stocké dans « group.Value »
-lorsque cette option est sélectionnée.
+Για να επιλέξετε ακριβώς μία επιλογή από μια ομάδα. Όλα τα κουμπιά σε μια κοινή χρήση ομάδας
+ένα πεδίο κατάστασης «proton.Enum». Το "κλειδί" είναι αυτό που αποθηκεύεται στο "group.Value".
+όταν είναι επιλεγμένη αυτή η επιλογή.
 
 ```go
 type UI struct {
@@ -144,13 +144,13 @@ proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
-Renvoie « true » sur le cadre où la sélection change.
+Επιστρέφει "true" στο πλαίσιο που αλλάζει η επιλογή.
 
 ```go
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
 ```
 
-Boutons radio horizontaux — placez-les dans « Row » :
+Οριζόντια κουμπιά επιλογής — τυλίξτε τα σε `Σειρά`:
 
 ```go
 proton.Row(ctx,
@@ -164,10 +164,10 @@ proton.Row(ctx,
 
 ---
 
-## Curseur
+## Slider
 
-Une poignée de déplacement horizontale pour une valeur comprise entre 0,0 et 1,0. Adaptez-le à
-quelle que soit la gamme dont vous avez besoin.
+Μια οριζόντια λαβή μεταφοράς για μια τιμή μεταξύ 0,0 και 1,0. Κλιμακώστε το σε
+όποιο εύρος χρειάζεστε.
 
 ```go
 type UI struct {
@@ -181,7 +181,7 @@ volume := int(v * 100)
 proton.Caption(ctx, fmt.Sprintf("Volume: %d%%", volume))
 ```
 
-Vous pouvez également lire la valeur directement à partir de l'état :
+Μπορείτε επίσης να διαβάσετε την τιμή απευθείας από την κατάσταση:
 
 ```go
 proton.Slider(ctx, &u.vol)
@@ -194,10 +194,10 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ---
 
-## Barre de progression
+## Γραμμή προόδου
 
-Non interactif – affiche simplement la progression sous forme de barre remplie. Passer un flotteur32
-entre 0,0 et 1,0.
+Μη διαδραστικό — δείχνει απλώς την πρόοδο ως γεμάτη γραμμή. Περάστε ένα float32
+μεταξύ 0,0 και 1,0.
 
 ```go
 proton.ProgressBar(ctx, 0.65)    // 65% done
@@ -211,10 +211,10 @@ proton.ProgressBar(ctx proton.Context, progress float32)
 
 ---
 
-##NuméroEntrée
+## Εισαγωγή αριθμού
 
-Un stepper avec les boutons − et +. Gère la taille min, max et pas pour vous.
-Renvoie la valeur actuelle.
+Ένα stepper με κουμπιά − και +. Χειρίζεται το ελάχιστο, μέγιστο και μέγεθος βήματος για εσάς.
+Επιστρέφει την τρέχουσα τιμή.
 
 ```go
 type UI struct {
@@ -235,14 +235,14 @@ proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
 proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step float64) float64
 ```
 
-La valeur commence à « min » lors de la première utilisation. Étape >= 1 affiche des nombres entiers ;
-l'étape < 1 affiche deux décimales.
+Η τιμή ξεκινά από «min» κατά την πρώτη χρήση. Βήμα >= 1 εμφανίζει ακέραιους αριθμούς.
+Το βήμα < 1 εμφανίζει δύο δεκαδικά ψηφία.
 
 ---
 
-## Boîte de sélection
+## SelectBox
 
-Un sélecteur déroulant. Renvoie l'index de l'option actuellement sélectionnée.
+Ένας αναπτυσσόμενος επιλογέας. Επιστρέφει το ευρετήριο της τρέχουσας επιλεγμένης επιλογής.
 
 ```go
 type UI struct {
@@ -255,19 +255,19 @@ i := proton.SelectBox(ctx, &u.lang, langs)
 proton.Caption(ctx, "You picked: "+langs[i])
 ```
 
-La liste déroulante apparaît sous le bouton lorsque vous cliquez dessus. En cliquant n'importe où
-à l'extérieur, il le ferme.
+Το αναπτυσσόμενο μενού εμφανίζεται κάτω από το κουμπί όταν κάνετε κλικ. Κάνοντας κλικ οπουδήποτε
+έξω το κλείνει.
 
 ```go
 proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int
 ```
 
-`Selected` commence à 0. Cochez `state.Selected >= 0` si vous avez besoin de savoir
-si l'utilisateur a explicitement choisi quelque chose.
+Το "Selected" ξεκινάει στο 0. Επιλέξτε "state.Selected >= 0" εάν χρειάζεται να γνωρίζετε
+εάν ο χρήστης έχει επιλέξει ρητά κάτι.
 
 ---
 
-## Exemple de formulaire complet
+## Παράδειγμα πλήρους φόρμας
 
 ```go
 type SettingsUI struct {

@@ -1,13 +1,13 @@
-# Ejemplos
+# Παραδείγματα
 
-Programas completos que puedes copiar, pegar y ejecutar. Cada uno de estos compila
-y funciona como está.
+Ολοκληρώστε προγράμματα που μπορείτε να αντιγράψετε, να επικολλήσετε και να εκτελέσετε. Κάθε μία από αυτές τις μεταγλωττίσεις
+και λειτουργεί ως έχει.
 
 ---
 
-## Hola Mundo
+## Γεια Κόσμε
 
-El mínimo absoluto. Abra una ventana, muestre algo de texto.
+Το απόλυτο ελάχιστο. Ανοίξτε ένα παράθυρο, εμφανίστε λίγο κείμενο.
 
 ```go
 package main
@@ -25,10 +25,10 @@ func main() {
 
 ---
 
-## Encimera
+## Μετρητής
 
-Un número que sube y baja cuando haces clic en los botones. Demuestra
-el patrón fundamental: estado en una estructura, botones dentro de envoltorios de diseño.
+Ένας αριθμός που ανεβαίνει και κατεβαίνει όταν κάνετε κλικ στα κουμπιά. επιδεικνύει
+το θεμελιώδες μοτίβο: κατάσταση σε μια δομή, κουμπιά μέσα στα περιτυλίγματα διάταξης.
 
 ```go
 package main
@@ -86,9 +86,9 @@ func main() {
 
 ---
 
-## Lista de tareas pendientes
+## Λίστα εργασιών
 
-La demostración que todo marco de UI debe tener por ley.
+Το demo που κάθε πλαίσιο διεπαφής χρήστη υποχρεούται να έχει από το νόμο.
 
 ```go
 package main
@@ -156,9 +156,9 @@ func main() {
 
 ---
 
-## Formulario de inicio de sesión
+## Φόρμα σύνδεσης
 
-Un formulario con campos de correo electrónico/contraseña y validación en línea.
+Μια φόρμα με πεδία email/κωδικού πρόσβασης και ενσωματωμένη επικύρωση.
 
 ```go
 package main
@@ -233,10 +233,10 @@ func validate(email, password string) string {
 
 ---
 
-## Panel de configuración
+## Πίνακας ρυθμίσεων
 
-Alternadores, botones de opción, un control deslizante y un botón para guardar. El tipo de panel
-que vive en cada aplicación.
+Εναλλαγή, κουμπιά επιλογής, ένα ρυθμιστικό και ένα κουμπί αποθήκευσης. Το είδος του πάνελ
+που ζει σε κάθε εφαρμογή.
 
 ```go
 package main
@@ -308,9 +308,9 @@ func main() {
 
 ---
 
-## Aplicación con logotipo
+## Εφαρμογή με λογότυπο
 
-Cargue un logotipo desde un archivo incrustado y muéstrelo en el encabezado.
+Φορτώστε ένα λογότυπο από ένα ενσωματωμένο αρχείο και εμφανίστε το στην κεφαλίδα.
 
 ```go
 package main
@@ -366,13 +366,13 @@ func main() {
 }
 ```
 
-Coloque `logo.png` en el mismo directorio que `main.go` antes de ejecutar.
+Τοποθετήστε το "logo.png" στον ίδιο κατάλογο με το "main.go" πριν από την εκτέλεση.
 
 ---
 
-## Aplicación de dos paneles
+## Εφαρμογή δύο παραθύρων
 
-Una división de contenido y barra lateral de tamaño variable: el patrón de diseño detrás de la mayoría de las aplicaciones de escritorio.
+Ένας διαχωρισμός πλαϊνής γραμμής/περιεχομένου με δυνατότητα αλλαγής μεγέθους — το μοτίβο διάταξης πίσω από τις περισσότερες εφαρμογές επιφάνειας εργασίας.
 
 ```go
 package main
@@ -456,9 +456,9 @@ func main() {
 
 ---
 
-## Ejecutando los ejemplos integrados
+## Εκτέλεση των ενσωματωμένων παραδειγμάτων
 
-El repositorio viene con 9 aplicaciones de ejemplo completas:
+Το repo αποστέλλεται με 9 ολοκληρωμένα παραδείγματα εφαρμογών:
 
 ```bash
 go run ./examples/hello        # one window, one label
@@ -472,5 +472,5 @@ go run ./examples/logoapp      # custom logo with go:embed
 go run ./examples/kitchen      # stress test for all features
 ```
 
-Primero ejecute "showcase": es la demostración visual más completa de lo que
-El protón puede hacerlo.
+Εκτελέστε πρώτα το "showcase" — είναι η πιο ολοκληρωμένη οπτική επίδειξη του τι
+Το πρωτόνιο μπορεί να κάνει.

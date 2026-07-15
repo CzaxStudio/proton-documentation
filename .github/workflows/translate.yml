@@ -30,6 +30,7 @@ jobs:
           import os
           import glob
           import time
+          import re
           from deep_translator import GoogleTranslator
 
           # French, Spanish, and Chinese
@@ -57,30 +58,36 @@ jobs:
                   with open(file_path, 'r', encoding='utf-8') as f:
                       content = f.read()
                   
-                  # Split text into paragraphs
-                  paragraphs = content.split('\n\n')
-                  translated_paragraphs = []
+                  # 1. Safely split the document by Markdown code blocks first
+                  parts = re.split(r'(```[\s\S]*?```)', content)
+                  translated_parts = []
                   
-                  for para in paragraphs:
-                      if para.strip():
-                          try:
-                              # Skip code blocks
-                              if para.strip().startswith('```') or para.strip().startswith('import '):
-                                  translated_paragraphs.append(para)
-                              else:
-                                  translated_text = translator.translate(para)
-                                  translated_paragraphs.append(translated_text if translated_text is not None else para)
-                                  
-                                  # SAFETY PAUSE: Wait half a second to prevent Google from blocking us
-                                  time.sleep(0.5)
-                          except Exception as e:
-                              print(f"Skipped a paragraph due to error: {e}")
-                              translated_paragraphs.append(para)
-                              time.sleep(1) # Wait a little longer if we hit an error
+                  for part in parts:
+                      # 2. If it is a code block, DO NOT translate it. Keep it exactly the same.
+                      if part.startswith('```'):
+                          translated_parts.append(part)
                       else:
-                          translated_paragraphs.append('')
+                          # 3. If it is regular text, split into paragraphs and translate
+                          paragraphs = part.split('\n\n')
+                          trans_paras = []
                           
-                  translated_content = '\n\n'.join(translated_paragraphs)
+                          for para in paragraphs:
+                              if para.strip():
+                                  try:
+                                      translated_text = translator.translate(para)
+                                      trans_paras.append(translated_text if translated_text is not None else para)
+                                      time.sleep(0.5)
+                                  except Exception as e:
+                                      print(f"Skipped a paragraph due to error: {e}")
+                                      trans_paras.append(para)
+                                      time.sleep(1)
+                              else:
+                                  trans_paras.append('')
+                                  
+                          translated_parts.append('\n\n'.join(trans_paras))
+                          
+                  # 4. Glue the untouched code and translated text back together
+                  translated_content = "".join(translated_parts)
                   
                   with open(output_path, 'w', encoding='utf-8') as f:
                       f.write(translated_content)

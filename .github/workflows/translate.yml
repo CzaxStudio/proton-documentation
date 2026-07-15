@@ -69,7 +69,9 @@ jobs:
                               if para.strip().startswith('```') or para.strip().startswith('import '):
                                   translated_paragraphs.append(para)
                               else:
-                                  translated_paragraphs.append(translator.translate(para))
+                                  translated_text = translator.translate(para)
+                                  # SAFETY NET: If translator fails and returns None, use original text
+                                  translated_paragraphs.append(translated_text if translated_text is not None else para)
                           except Exception as e:
                               print(f"Skipped a paragraph due to error: {e}")
                               translated_paragraphs.append(para)

@@ -1,6 +1,6 @@
 # Proton Docs
 
-**Read the documentation in your language:** [English](./docs/00-getting-started.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/00-getting-started.md) | [Français](./docs/fr/00-getting-started.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/00-getting-started.md)
+**Read the documentation in your language:** [English](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/00-getting-started.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/00-getting-started.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/00-getting-started.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/00-getting-started.md)
 
 
 Copyright © [CzaxStudio](https://github.com/CzaxStudio/) (Nexus-Proton)

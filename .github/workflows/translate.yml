@@ -33,27 +33,27 @@ jobs:
           import re
           from deep_translator import GoogleTranslator
 
-          # French, Spanish, and Chinese
+          # Spanish, French, and Greek
           languages = {
-              'es': 'spanish',
-              'fr': 'french',
-              'zh': 'chinese (simplified)'
+              'es': 'es',
+              'fr': 'fr',
+              'el': 'el'
           }
 
           # Find all English markdown files directly in the docs/ folder
           md_files = [f for f in glob.glob('docs/*.md') if os.path.isfile(f)]
 
-          for lang_code, lang_name in languages.items():
-              target_dir = os.path.join('docs', lang_code)
+          for folder_name, api_code in languages.items():
+              target_dir = os.path.join('docs', folder_name)
               os.makedirs(target_dir, exist_ok=True)
               
-              translator = GoogleTranslator(source='en', target=lang_code)
+              translator = GoogleTranslator(source='en', target=api_code)
               
               for file_path in md_files:
                   filename = os.path.basename(file_path)
                   output_path = os.path.join(target_dir, filename)
                   
-                  print(f"Translating {filename} to {lang_name}...")
+                  print(f"Translating {filename} to {api_code}...")
                   
                   with open(file_path, 'r', encoding='utf-8') as f:
                       content = f.read()

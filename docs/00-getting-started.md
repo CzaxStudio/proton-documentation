@@ -1,6 +1,6 @@
 # Getting Started
 
-You want to build a desktop app in Go. You've come to the right place.
+You want to build a desktop app in Go. You've come to the right place!
 
 ---
 

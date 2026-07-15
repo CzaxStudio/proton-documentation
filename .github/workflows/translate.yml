@@ -29,21 +29,19 @@ jobs:
           python - <<'EOF'
           import os
           import glob
+          import time
           from deep_translator import GoogleTranslator
 
+          # Keeping only Spanish and French per your request
           languages = {
               'es': 'spanish',
-              'fr': 'french',
-              'de': 'german',
-              'ja': 'japanese',
-              'zh': 'chinese (simplified)'
+              'fr': 'french'
           }
 
           # Find all English markdown files directly in the docs/ folder
           md_files = [f for f in glob.glob('docs/*.md') if os.path.isfile(f)]
 
           for lang_code, lang_name in languages.items():
-              # Create language subfolder if it doesn't exist
               target_dir = os.path.join('docs', lang_code)
               os.makedirs(target_dir, exist_ok=True)
               
@@ -58,23 +56,26 @@ jobs:
                   with open(file_path, 'r', encoding='utf-8') as f:
                       content = f.read()
                   
-                  # Split text into paragraphs to safely handle length limits
+                  # Split text into paragraphs
                   paragraphs = content.split('\n\n')
                   translated_paragraphs = []
                   
                   for para in paragraphs:
                       if para.strip():
                           try:
-                              # If it's a code block or technical syntax, skip translation
+                              # Skip code blocks
                               if para.strip().startswith('```') or para.strip().startswith('import '):
                                   translated_paragraphs.append(para)
                               else:
                                   translated_text = translator.translate(para)
-                                  # SAFETY NET: If translator fails and returns None, use original text
                                   translated_paragraphs.append(translated_text if translated_text is not None else para)
+                                  
+                                  # SAFETY PAUSE: Wait half a second to prevent Google from blocking us
+                                  time.sleep(0.5)
                           except Exception as e:
                               print(f"Skipped a paragraph due to error: {e}")
                               translated_paragraphs.append(para)
+                              time.sleep(1) # Wait a little longer if we hit an error
                       else:
                           translated_paragraphs.append('')
                           

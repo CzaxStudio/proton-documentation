@@ -1,6 +1,6 @@
 #Androïde
 
-Créez des applications Android avec Proton !
+Créez des applications Android à l'aide de Proton !
 
 Les applications Proton fonctionnent sur Android via la prise en charge Android native de Gio.
 Le même code qui s'exécute sur votre bureau s'exécute sur Android — pas de réécriture,

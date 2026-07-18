@@ -1,11 +1,11 @@
-# Entrées
+# 输入
 
-Champs de texte, cases à cocher, bascules, boutons radio, curseurs, steppers numériques,
-des listes déroulantes et un champ de recherche avec un bouton clair.
+文本字段、复选框、切换开关、单选按钮、滑块、数字步进器、
+下拉菜单和带有清除按钮的搜索字段。
 
 ---
 
-## Entrée — Champ de texte sur une seule ligne
+## 输入 — 单行文本字段
 
 ```go
 type UI struct {
@@ -18,7 +18,7 @@ proton.Input(ctx, &u.email, "your@email.com")
 fmt.Println(u.email.Text())
 ```
 
-Le deuxième argument est le texte d'espace réservé affiché lorsque le champ est vide.
+第二个参数是字段为空时显示的占位符文本。
 
 ```go
 proton.Input(ctx proton.Context, state *proton.Editor, hint string)
@@ -26,10 +26,10 @@ proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## TextArea — Champ de texte multiligne
+## TextArea — 多行文本字段
 
-Identique à Input mais l'utilisateur peut appuyer sur Entrée pour ajouter des lignes. Bon pour les messages,
-notes, quelque chose de plus long qu’une seule ligne.
+与输入相同，但用户可以按 Enter 键添加行。适合留言，
+注释，任何比单行更长的东西。
 
 ```go
 type UI struct {
@@ -47,10 +47,10 @@ proton.TextArea(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## Entrée de recherche
+## 搜索输入
 
-Un champ de texte avec une icône de recherche à gauche et un bouton d'effacement (×) qui
-apparaît quand il y a quelque chose à effacer. Renvoie la chaîne de requête actuelle.
+左侧带有搜索图标和一个清除 (×) 按钮的文本字段
+当有东西需要清除时出现。返回当前的查询字符串。
 
 ```go
 type UI struct {
@@ -63,8 +63,8 @@ q := proton.SearchInput(ctx, &u.search, "Search notes...")
 filtered := filter(items, q)
 ```
 
-`SearchState` contient à la fois l'éditeur et le bouton d'effacement interne — déclarez
-un dans votre structure, ne le construisez pas vous-même.
+“SearchState”同时包含“Editor”和内部清除按钮 - 声明
+一个在你的结构中，不要自己构建它。
 
 ```go
 proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder string) string
@@ -72,10 +72,10 @@ proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder st
 
 ---
 
-## Case à cocher
+## 复选框
 
-Renvoie « true » sur le cadre sur lequel l'utilisateur le fait basculer. Lire la valeur actuelle à partir de
-`état.Valeur`.
+在用户切换的框架上返回“true”。读取当前值
+`状态.值`。
 
 ```go
 type UI struct {
@@ -99,10 +99,10 @@ proton.Checkbox(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## Basculer
+## 切换
 
-Un interrupteur marche/arrêt de style matériel. Même API que Checkbox, look différent.
-À utiliser pour les paramètres qui prennent effet immédiatement plutôt que de nécessiter un bouton Enregistrer.
+材质风格的开关。与 Checkbox 相同的 API，但外观不同。
+用于立即生效而不需要“保存”按钮的设置。
 
 ```go
 type UI struct {
@@ -124,11 +124,11 @@ proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## Bouton Radio
+## 单选按钮
 
-Pour avoir choisi exactement une option dans un groupe. Tous les boutons d'un partage de groupe
-un champ d'état `proton.Enum`. La « clé » est ce qui est stocké dans « group.Value »
-lorsque cette option est sélectionnée.
+用于从一组中准确选择一个选项。组中的所有按钮共享
+一个“proton.Enum”状态字段。 “key”是存储在“group.Value”中的内容
+当选择该选项时。
 
 ```go
 type UI struct {
@@ -144,13 +144,13 @@ proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
-Renvoie « true » sur le cadre où la sélection change.
+在选择更改的框架上返回“true”。
 
 ```go
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
 ```
 
-Boutons radio horizontaux — placez-les dans « Row » :
+水平单选按钮 - 将它们包裹在“Row”中：
 
 ```go
 proton.Row(ctx,
@@ -164,10 +164,10 @@ proton.Row(ctx,
 
 ---
 
-## Curseur
+＃＃ 滑块
 
-Une poignée de déplacement horizontale pour une valeur comprise entre 0,0 et 1,0. Adaptez-le à
-quelle que soit la gamme dont vous avez besoin.
+水平拖动手柄的值介于 0.0 和 1.0 之间。将其缩放至
+无论您需要什么范围。
 
 ```go
 type UI struct {
@@ -181,7 +181,7 @@ volume := int(v * 100)
 proton.Caption(ctx, fmt.Sprintf("Volume: %d%%", volume))
 ```
 
-Vous pouvez également lire la valeur directement à partir de l'état :
+您还可以直接从状态读取值：
 
 ```go
 proton.Slider(ctx, &u.vol)
@@ -194,10 +194,10 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ---
 
-## Barre de progression
+## 进度条
 
-Non interactif – affiche simplement la progression sous forme de barre remplie. Passer un flotteur32
-entre 0,0 et 1,0.
+不是交互式的——只是将进度显示为填充条。传递一个 float32
+0.0 到 1.0 之间。
 
 ```go
 proton.ProgressBar(ctx, 0.65)    // 65% done
@@ -211,10 +211,10 @@ proton.ProgressBar(ctx proton.Context, progress float32)
 
 ---
 
-##NuméroEntrée
+## 数字输入
 
-Un stepper avec les boutons − et +. Gère la taille min, max et pas pour vous.
-Renvoie la valeur actuelle.
+带有 - 和 + 按钮的步进器。为您处理最小、最大和步长。
+返回当前值。
 
 ```go
 type UI struct {
@@ -235,14 +235,14 @@ proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
 proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step float64) float64
 ```
 
-La valeur commence à « min » lors de la première utilisation. Étape >= 1 affiche des nombres entiers ;
-l'étape < 1 affiche deux décimales.
+第一次使用时该值从“min”开始。 Step >= 1 显示整数；
+步骤 < 1 显示两位小数。
 
 ---
 
-## Boîte de sélection
+## 选择框
 
-Un sélecteur déroulant. Renvoie l'index de l'option actuellement sélectionnée.
+下拉选择器。返回当前选定选项的索引。
 
 ```go
 type UI struct {
@@ -255,19 +255,19 @@ i := proton.SelectBox(ctx, &u.lang, langs)
 proton.Caption(ctx, "You picked: "+langs[i])
 ```
 
-La liste déroulante apparaît sous le bouton lorsque vous cliquez dessus. En cliquant n'importe où
-à l'extérieur, il le ferme.
+单击时，下拉菜单将出现在按钮下方。单击任意位置
+外面它关闭它。
 
 ```go
 proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int
 ```
 
-`Selected` commence à 0. Cochez `state.Selected >= 0` si vous avez besoin de savoir
-si l'utilisateur a explicitement choisi quelque chose.
+`Selected` 从 0 开始。如果需要知道，请检查 `state.Selected >= 0`
+用户是否明确选择了某些内容。
 
 ---
 
-## Exemple de formulaire complet
+## 完整表格示例
 
 ```go
 type SettingsUI struct {

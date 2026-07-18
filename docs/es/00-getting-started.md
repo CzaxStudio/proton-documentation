@@ -1,6 +1,6 @@
 # Empezando
 
-Quieres crear una aplicación de escritorio en Go. Has venido al lugar correcto.
+Quieres crear una aplicación de escritorio en Go. Has venido al lugar correcto
 
 ---
 

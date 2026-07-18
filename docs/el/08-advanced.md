@@ -34,7 +34,7 @@ proton.Toast(ctx proton.Context, state *proton.ToastState)
 
 ## Overlay / Modal
 
-Ένα σκοτεινό φόντο με κεντρικό περιεχόμενο πάνω από όλα.
+Ένα σκοτεινό φόντο με κεντραρισμένο περιεχόμενο πάνω από όλα.
 
 ```go
 type UI struct {
@@ -90,7 +90,7 @@ proton.Overlay(ctx proton.Context, state *proton.OverlayState, content func(prot
 ```
 
 Η "Επικάλυψη" δεν αντλεί τίποτα όταν το "state.Visible" είναι ψευδές, επομένως μπορείτε να το καλέσετε
-κάθε πλαίσιο χωρίς καμία συνθήκη περιτυλίγματος.
+κάθε πλαίσιο χωρίς καμία προϋπόθεση τυλίγματος.
 
 ---
 
@@ -105,7 +105,7 @@ proton.OnKey(ctx, proton.ModCtrl|proton.ModShift, "N", func() { newFile() })
 proton.OnKey(ctx, proton.ModNone, proton.KeyEscape, func() { closeDialog() })
 ```
 
-Καλέστε «OnKey» μέσα στη συνάρτηση κλήρωσης. Καταγράφει τη συντόμευση για αυτό
+Καλέστε το «OnKey» μέσα στη συνάρτηση κλήρωσης. Καταγράφει τη συντόμευση για αυτό
 πλαίσιο. Εφόσον η συνάρτηση σχεδίασης εκτελεί κάθε καρέ, οι συντομεύσεις παραμένουν ενεργές ως
 όσο το παράθυρο είναι ανοιχτό.
 

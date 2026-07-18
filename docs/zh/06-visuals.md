@@ -1,13 +1,13 @@
-# Οπτικά γραφικά στοιχεία
+# 视觉小部件
 
-Σχήματα, κάρτες, εικόνες, σήματα, δαχτυλίδια προόδου, πίνακες, είδωλα — τα πράγματα
-που κάνουν την εφαρμογή σας να μοιάζει σαν να έχει σχεδιαστεί επίτηδες.
+形状、卡片、图像、徽章、进度环、表格、头像——这些东西
+让您的应用程序看起来像是专门设计的。
 
 ---
 
-## Διαιρέτης
+## 分频器
 
-Ένας λεπτός οριζόντιος κανόνας. Χρησιμοποιήστε το μεταξύ των τμημάτων.
+A thin horizontal rule. Use it between sections.
 
 ```go
 proton.H5(ctx, "Section One")
@@ -23,9 +23,9 @@ proton.H5(ctx, "Section Two")
 proton.Divider(ctx proton.Context)
 ```
 
-### LabeledDivider
+### 标签分隔符
 
-Ίδιο με το Divider αλλά με κεντραρισμένη ετικέτα κειμένου.
+与分隔符相同，但具有居中的文本标签。
 
 ```go
 proton.LabeledDivider(ctx, "Advanced Settings")
@@ -38,10 +38,10 @@ proton.LabeledDivider(ctx proton.Context, label string)
 
 ---
 
-## Rect
+## 矩形
 
-Ένα μονόχρωμο ορθογώνιο. Περάστε το 0 για πλάτος ή ύψος για να γεμίσετε το
-διαθέσιμο χώρο σε αυτόν τον άξονα.
+一个纯色矩形。传递 0 作为宽度或高度来填充
+该轴上的可用空间。
 
 ```go
 // 100dp wide, 4dp tall accent bar
@@ -58,9 +58,9 @@ proton.Rect(ctx, proton.RGB(0x1a1a2e), 0, 0)
 proton.Rect(ctx proton.Context, c color.NRGBA, widthDp, heightDp float32)
 ```
 
-### RoundRect
+### 圆角矩形
 
-Ίδιο με το Rect αλλά με στρογγυλεμένες γωνίες.
+与 Rect 相同，但具有圆角。
 
 ```go
 proton.RoundRect(ctx, proton.RGB(0x2a2a3e), 200, 60, 12)  // 12dp corner radius
@@ -73,10 +73,10 @@ proton.RoundRect(ctx proton.Context, c color.NRGBA, widthDp, heightDp, radiusDp 
 
 ---
 
-## Κάρτα
+＃＃ 卡片
 
-Περιεχόμενο μέσα σε ένα παραγεμισμένο, στρογγυλεμένο ορθογώνιο φόντο με μια λεπτή σκιά.
-Το κοντέινερ μετάβασης για ομαδοποίηση σχετικού περιεχομένου.
+带衬垫的圆角矩形背景内的内容带有微妙的阴影。
+用于对相关内容进行分组的首选容器。
 
 ```go
 proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
@@ -94,13 +94,13 @@ proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
 proton.Card(ctx proton.Context, bg color.NRGBA, cornerDp, padDp float32, content func(proton.Context))
 ```
 
-- `bg` — χρώμα φόντου
-- `cornerDp` — ακτίνα γωνίας (8–12 φαίνεται καλό για τα περισσότερα φύλλα)
-- «padDp» — γέμιση μεταξύ της άκρης της κάρτας και του περιεχομένου
+- `bg` — 背景颜色
+- `cornerDp` — 角半径（8-12 对于大多数卡片来说看起来不错）
+- `padDp` — 卡边缘和内容之间的填充
 
-### HoverCard
+### 悬停卡
 
-Μια κάρτα που αλλάζει χρώμα φόντου κατά την τοποθέτηση του δείκτη. Επιστρέφει true αν γίνει κλικ.
+悬停时更改背景颜色的卡片。如果单击则返回 true。
 
 ```go
 if proton.HoverCard(ctx, &u.cardBtn,
@@ -125,10 +125,10 @@ proton.HoverCard(ctx proton.Context, state *proton.Clickable, bg, hover color.NR
 
 ---
 
-## Σήμα
+＃＃ 徽章
 
-Ένα μικρό στρογγυλεμένο τσιπ με κείμενο. Για ετικέτες κατάστασης, ετικέτες, μετρήσεις, οτιδήποτε
-που χρειάζεται ένα χρωματιστό χάπι.
+带有文字的小圆形芯片。用于状态标签、标记、计数等任何内容
+需要一颗彩色药丸。
 
 ```go
 proton.Badge(ctx, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "stable")
@@ -140,7 +140,7 @@ proton.Badge(ctx, proton.RGB(0xbf616a), proton.RGB(0xeceff4), "failing")
 proton.Badge(ctx proton.Context, bg, fg color.NRGBA, text string)
 ```
 
-Σήματα στη σειρά:
+连续徽章：
 
 ```go
 proton.Row(ctx,
@@ -154,10 +154,10 @@ proton.Row(ctx,
 
 ---
 
-## StatusDot
+## 状态点
 
-Ένας μικρός έγχρωμος κύκλος. Ενδείξεις σε απευθείας σύνδεση/εκτός σύνδεσης, κατάσταση κατασκευής, οτιδήποτε
-που χρειάζεται μια έγχρωμη κουκκίδα δίπλα σε κάποιο κείμενο.
+一个小彩色圆圈。在线/离线指示器、构建状态等等
+需要在某些文本旁边有一个彩色点。
 
 ```go
 proton.Row(ctx,
@@ -173,10 +173,10 @@ proton.StatusDot(ctx proton.Context, c color.NRGBA, sizeDp float32)
 
 ---
 
-## Avatar
+## 头像
 
-Ένα κυκλικό σήμα που δείχνει τα αρχικά. Για φωτογραφίες προφίλ χρήστη όταν δεν υπάρχει εικόνα
-είναι διαθέσιμο — το οποίο είναι τις περισσότερες φορές.
+显示姓名缩写的圆形徽章。对于没有图像时的用户个人资料图片
+是可用的——这是大多数时候。
 
 ```go
 proton.Avatar(ctx, "AJ", proton.RGB(0x5e81ac), proton.RGB(0xeceff4), 40)
@@ -189,10 +189,10 @@ proton.Avatar(ctx proton.Context, initials string, bg, fg color.NRGBA, sizeDp fl
 
 ---
 
-## Δακτύλιος προόδου
+## 进度环
 
-Ένας κυκλικός δείκτης προόδου. Καλό για κάρτες στατιστικών και πίνακες εργαλείων όπου
-το κυκλικό σχήμα επικοινωνεί περισσότερο οπτικά το ποσοστό από μια μπάρα.
+圆形进度指示器。适用于统计卡和仪表板
+圆形比条形更能直观地传达百分比。
 
 ```go
 proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
@@ -204,14 +204,14 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-Η «πρόοδος» είναι 0,0–1,0. Το "sizeDp" είναι η διάμετρος. Το "strokeDp" είναι το δαχτυλίδι
-πάχος — 4–6dp φαίνεται καλό για τα περισσότερα μεγέθη.
+`progress` is 0.0–1.0. `sizeDp` 是直径。 `strokeDp` is the ring
+厚度 — 4-6dp 适合大多数尺寸。
 
 ---
 
-## Πίνακας
+＃＃ 桌子
 
-Ένας πίνακας δεδομένων με μια σειρά κεφαλίδας και εναλλασσόμενη σκίαση σειρών.
+具有标题行和交替行阴影的数据表。
 
 ```go
 proton.Table(ctx,
@@ -228,13 +228,13 @@ proton.Table(ctx,
 proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
 ```
 
-Το "proton.TableRow" είναι απλώς "[]string". Οι στήλες είναι εξίσου φαρδιές.
+`proton.TableRow` 只是 `[]string`。列同样宽。
 
 ---
 
-## Βήμα
+## 步进器
 
-Ένας οριζόντιος δείκτης προόδου βήματος για ροές πολλαπλών βημάτων.
+多步骤流程的水平步骤进度指示器。
 
 ```go
 proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
@@ -246,14 +246,14 @@ proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
 proton.Stepper(ctx proton.Context, current int, steps []string)
 ```
 
-Το βήμα 0 είναι το πρώτο βήμα. Τα ολοκληρωμένα βήματα (ευρετήριο < τρέχον) έχουν συμπληρωθεί
-χρώμα έμφασης. Το τρέχον βήμα επισημαίνεται. Τα μελλοντικά βήματα είναι αμυδρά.
+步骤 0 是第一步。已完成的步骤（索引<当前）得到填充
+强调色。当前步骤突出显示。未来的脚步是黯淡的。
 
 ---
 
-## Επεξήγηση εργαλείου
+## 工具提示
 
-Μια μικρή ετικέτα που εμφανίζεται όταν ο χρήστης τοποθετεί τον δείκτη του ποντικιού πάνω από κάτι.
+当用户将鼠标悬停在某物上时出现的小标签。
 
 ```go
 type UI struct {
@@ -274,14 +274,14 @@ proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx p
 proton.Tooltip(ctx proton.Context, state *proton.Clickable, tip string, content func(proton.Context))
 ```
 
-Τα κομμάτια "κατάσταση" με δυνατότητα κλικ αιωρούνται για την περιοχή συμβουλών εργαλείων. Είναι ξεχωριστό από
-οποιοδήποτε κουμπί μέσα στο περιεχόμενο — δηλώστε ένα αποκλειστικό για κάθε επεξήγηση εργαλείου.
+“状态”可点击轨道悬停在工具提示区域。它是独立于
+内容内的任何按钮 - 为每个工具提示声明一个专用按钮。
 
 ---
 
-## Εικόνες
+## 图片
 
-Φόρτωση μία φορά κατά την εκκίνηση. Σχεδιάστε κάθε πλαίσιο.
+启动时加载一次。绘制每一帧。
 
 ```go
 // load at startup — not in the draw function
@@ -300,14 +300,14 @@ proton.LoadImage(path string) (proton.ImageOp, error)
 proton.Image(ctx proton.Context, img proton.ImageOp, widthDp, heightDp float32)
 ```
 
-Υποστηρίζονται και τα δύο PNG και JPEG.
+PNG 和 JPEG 均受支持。
 
 ---
 
-## Λογότυπο
+＃＃ 标识
 
-Το λογότυπο της εφαρμογής σας, φορτώθηκε μία φορά και σχεδιάστηκε οπουδήποτε. Δείτε το [07-theming.md](./07-theming.md)
-για την πλήρη εγκατάσταση. Η σύντομη έκδοση:
+您的应用程序徽标，加载一次并在任何地方绘制。参见[07-theming.md](./07-theming.md)
+进行完整设置。 The short version:
 
 ```go
 //go:embed logo.png
@@ -327,10 +327,10 @@ proton.HasLogo(ctx proton.Context) bool
 
 ---
 
-## CodeBlock
+## 代码块
 
-Monospace κείμενο σε ένα στρογγυλεμένο πλαίσιο με περίγραμμα. Για εμφάνιση εντολών, μονοπατιών αρχείων,
-αποσπάσματα — οτιδήποτε είναι πιθανό να αντιγράψει ο χρήστης.
+圆角边框框中的等宽文本。用于显示命令、文件路径、
+片段——用户可能复制的任何内容。
 
 ```go
 proton.CodeBlock(ctx, "go get github.com/CzaxStudio/proton")
@@ -344,10 +344,10 @@ proton.CodeBlock(ctx proton.Context, code string)
 
 ---
 
-## Συμβουλή συντόμευσης
+## 快捷方式提示
 
-Ένα μικρό σήμα πληκτρολογίου. Εμφάνιση αυτών δίπλα σε στοιχεία μενού ή ετικέτες κουμπιών
-για την επικοινωνία συντομεύσεων πληκτρολογίου.
+一个小键盘徽章。在菜单项或按钮标签旁边显示这些内容
+传达键盘快捷键。
 
 ```go
 proton.Row(ctx,
@@ -363,10 +363,10 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ---
 
-## ColorSwatch
+## 色样
 
-Μια σειρά από έγχρωμους κύκλους στους οποίους ο χρήστης μπορεί να κάνει κλικ για να επιλέξει ένα χρώμα. Επιστροφές
-το ευρετήριο του επιλεγμένου ή -1 εάν δεν έχει επιλεγεί ακόμη κανένα.
+用户可以单击一行彩色圆圈来选择颜色。退货
+所选索引的索引，如果尚未选择，则为 -1。
 
 ```go
 type UI struct {
@@ -393,4 +393,4 @@ if i >= 0 {
 proton.ColorSwatch(ctx proton.Context, btns []proton.Clickable, colors []color.NRGBA, selected int, sizeDp float32) int
 ```
 
-Ο επιλεγμένος κύκλος παίρνει ένα δαχτυλίδι γύρω του.
+选定的圆周围会出现一个圆环。

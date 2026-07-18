@@ -1,11 +1,11 @@
-# Thématisation
+# 主题化
 
-Quatre couleurs contrôlent l’apparence de l’ensemble de votre application. Changez-les, tout est mis à jour.
-Pas de recherche dans les feuilles de style des composants. Pas de guerre de spécificité CSS.
+四种颜色控制整个应用程序的外观。改变它们，一切都会更新。
+无需搜索组件样式表。没有 CSS 特异性之战。
 
 ---
 
-## La palette
+## 调色板
 
 ```go
 type Palette struct {
@@ -16,7 +16,7 @@ type Palette struct {
 }
 ```
 
-Appliquez-le après `proton.New()` et avant `a.Run()` :
+在 `proton.New()` 之后和 `a.Run()` 之前应用它：
 
 ```go
 a := proton.New("myapp")
@@ -34,11 +34,11 @@ a.Run()
 
 ---
 
-## Palettes intégrées
+## 内置调色板
 
-46 palettes. Une ligne chacun.
+46 个调色板。各一行。
 
-### Thèmes sombres
+### 黑暗主题
 
 ```go
 a.ApplyPalette(proton.DarkPalette)           // neutral dark
@@ -77,7 +77,7 @@ a.ApplyPalette(proton.IcebergPalette)
 a.ApplyPalette(proton.SynthwavePalette)      // 80s neon
 ```
 
-### Thèmes légers
+### 浅色主题
 
 ```go
 a.ApplyPalette(proton.LightPalette)
@@ -96,9 +96,9 @@ a.ApplyPalette(proton.TokyoNightDayPalette)
 
 ---
 
-## Codes de couleur hexadécimaux
+## 十六进制颜色代码
 
-Si regarder les préfixes 0x vous fait émerveiller, utilisez plutôt des chaînes hexagonales.
+如果盯着 0x 前缀让你目光呆滞，请改用十六进制字符串。
 
 ```go
 a.ThemeBuilder().
@@ -109,7 +109,7 @@ a.ThemeBuilder().
     Apply()
 ```
 
-Partez de zéro ou construisez sur une palette existante :
+从头开始或在现有调色板上构建：
 
 ```go
 // start from Nord, override just the primary color
@@ -117,10 +117,10 @@ a.ApplyPalette(proton.NordPalette)
 a.ThemeBuilder().Primary("#ff6b6b").Apply()
 ```
 
-`ThemeBuilder()` est préchargé avec les couleurs de la palette actuelle, appelant ainsi
-il après `ApplyPalette` vous permet de patcher des emplacements individuels sans toucher au reste.
+`ThemeBuilder()` 预先加载了当前调色板颜色，因此调用
+在“ApplyPalette”之后，您可以修补各个插槽，而无需触及其余部分。
 
-### Raccourci à un seul emplacement
+### 单槽快捷方式
 
 ```go
 a.ColorCode("bg",        "#0d1117")
@@ -129,16 +129,16 @@ a.ColorCode("primary",   "#1f6feb")
 a.ColorCode("primaryfg", "#ffffff")
 ```
 
-Noms d'emplacement valides : `"bg"`, `"background"`, `"fg"`, `"foreground"`, `"text"`,
-`"primary"`, `"accent"`, `"primaryfg"`, `"primarytext"`.
+有效的插槽名称：`"bg"`、`"background"`、`"fg"`、`"foreground"`、`"text"`、
+`“主要”、“重音”、“主要fg”、“主要文本”。
 
-Formats hexadécimaux acceptés : `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, `"#rrggbbaa"`.
+接受的十六​​进制格式：`"#rrggbb"`、`"rrggbb"`、`"#rgb"`、`"#rrggbbaa"`。
 
 ---
 
-## Couleurs d'arrière-plan
+## 背景颜色
 
-Ceux-ci remplacent la couleur « Bg » de la palette par quelque chose de plus intéressant.
+这些用更有趣的东西覆盖调色板的“Bg”颜色。
 
 ```go
 // solid color — three ways to say the same thing
@@ -156,14 +156,14 @@ a.SetBackgroundGradient("#1e1e2e", "#6d28d9", "radial")
 a.SetBackgroundRainbow()
 ```
 
-L'option arc-en-ciel cycle lentement au fil du temps et continue d'appeler `Invalidate()`
-automatiquement pour piloter l'animation.
+彩虹选项随着时间的推移缓慢循环并不断调用“Invalidate()”
+自动驱动动画。
 
 ---
 
-## Échelle de police
+## 字体比例
 
-Agrandissez ou réduisez globalement tout le texte.
+全局放大或缩小所有文本。
 
 ```go
 a.SetFontScale(1.1)  // 10% bigger — good for accessibility
@@ -171,13 +171,13 @@ a.SetFontScale(1.2)  // 20% bigger
 a.SetFontScale(0.9)  // a bit smaller
 ```
 
-Appelez après `proton.New()` et avant `a.Run()`. « 1.0 » est la valeur par défaut.
+在 `proton.New()` 之后和 `a.Run()` 之前调用。 “1.0”是默认值。
 
 ---
 
-## Widget de sélection de thèmes en direct
+## 实时主题选择器小部件
 
-Laissez les utilisateurs choisir leur propre thème au moment de l’exécution. Déposez-le dans n’importe quelle fenêtre de paramètres.
+让用户在运行时选择自己的主题。将其放入任何设置窗口中。
 
 ```go
 type UI struct {
@@ -187,14 +187,14 @@ type UI struct {
 proton.ThemePicker(ctx, &u.picker, a)
 ```
 
-Le sélecteur affiche les 46 palettes intégrées avec chacune quatre échantillons de couleurs.
-En cliquant sur l’un d’eux, vous l’appliquez immédiatement à l’application en cours d’exécution.
+选择器显示所有 46 个内置调色板，每个调色板有四个色样。
+单击其中一个立即将其应用到正在运行的应用程序。
 
 ---
 
-## Aide MakePalette
+## MakePalette 助手
 
-Si vous préférez les entiers hexadécimaux à la syntaxe littérale struct :
+如果您更喜欢十六进制整数而不是结构文字语法：
 
 ```go
 // MakePalette(bg, fg, primary, primaryFg uint32)
@@ -204,7 +204,7 @@ a.ApplyPalette(p)
 
 ---
 
-## AllPalettes — Itérer sur chaque palette intégrée
+## AllPalettes — 迭代每个内置调色板
 
 ```go
 // proton.AllPalettes is []proton.NamedPalette
@@ -220,31 +220,31 @@ type NamedPalette struct {
 }
 ```
 
-Utile pour créer des sélecteurs de thèmes personnalisés, des navigateurs de palettes ou simplement
-imprimer les 46 noms pour voir ce qui est disponible.
+对于构建自定义主题选择器、调色板浏览器或只是有用
+打印所有 46 个名称以查看可用的名称。
 
 ---
 
-## Copier-Coller des palettes personnalisées
+## 复制粘贴自定义调色板
 
-Quelques favoris si vous ne souhaitez pas choisir parmi les éléments intégrés :
+如果您不想从内置中选择一些最喜欢的：
 
-**GitHub sombre**```go
+**GitHub 黑暗**```go
 a.ThemeBuilder().Bg("#0d1117").Fg("#e6edf3").Primary("#1f6feb").PrimaryFg("#ffffff").Apply()
 ```
 
-**Hacker Vert**```go
+**黑客绿**```go
 a.ThemeBuilder().Bg("#000000").Fg("#00ff00").Primary("#008f11").PrimaryFg("#000000").Apply()
 ```
 
-**Océan de minuit**```go
+**午夜海洋**```go
 a.ThemeBuilder().Bg("#0f172a").Fg("#f8fafc").Primary("#38bdf8").PrimaryFg("#0f172a").Apply()
 ```
 
-**Papier chaud**```go
+**暖纸**```go
 a.ThemeBuilder().Bg("#f5f0e8").Fg("#2c2416").Primary("#8b4513").PrimaryFg("#f5f0e8").Apply()
 ```
 
-**Cyberpunk**```go
+**赛博朋克**```go
 a.ThemeBuilder().Bg("#1a0b0b").Fg("#ff2a6d").Primary("#d1ff00").PrimaryFg("#000000").Apply()
 ```

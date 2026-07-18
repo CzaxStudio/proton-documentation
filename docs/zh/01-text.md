@@ -1,11 +1,11 @@
-# Texte
+＃ 文本
 
-Dix fonctions de texte couvrant toutes les tailles, de "Je veux que les gens lisent ceci depuis
-à travers la pièce" pour "s'il vous plaît, personne ne lit ces petits caractères"
+十种文本功能，涵盖“我希望人们阅读此内容”中的各种尺寸
+房间对面”到“请没人阅读此细则”
 
 ---
 
-## Titres
+## 标题
 
 ```go
 proton.H1(ctx, "I am enormous")
@@ -16,18 +16,18 @@ proton.H5(ctx, "Medium-small")
 proton.H6(ctx, "Small heading with dignity")
 ```
 
-Même échelle de taille que HTML. H1 est destiné lorsque vous voulez vraiment faire une déclaration.
-H4 et H5 sont ceux que vous utiliserez le plus souvent.
+与 HTML 相同的尺寸比例。 H1 适合当你确实想发表声明时。
+H4 和 H5 是您实际最常使用的。
 
-**Signature** (identique pour les six) :```go
+**签名**（六个签名相同）：```go
 proton.H1(ctx proton.Context, text string)
 ```
 
 ---
 
-## Étiquette
+＃＃ 标签
 
-Corps de texte régulier. C'est ce que sont la plupart des mots de votre application.
+常规正文。这就是您的应用程序中的大多数单词。
 
 ```go
 proton.Label(ctx, "This is a label.")
@@ -39,10 +39,10 @@ proton.Label(ctx proton.Context, text string)
 
 ---
 
-## Corps2
+## 正文2
 
-Légèrement plus petit que Label. Pour les informations secondaires qui comptent mais
-ne devrait pas rivaliser avec le contenu principal.
+比标签稍小。对于重要的次要信息，但
+不应与主要内容竞争。
 
 ```go
 proton.Label(ctx, "Price: $29.99")
@@ -55,10 +55,10 @@ proton.Body2(ctx proton.Context, text string)
 
 ---
 
-## Légende
+＃＃ 标题
 
-Le plus petit texte. Conseils, horodatages, petits caractères, choses que vous devez dire
-mais je ne veux pas vraiment que les gens lisent.
+最小的文字。提示、时间戳、细则、您需要说的话
+但并不真正希望人们阅读。
 
 ```go
 proton.Caption(ctx, "Last synced 3 years ago")
@@ -70,10 +70,10 @@ proton.Caption(ctx proton.Context, text string)
 
 ---
 
-## Muet
+## 静音
 
-Texte de taille Body2 dans une couleur plus sombre. Pour les étiquettes secondaires, le texte d'assistance,
-des descriptions qui prennent en charge le contenu principal sans le concurrencer.
+Body2 大小的文本，颜色较暗。对于辅助标签、辅助文本、
+支持主要内容而不与之竞争的描述。
 
 ```go
 proton.Label(ctx, "Alice Johnson")
@@ -86,10 +86,10 @@ proton.Muted(ctx proton.Context, text string)
 
 ---
 
-## Texte — Style personnalisé
+## 文本 — 自定义样式
 
-Lorsque les tailles prédéfinies ne fonctionnent pas, « Texte » vous permet de contrôler la taille, la couleur,
-et le poids directement.
+当预设尺寸不起作用时，“文本”可让您控制尺寸、颜色、
+并直接称重。
 
 ```go
 // 28sp, coral red, bold
@@ -106,14 +106,14 @@ proton.Text(ctx, "Normal weight, bigger", 20, proton.NRGBA{}, false)
 proton.Text(ctx proton.Context, s string, size float32, c color.NRGBA, bold bool)
 ```
 
-La taille est en `sp` (pixels mis à l'échelle). La taille du corps par défaut est d'environ 14sp.
+大小以“sp”（缩放像素）为单位。默认主体尺寸约为 14sp。
 
 ---
 
-## Aides aux couleurs sémantiques
+## 语义颜色助手
 
-Raccourcis pour le texte d’état commun. Chacun ne fait rien si la chaîne est vide,
-ce qui les rend sûrs à utiliser sous condition sans « si » supplémentaire.
+常见状态文本的快捷方式。如果字符串为空，则每个都不会执行任何操作，
+这使得它们可以安全地有条件地使用，而无需额外的“if”。
 
 ```go
 proton.ErrorText(ctx, "Invalid email address.")     // red
@@ -127,7 +127,7 @@ proton.SuccessText(ctx proton.Context, text string)
 proton.WarningText(ctx proton.Context, text string)
 ```
 
-Le comportement de chaîne vide est utile pour la validation :
+空字符串行为对于验证很有用：
 
 ```go
 proton.ErrorText(ctx, validationErr) // draws nothing when validationErr == ""
@@ -135,9 +135,9 @@ proton.ErrorText(ctx, validationErr) // draws nothing when validationErr == ""
 
 ---
 
-## Texte coloré
+## 彩色文本
 
-Une seule ligne pour une étiquette avec une couleur spécifique, sans l'appel « Texte » complet.
+具有特定颜色的标签的单行，没有完整的“文本”调用。
 
 ```go
 proton.ColoredText(ctx, "Connected", proton.RGB(0x4ade80))
@@ -150,7 +150,7 @@ proton.ColoredText(ctx proton.Context, text string, c color.NRGBA)
 
 ---
 
-## Couleurs
+＃＃ 颜色
 
 ```go
 // from a 24-bit hex value
@@ -171,10 +171,10 @@ proton.HexColor("#f66")     // shorthand also works
 
 ---
 
-## Habillage du texte
+## 文本换行
 
-Le texte long s'enroule automatiquement dans la largeur disponible.
-Vous n'avez rien de spécial à faire.
+长文本会在任何可用宽度内自动换行。
+你不需要做任何特别的事情。
 
 ```go
 proton.Label(ctx, "This is a very long sentence that will wrap gracefully "+
@@ -183,7 +183,7 @@ proton.Label(ctx, "This is a very long sentence that will wrap gracefully "+
 
 ---
 
-## Une section de contenu typique
+## 典型的内容部分
 
 ```go
 proton.H4(ctx, "Account Settings")

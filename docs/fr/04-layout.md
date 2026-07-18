@@ -47,7 +47,7 @@ proton.Row(ctx proton.Context, widgets ...func(proton.Context))
 Colonne ## — Groupe vertical explicite
 
 Empile les enfants verticalement en tant que groupe nommé. Rarement nécessaire au plus haut niveau
-(les widgets s'empilent automatiquement), mais utile dans `Row` ou `Split` lorsque le
+(les widgets s'empilent automatiquement), mais utile à l'intérieur de `Row` ou `Split` lorsque le
 le côté droit doit être composé de plusieurs éléments empilés.
 
 ```go
@@ -117,7 +117,7 @@ proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## GrowRow et GrowColumn — Mises en page extensibles
+## GrowRow et GrowColumn — Dispositions extensibles
 
 Lorsqu'un enfant doit remplir tout l'espace restant et que les autres restent leur
 taille naturelle, utilisez `GrowRow` (horizontal) ou `GrowColumn` (vertical) avec

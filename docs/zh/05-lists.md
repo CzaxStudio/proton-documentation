@@ -1,13 +1,13 @@
-# Listas y desplazamiento
+# 列表和滚动
 
-Para mostrar colecciones de cosas y hacer que las áreas de contenido sean desplazables.
+用于显示事物的集合，并使内容区域可滚动。
 
 ---
 
-## Lista: lista desplazable vertical
+## List — 垂直滚动列表
 
-La lista estándar. Sólo dibuja los elementos actualmente visibles en la pantalla, por lo que
-10.000 artículos está bien.
+标准清单。只绘制当前在屏幕上可见的项目，所以
+10,000 个项目就可以了。
 
 ```go
 type UI struct {
@@ -21,21 +21,21 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 })
 ```
 
-La devolución de llamada recibe el índice "i". Dibuja lo que quieras para cada fila.
+回调接收索引“i”。为每一行画出你想要的任何东西。
 
 ```go
 proton.List(ctx proton.Context, state *proton.Scrollable, length int, draw func(proton.Context, int))
 ```
 
-Declare un `proton.Scrollable` por lista. Realiza un seguimiento de la posición de desplazamiento.
-No comparta uno entre dos listas: se pelearán por la posición de desplazamiento y
-ambos pierden.
+每个列表声明一个“proton.Scrollable”。它跟踪滚动位置。
+不要在两个列表之间共享一个——它们会争夺滚动位置并且
+双方都输了。
 
 ---
 
-## HList — Lista desplazable horizontal
+## HList — 水平滚动列表
 
-Igual que Lista pero los elementos van de izquierda a derecha.
+与列表相同，但项目从左到右排列。
 
 ```go
 proton.HList(ctx, &u.hscroll, len(items), func(ctx proton.Context, i int) {
@@ -51,10 +51,10 @@ proton.HList(ctx proton.Context, state *proton.Scrollable, length int, draw func
 
 ---
 
-## Desplazamiento: área de contenido desplazable
+## Scroll — 可滚动的内容区域
 
-Para contenido arbitrario que podría desbordarse, no para elementos indexados. el contenido
-La función puede llamar a tantos widgets como quiera.
+对于可能溢出的任意内容，而不是索引项目。内容
+函数可以调用任意数量的小部件。
 
 ```go
 type UI struct {
@@ -76,14 +76,14 @@ proton.Scroll(ctx, &u.scroll, func(ctx proton.Context) {
 proton.Scroll(ctx proton.Context, state *proton.Scrollable, content func(proton.Context))
 ```
 
-Utilice `List` cuando tenga datos indexados. Utilice `Scroll` para una página de contenido mixto.
+当您有索引数据时，请使用“List”。对混合内容的页面使用“滚动”。
 
 ---
 
-## TextView: texto desplazable de solo lectura
+## TextView — 只读可滚动文本
 
-Muestra un gran bloque de texto en una vista monoespaciada desplazable.
-Bueno para contenidos de archivos, texto de ayuda y vista previa de código.
+在可滚动的等宽视图中显示大文本块。
+适用于文件内容、帮助文本、预览代码。
 
 ```go
 type UI struct {
@@ -97,15 +97,15 @@ proton.TextView(ctx, &u.scroll, longText)
 proton.TextView(ctx proton.Context, state *proton.Scrollable, text string)
 ```
 
-El texto se divide en nuevas líneas y cada línea es un elemento de lista virtual, por lo que
-Maneja documentos muy largos sin problemas.
+文本按换行符分割，每行都是一个虚拟列表项，因此它
+处理很长的文档没有问题。
 
 ---
 
-## LogView — Salida de registro con desplazamiento automático
+## LogView — 自动滚动日志输出
 
-Como TextView pero se desplaza automáticamente hacia la parte inferior cada vez que se agrega contenido nuevo.
-Codifica con colores los prefijos de registro comunes automáticamente.
+与 TextView 类似，但每当添加新内容时就会自动滚动到底部。
+自动对常见日志前缀进行颜色编码。
 
 ```go
 type UI struct {
@@ -124,23 +124,23 @@ proton.LogView(ctx, &u.logScroll, u.logText)
 proton.LogView(ctx proton.Context, state *proton.Scrollable, text string)
 ```
 
-La codificación de colores se produce automáticamente según el prefijo de línea:
+颜色编码根据行前缀自动发生：
 
-| Prefijo | Color |
+|前缀|颜色 |
 |---|---|
-| `[OK]`, `HECHO`, `ÉXITO` | Verde |
-| `[ADVERTENCIA]`, `ADVERTENCIA` | Amarillo |
-| `[ERROR]`, `ERROR` | Rojo |
-| Cualquier otra cosa | Silenciado |
+| `[确定]`、`完成`、`成功` |绿色|
+| `[警告]`、`警告` |黄色|
+| `[错误]`、`错误` |红色|
+|还有什么吗|静音 |
 
 ---
 
-## Hacer que las filas de la lista se vean bien
+## 让列表行看起来不错
 
-Un `proton.Label` simple en una fila de la lista funciona pero no se ve muy bien. Agrega algunos
-acolchado y estructura.
+列表行中的裸露“proton.Label”可以工作，但看起来不太好。添加一些
+填充和结构。
 
-### Filas acolchadas
+### 填充行
 
 ```go
 proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
@@ -155,7 +155,7 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 })
 ```
 
-### Dos columnas de texto
+### 两列文本
 
 ```go
 type Contact struct {
@@ -176,7 +176,7 @@ proton.List(ctx, &u.scroll, len(contacts), func(ctx proton.Context, i int) {
 })
 ```
 
-### Filas en las que se puede hacer clic con resaltado al pasar el mouse
+### 带有悬停突出显示的可点击行
 
 ```go
 type UI struct {
@@ -208,7 +208,7 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 })
 ```
 
-### Lista dentro de una tarjeta
+### 卡片内的列表
 
 ```go
 proton.Card(ctx, proton.RGB(0x1e1e2e), 10, 0, func(ctx proton.Context) {
@@ -227,11 +227,11 @@ proton.Card(ctx, proton.RGB(0x1e1e2e), 10, 0, func(ctx proton.Context) {
 
 ---
 
-## Actuación
+＃＃ 表现
 
-`List` y `HList` usan renderizado virtual: solo los elementos visibles obtienen su
-función de dibujo llamada. Una porción de 50.000 elementos se desplaza a 60 fps sin
-rompiendo a sudar.
+`List` 和 `HList` 使用虚拟渲染——只有可见的项目才会获得它们的
+调用绘制函数。 50,000 个项目的切片以 60 fps 的速度滚动，无需
+出了一身汗。
 
-`Scroll` representa todo en la función de contenido en cada cuadro. Úselo para
-páginas con una cantidad razonable de widgets, no para grandes conjuntos de datos dinámicos.
+`Scroll` 每帧渲染内容函数中的所有内容。用它来
+具有合理数量的小部件的页面，不适用于巨大的动态数据集。

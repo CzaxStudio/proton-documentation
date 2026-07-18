@@ -1,6 +1,6 @@
 # Commencer
 
-Vous souhaitez créer une application de bureau dans Go. Vous êtes au bon endroit.
+Vous souhaitez créer une application de bureau dans Go. Vous êtes au bon endroit
 
 ---
 
@@ -142,7 +142,7 @@ Pour une disposition côte à côte, utilisez « Row ». Pour plus de contrôl
 ## Les boutons nécessitent un wrapper de mise en page
 
 Les boutons (et autres widgets interactifs) doivent se trouver dans un assistant de mise en page pour
-clique pour s’inscrire correctement. C'est une affaire de Gio - la passe de mise en page est ce que
+clics pour vous inscrire correctement. C'est une affaire de Gio - la passe de mise en page est ce que
 établit les zones touchées à l'écran.
 
 ```go

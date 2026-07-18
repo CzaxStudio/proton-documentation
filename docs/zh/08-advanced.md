@@ -1,15 +1,15 @@
-# Avanzado
+＃ 先进的
 
-Atajos de teclado, rutinas asincrónicas, notificaciones de brindis, modales, pestañas,
-acordeón, menús contextuales y todo lo demás que no encaja perfectamente en
-las páginas anteriores.
+键盘快捷键、异步 goroutine、Toast 通知、模式、选项卡、
+手风琴、上下文菜单以及其他所有不适合的内容
+较早的几页。
 
 ---
 
-## Notificaciones de brindis
+## Toast 通知
 
-Un mensaje cronometrado que aparece, permanece durante unos segundos y desaparece
-propio. Sin diálogo, sin bloquear al usuario.
+出现一条定时消息，停留几秒钟，然后消失在其上
+拥有。没有对话框，不会阻止用户。
 
 ```go
 type UI struct {
@@ -23,7 +23,7 @@ u.toast.Show("File saved!", 2*time.Second)
 proton.Toast(ctx, &u.toast)
 ```
 
-Si no hay ningún brindis activo, "Toast" no genera nada. No es necesario comprobarlo primero.
+如果没有活动的 toast，则“Toast”不会绘制任何内容。无需先检查。
 
 ```go
 func (t *ToastState) Show(msg string, duration time.Duration)
@@ -32,9 +32,9 @@ proton.Toast(ctx proton.Context, state *proton.ToastState)
 
 ---
 
-## Superposición/modal
+## 叠加/模态
 
-Un fondo atenuado con contenido centrado encima de todo.
+昏暗的背景，内容居中位于所有内容之上。
 
 ```go
 type UI struct {
@@ -89,14 +89,14 @@ func (o *OverlayState) Toggle()
 proton.Overlay(ctx proton.Context, state *proton.OverlayState, content func(proton.Context))
 ```
 
-`Overlay` no dibuja nada cuando `state.Visible` es falso, así que puedes llamarlo
-cada cuadro sin ninguna condición de envoltura.
+当“state.Visible”为 false 时，“Overlay”不会绘制任何内容，因此您可以调用它
+每一帧都没有任何包裹条件。
 
 ---
 
-## Atajos de teclado
+## 键盘快捷键
 
-Registre una función para que se active cuando se presiona una combinación de teclas.
+注册一个在按下组合键时触发的函数。
 
 ```go
 proton.OnKey(ctx, proton.ModCtrl, "S", func() { save() })
@@ -105,15 +105,15 @@ proton.OnKey(ctx, proton.ModCtrl|proton.ModShift, "N", func() { newFile() })
 proton.OnKey(ctx, proton.ModNone, proton.KeyEscape, func() { closeDialog() })
 ```
 
-Llame a `OnKey` dentro de su función de dibujo. Registra el acceso directo para eso.
-marco. Dado que la función de dibujo se ejecuta en cada cuadro, los atajos permanecen activos como
-mientras la ventana esté abierta.
+在绘图函数中调用“OnKey”。它注册了该快捷方式
+框架。由于绘制函数每帧运行，因此快捷键保持活动状态
+只要窗户开着。
 
 ```go
 proton.OnKey(ctx proton.Context, modifiers proton.Modifier, keyName string, fn func())
 ```
 
-**Constantes modificadoras:**
+**修饰常数：**
 
 ```go
 proton.ModNone   // no modifier — just the key
@@ -125,7 +125,7 @@ proton.ModAlt
 proton.ModCtrl | proton.ModShift
 ```
 
-**Constantes de nombre de clave** (para claves que no son letras):
+**键名称常量**（对于非字母键）：
 
 ```go
 proton.KeyEscape
@@ -140,14 +140,14 @@ proton.KeyLeft
 proton.KeyRight
 ```
 
-Las claves de letras son solo cadenas: `"S"`, `"Z"`, `"N"`, `"A"`.
+字母键只是字符串：`"S"`、`"Z"`、`"N"`、`"A"`。
 
 ---
 
-## Pestañas
+## 标签
 
-Una barra de pestañas horizontal con un área de contenido que cambia según el
-pestaña seleccionada.
+具有一个内容区域的水平选项卡栏，该区域根据内容进行切换
+选定的选项卡。
 
 ```go
 type UI struct {
@@ -169,21 +169,21 @@ proton.Tabs(ctx,
 )
 ```
 
-`u.tabs.Selected` contiene el índice de la pestaña activa. Puedes configurarlo programáticamente
-para cambiar pestañas del código.
+`u.tabs.Selected` 保存活动选项卡索引。您可以通过编程方式设置它
+从代码切换选项卡。
 
 ```go
 proton.Tabs(ctx proton.Context, labels []string, btns []proton.Clickable, state *proton.TabState, content func(proton.Context, int))
 ```
 
-El segmento `btns` necesita un `Clickable` por pestaña. Pasar `u.tabBtns[:]` es
-de forma idiomática cuando declaras una matriz de tamaño fijo en tu estructura.
+“btns”切片每个选项卡需要一个“Clickable”。传递 `u.tabBtns[:]` 是
+在结构中声明固定大小数组时的惯用方式。
 
 ---
 
-## acordeón
+## 手风琴
 
-Una sección plegable con un encabezado en el que se puede hacer clic.
+带有可点击标题的可折叠部分。
 
 ```go
 type UI struct {
@@ -202,14 +202,14 @@ proton.Accordion(ctx, &u.sec1, &u.sec1btn, "Advanced Options", func(ctx proton.C
 proton.Accordion(ctx proton.Context, state *proton.AccordionState, btn *proton.Clickable, title string, content func(proton.Context))
 ```
 
-`state.Open` rastrea si está expandido. Puedes configurarlo directamente para comenzar
-un acordeón abierto: `u.sec1.Open = true`.
+`state.Open` 跟踪它是否已扩展。可以直接设置启动
+手风琴打开：`u.sec1.Open = true`。
 
 ---
 
-## Menú contextual
+## 上下文菜单
 
-Un menú contextual que aparece en la posición del cursor.
+出现在光标位置的右键菜单。
 
 ```go
 type UI struct {
@@ -237,15 +237,15 @@ if chosen >= 0 {
 proton.ContextMenu(ctx proton.Context, state *proton.ContextMenuState, tag *proton.FrameTag, items []proton.ContextMenuItem, content func(proton.Context)) int
 ```
 
-Devuelve -1 cuando no se seleccionó nada y el índice del elemento en el marco
-se hace clic en algo. El menú se cierra automáticamente después de una selección.
+当没有选择任何内容时返回-1，以及框架上的项目索引
+某些东西被点击。选择后菜单会自动关闭。
 
 ---
 
-## Actualizaciones asincrónicas y rutinas
+## 异步更新和 Goroutine
 
-Su función de dibujo se ejecuta en el hilo principal. Cuando una gorutina termina de funcionar
-y cambia de estado, llame a `ctx.Invalidate()` para solicitar un nuevo dibujo.
+您的绘图函数在主线程上运行。当 goroutine 完成工作时
+并更改状态，调用 ctx.Invalidate() 来请求重绘。
 
 ```go
 type UI struct {
@@ -278,16 +278,16 @@ if u.loading {
 }
 ```
 
-Sin `ctx.Invalidate()`, la ventana no se volverá a dibujar hasta que el usuario se mueva
-el ratón o interactúa con él. Llámelo siempre después de cambiar de estado
-una gorutina.
+如果没有“ctx.Invalidate()”，窗口将不会重绘，直到用户移动
+鼠标或与之交互。状态更改后始终调用它
+一个协程。
 
 ---
 
-## hilandero
+## 旋转器
 
-Un indicador de carga animado. Llamar a `Spinner` mantiene automáticamente el
-Redibujado de la ventana: no se necesita el bucle `Invalidate()`.
+动画加载指示器。调用“Spinner”会自动保留
+窗口重绘——不需要“Invalidate()”循环。
 
 ```go
 type UI struct {
@@ -301,12 +301,12 @@ proton.Spinner(ctx, &u.spin, 32)  // 32dp diameter
 proton.Spinner(ctx proton.Context, state *proton.SpinnerState, sizeDp float32)
 ```
 
-`SpinnerState` rastrea el tiempo de inicio de la animación. Declarar uno por ruleta
-en su estructura estatal.
+`SpinnerState` 跟踪动画开始时间。每个微调器声明一个
+在你的状态结构中。
 
 ---
 
-## Seleccionar cuadro (desplegable)
+## 选择框（下拉）
 
 ```go
 type UI struct {
@@ -318,7 +318,7 @@ i := proton.SelectBox(ctx, &u.langSel, langs)
 proton.Caption(ctx, "Selected: "+langs[i])
 ```
 
-El menú desplegable se abre debajo del botón y se cierra al seleccionarlo o hacer clic fuera del mismo.
+下拉菜单在按钮下方打开，并在选择或外部单击时关闭。
 
 ```go
 proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int
@@ -326,10 +326,10 @@ proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []str
 
 ---
 
-## Si - Representación condicional
+## If — 条件渲染
 
-Presenta contenido solo cuando una condición es verdadera. Guarda un bloque "si" cuando
-Sólo quiero mostrar u ocultar un único widget.
+仅当条件为真时才呈现内容。当您执行以下操作时保存“if”块
+只是想显示或隐藏单个小部件。
 
 ```go
 proton.If(ctx, user.IsAdmin, func(ctx proton.Context) {
@@ -347,11 +347,11 @@ proton.If(ctx proton.Context, cond bool, content func(proton.Context))
 
 ---
 
-## FocusArea: manejo de claves con alcance
+## FocusArea — 作用域键处理
 
-Cuando necesite eventos de teclado activos solo dentro de una región específica de la interfaz de usuario,
-no globalmente. Por lo general, `OnKey` es suficiente; utilícelo cuando tenga dos
-paneles que deberían tener atajos de teclado independientes.
+当您需要仅在 UI 的特定区域内激活键盘事件时，
+不是全球性的。通常“OnKey”就足够了——当你有两个时就使用这个
+应具有独立键盘快捷键的面板。
 
 ```go
 type UI struct {
@@ -369,7 +369,7 @@ proton.FocusArea(ctx proton.Context, tag *proton.FrameTag, keyName string, conte
 
 ---
 
-## Opciones de ventana
+## 窗口选项
 
 ```go
 // fullscreen
@@ -390,12 +390,12 @@ proton.Maximized()  proton.WindowOption
 
 ---
 
-## Mantener las animaciones en ejecución
+## 保持动画运行
 
-Proton solo se vuelve a dibujar cuando hay entrada del usuario o usted llama a `ctx.Invalidate()`.
-Para animaciones: barras de progreso que se van llenando con el tiempo, cuentas atrás, cualquier cosa.
-basado en el tiempo: llame a "Invalidar" al final de cada cuadro para mantener los redibujados
-yendo:
+Proton 仅在有用户输入或调用“ctx.Invalidate()”时重绘。
+对于动画 - 随着时间的推移而填充的进度条、倒计时等
+基于时间 - 在每帧结束时调用“Invalidate”以保持重绘
+去：
 
 ```go
 func draw(ctx proton.Context, u *UI) {
@@ -411,6 +411,6 @@ func draw(ctx proton.Context, u *UI) {
 }
 ```
 
-Cuando `u.animating` se vuelve falso, `Invalidate` deja de llamarse y Proton
-vuelve a volver a dibujar solo según la entrada del usuario. El widget Spinner hace esto
-automáticamente: no es necesario que lo administres tú mismo.
+当“u.animating”变为 false 时，“Invalidate”将停止被调用，并且 Proton
+返回到仅根据用户输入进行重绘。 Spinner 小部件可以执行此操作
+自动 - 您不需要自己管理。

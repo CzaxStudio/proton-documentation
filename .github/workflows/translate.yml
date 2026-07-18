@@ -37,7 +37,8 @@ jobs:
           languages = {
               'es': 'es',
               'fr': 'fr',
-              'el': 'el'
+              'el': 'el',
+              'zh': 'zh-CN'
           }
 
           # Find all English markdown files directly in the docs/ folder

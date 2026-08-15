@@ -1,20 +1,20 @@
-# Androide
+# Android
 
 ¡Crea aplicaciones para Android usando Proton!
 
-Las aplicaciones de Proton se ejecutan en Android a través del soporte nativo de Android de Gio.
-El mismo código que se ejecuta en su escritorio se ejecuta en Android, sin reescrituras.
-sin capa de interfaz de usuario separada.
+Proton apps run on Android through Gio's native Android support.
+The same code that runs on your desktop runs on Android — no rewrites,
+no separate UI layer.
 
 ---
 
 ## ¿Qué funciona?
 
-Cada widget, diseño y tema de Proton funciona en Android exactamente como
-lo hace en el escritorio. Toque el mapa de eventos para señalar eventos. El teclado suave
-se integra con `Input` y `TextArea`. `Invalidar()` funciona correctamente
-en el móvil. La única restricción por parte de Gio: Android sólo admite
-una ventana por aplicación.
+Every Proton widget, layout, and theme works on Android exactly as it
+does on desktop. Touch events map to pointer events. The soft keyboard
+integrates with `Input` and `TextArea`. `Invalidate()` works correctly
+on mobile. The one restriction from Gio's side: Android supports only
+one window per app.
 
 ---
 
@@ -29,7 +29,7 @@ go install gioui.org/cmd/gogio@latest
 También necesitas el SDK y el NDK de Android. El camino más sencillo es Android Studio:
 [desarrollador.android.com/studio](https://developer.android.com/studio)
 
-Configure las variables de entorno para que gogio pueda encontrar el SDK:
+Set the environment variables so gogio can find the SDK:
 
 ```bash
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -40,7 +40,7 @@ export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/<version>
 
 ## Construir un APK
 
-Desde la raíz de su proyecto:
+From your project root:
 
 ```bash
 gogio -target android -appid com.yourname.yourapp .
@@ -60,7 +60,7 @@ gogio -target android -appid com.yourname.yourapp -run .
 
 ---
 
-## Construir un AAR (insertar en un proyecto de Android existente)
+## Build an AAR (embed in an existing Android project)
 
 ```bash
 gogio -target android -buildmode archive -appid com.yourname.yourapp .
@@ -99,7 +99,7 @@ go install gioui.org/cmd/gogio@latest
 
 ---
 
-## Logotipo/icono de aplicación
+## Logo / app icon
 
 Configure el ícono de su aplicación a través del mecanismo estándar de Android (en su
 `AndroidManifest.xml` a través de `android:icon`), o use la función del logotipo de Proton
@@ -170,12 +170,12 @@ func main() {
 }
 ```
 
-Construir para Android:
+Build for Android:
 
 ```bash
 gogio -target android -appid com.example.counter .
 adb install counter.apk
 ```
 
-Eso es todo. El mismo binario que ejecutas con `go run.` en tu computadora portátil se convierte en
-un APK de Android con un comando.
+That's it. The same binary you run with `go run .` on your laptop becomes
+an Android APK with one command.

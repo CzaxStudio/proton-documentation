@@ -1,13 +1,13 @@
-# Visual Widgets
+# दृश्य विजेट
 
-Formas, tarjetas, imágenes, insignias, anillos de progreso, tablas, avatares: las cosas
-que hacen que su aplicación parezca diseñada específicamente.
+आकृतियाँ, कार्ड, छवियाँ, बैज, प्रगति रिंग, टेबल, अवतार - चीज़ें
+इससे आपका ऐप ऐसा दिखता है जैसे इसे किसी उद्देश्य से डिज़ाइन किया गया हो।
 
 ---
 
-## Divisor
+##विभाजक
 
-Una delgada regla horizontal. Úselo entre secciones.
+एक पतला क्षैतिज नियम. इसे अनुभागों के बीच प्रयोग करें.
 
 ```go
 proton.H5(ctx, "Section One")
@@ -23,9 +23,9 @@ proton.H5(ctx, "Section Two")
 proton.Divider(ctx proton.Context)
 ```
 
-###Divisor etiquetado
+### लेबल डिवाइडर
 
-Same as Divider but with a centered text label.
+डिवाइडर के समान लेकिन एक केंद्रित टेक्स्ट लेबल के साथ।
 
 ```go
 proton.LabeledDivider(ctx, "Advanced Settings")
@@ -38,10 +38,10 @@ proton.LabeledDivider(ctx proton.Context, label string)
 
 ---
 
-## Rectificado
+## रेक्ट
 
-Un rectángulo de color sólido. Pase 0 para ancho o alto para llenar el
-espacio disponible en ese eje.
+एक ठोस रंग का आयत. भरने के लिए चौड़ाई या ऊंचाई के लिए 0 पास करें
+उस अक्ष पर उपलब्ध स्थान.
 
 ```go
 // 100dp wide, 4dp tall accent bar
@@ -58,9 +58,9 @@ proton.Rect(ctx, proton.RGB(0x1a1a2e), 0, 0)
 proton.Rect(ctx proton.Context, c color.NRGBA, widthDp, heightDp float32)
 ```
 
-### RoundRect
+### राउंडरेक्ट
 
-Same as Rect but with rounded corners.
+रेक्ट के समान लेकिन गोल कोनों के साथ।
 
 ```go
 proton.RoundRect(ctx, proton.RGB(0x2a2a3e), 200, 60, 12)  // 12dp corner radius
@@ -73,10 +73,10 @@ proton.RoundRect(ctx proton.Context, c color.NRGBA, widthDp, heightDp, radiusDp 
 
 ---
 
-## Card
+## कार्ड
 
-Contenido dentro de un fondo acolchado de rectángulo redondeado con una sombra sutil.
-El contenedor de referencia para agrupar contenido relacionado.
+सूक्ष्म छाया के साथ गद्देदार, गोल-आयताकार पृष्ठभूमि के अंदर सामग्री।
+संबंधित सामग्री को समूहीकृत करने के लिए गो-टू कंटेनर।
 
 ```go
 proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
@@ -94,13 +94,13 @@ proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
 proton.Card(ctx proton.Context, bg color.NRGBA, cornerDp, padDp float32, content func(proton.Context))
 ```
 
-- `bg` — background color
-- `cornerDp` — corner radius (8–12 looks good for most cards)
-- `padDp` — padding between the card edge and the content
+- `बीजी` - पृष्ठभूमि रंग
+- `कॉर्नरडीपी` - कोने का त्रिज्या (अधिकांश कार्डों के लिए 8-12 अच्छा लगता है)
+- `पैडडीपी` - कार्ड किनारे और सामग्री के बीच पैडिंग
 
 ### HoverCard
 
-Una tarjeta que cambia el color de fondo al pasar el mouse. Devuelve verdadero si se hace clic.
+एक कार्ड जो होवर पर पृष्ठभूमि का रंग बदलता है। क्लिक करने पर सत्य लौटाता है।
 
 ```go
 if proton.HoverCard(ctx, &u.cardBtn,
@@ -125,10 +125,10 @@ proton.HoverCard(ctx proton.Context, state *proton.Clickable, bg, hover color.NR
 
 ---
 
-## Insignia
+## बिल्ला
 
-Un pequeño chip redondeado con texto. Para etiquetas de estado, etiquetas, recuentos, cualquier cosa
-eso necesita una pastilla de color.
+पाठ के साथ एक छोटी गोल चिप. स्थिति लेबल, टैग, गिनती, किसी भी चीज़ के लिए
+इसके लिए रंगीन गोली की जरूरत है.
 
 ```go
 proton.Badge(ctx, proton.RGB(0x5e81ac), proton.RGB(0xeceff4), "stable")
@@ -140,7 +140,7 @@ proton.Badge(ctx, proton.RGB(0xbf616a), proton.RGB(0xeceff4), "failing")
 proton.Badge(ctx proton.Context, bg, fg color.NRGBA, text string)
 ```
 
-Insignias seguidas:
+एक पंक्ति में बैज:
 
 ```go
 proton.Row(ctx,
@@ -154,10 +154,10 @@ proton.Row(ctx,
 
 ---
 
-## Punto de estado
+## StatusDot
 
-A small colored circle. Online/offline indicators, build status, anything
-that needs a colored dot next to some text.
+एक छोटा सा रंगीन घेरा. ऑनलाइन/ऑफ़लाइन संकेतक, निर्माण स्थिति, कुछ भी
+इसके लिए किसी पाठ के आगे एक रंगीन बिंदु की आवश्यकता होती है।
 
 ```go
 proton.Row(ctx,
@@ -173,10 +173,10 @@ proton.StatusDot(ctx proton.Context, c color.NRGBA, sizeDp float32)
 
 ---
 
-##Avatar
+## अवतार
 
-A circular badge showing initials. For user profile pictures when no image
-is available — which is most of the time.
+प्रथमाक्षर दर्शाने वाला गोलाकार बैज। जब कोई छवि न हो तो उपयोगकर्ता प्रोफ़ाइल चित्रों के लिए
+उपलब्ध है - जो अधिकांश समय उपलब्ध है।
 
 ```go
 proton.Avatar(ctx, "AJ", proton.RGB(0x5e81ac), proton.RGB(0xeceff4), 40)
@@ -189,10 +189,10 @@ proton.Avatar(ctx proton.Context, initials string, bg, fg color.NRGBA, sizeDp fl
 
 ---
 
-## Anillo de progreso
+## प्रोग्रेसरिंग
 
-Un indicador de progreso circular. Bueno para tarjetas de estadísticas y paneles donde
-la forma circular comunica el porcentaje de forma más visual que una barra.
+एक गोलाकार प्रगति सूचक. स्टेट कार्ड और डैशबोर्ड के लिए अच्छा है
+गोलाकार आकृति एक बार की तुलना में प्रतिशत अधिक दृष्टि से संचार करती है।
 
 ```go
 proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
@@ -204,14 +204,14 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-`progress` is 0.0–1.0. `sizeDp` is the diameter. `strokeDp` is the ring
-thickness — 4–6dp looks good for most sizes.
+`प्रगति` 0.0-1.0 है। `sizeDp` व्यास है। `strokeDp` रिंग है
+मोटाई - 4-6डीपी अधिकांश आकारों के लिए अच्छी लगती है।
 
 ---
 
-## Mesa
+## मेज़
 
-Una tabla de datos con una fila de encabezado y filas sombreadas alternas.
+A data table with a header row and alternating row shading.
 
 ```go
 proton.Table(ctx,
@@ -228,13 +228,13 @@ proton.Table(ctx,
 proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
 ```
 
-`proton.TableRow` es simplemente `[]cadena`. Las columnas son igualmente anchas.
+`proton.TableRow` is just `[]string`. Columns are equally wide.
 
 ---
 
-## paso a paso
+## Stepper
 
-Un indicador horizontal de progreso escalonado para flujos de varios pasos.
+बहु-चरणीय प्रवाह के लिए एक क्षैतिज चरण-प्रगति संकेतक।
 
 ```go
 proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
@@ -246,14 +246,14 @@ proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
 proton.Stepper(ctx proton.Context, current int, steps []string)
 ```
 
-El paso 0 es el primer paso. Los pasos completados (índice <actual) se completan
-color de acento. El paso actual está resaltado. Los pasos futuros son oscuros.
+चरण 0 पहला चरण है. पूर्ण किए गए चरण (सूचकांक <वर्तमान) भरे हुए मिलते हैं
+उच्चारण रंग. वर्तमान चरण पर प्रकाश डाला गया है. भविष्य के कदम धुंधले हैं.
 
 ---
 
-## Información sobre herramientas
+## Tooltip
 
-Una pequeña etiqueta que aparece cuando el usuario pasa el cursor sobre algo.
+एक छोटा लेबल जो तब दिखाई देता है जब उपयोगकर्ता किसी चीज़ पर घूमता है।
 
 ```go
 type UI struct {
@@ -274,14 +274,14 @@ proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx p
 proton.Tooltip(ctx proton.Context, state *proton.Clickable, tip string, content func(proton.Context))
 ```
 
-Las pistas en las que se puede hacer clic en "estado" se desplazan sobre el área de información sobre herramientas. esta separado de
-cualquier botón dentro del contenido: declare uno dedicado para cada información sobre herramientas.
+`स्टेट` क्लिक करने योग्य ट्रैक टूलटिप क्षेत्र के लिए होवर करते हैं। यह से अलग है
+सामग्री के अंदर कोई भी बटन - प्रत्येक टूलटिप के लिए एक समर्पित घोषित करें।
 
 ---
 
-## Imágenes
+## इमेजिस
 
-Cargue una vez al inicio. Dibuja cada cuadro.
+स्टार्टअप पर एक बार लोड करें. प्रत्येक फ़्रेम को ड्रा करें.
 
 ```go
 // load at startup — not in the draw function
@@ -300,14 +300,14 @@ proton.LoadImage(path string) (proton.ImageOp, error)
 proton.Image(ctx proton.Context, img proton.ImageOp, widthDp, heightDp float32)
 ```
 
-Se admiten PNG y JPEG.
+पीएनजी और जेपीईजी दोनों समर्थित हैं।
 
 ---
 
-## Logotipo
+## प्रतीक चिन्ह
 
-El logotipo de tu aplicación, cargado una vez y dibujado en cualquier lugar. Ver [07-theming.md](./07-theming.md)
-para la configuración completa. La versión corta:
+आपके ऐप का लोगो, एक बार लोड किया गया और कहीं भी खींचा गया। देखें [07-theming.md](./07-theming.md)
+पूर्ण सेटअप के लिए. संक्षिप्त संस्करण:
 
 ```go
 //go:embed logo.png
@@ -327,10 +327,10 @@ proton.HasLogo(ctx proton.Context) bool
 
 ---
 
-## Bloque de código
+## कोडब्लॉक
 
-Texto monoespaciado en un cuadro con borde redondeado. Para mostrar comandos, rutas de archivos,
-fragmentos: cualquier cosa que el usuario pueda copiar.
+Monospace text in a rounded bordered box. For showing commands, file paths,
+snippets — anything the user is likely to copy.
 
 ```go
 proton.CodeBlock(ctx, "go get github.com/CzaxStudio/proton")
@@ -344,10 +344,10 @@ proton.CodeBlock(ctx proton.Context, code string)
 
 ---
 
-## Sugerencia de acceso directo
+## ShortcutHint
 
-Una pequeña insignia de teclado. Mostrarlos junto a los elementos del menú o las etiquetas de los botones.
-para comunicar atajos de teclado.
+एक छोटा कीबोर्ड बैज. इन्हें मेनू आइटम या बटन लेबल के बगल में दिखाएं
+कुंजीपटल शॉर्टकट संचार करने के लिए.
 
 ```go
 proton.Row(ctx,
@@ -363,10 +363,10 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ---
 
-## Muestra de color
+## रंग आदर्श
 
-Una fila de círculos de colores en los que el usuario puede hacer clic para seleccionar un color. Devoluciones
-el índice del seleccionado, o -1 si aún no se ha seleccionado ninguno.
+A row of colored circles the user can click to select a color. Returns
+the index of the selected one, or -1 if none selected yet.
 
 ```go
 type UI struct {
@@ -393,4 +393,4 @@ if i >= 0 {
 proton.ColorSwatch(ctx proton.Context, btns []proton.Clickable, colors []color.NRGBA, selected int, sizeDp float32) int
 ```
 
-El círculo seleccionado recibe un anillo alrededor.
+चयनित वृत्त के चारों ओर एक वलय बन जाता है।

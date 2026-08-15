@@ -48,6 +48,6 @@ a.Window("App", 400, 300, func(win proton.Context) {
 })
 ```
 
-Les widgets s'empilent verticalement. L'état vit dans votre structure. C'est tout le modèle.
+Widgets stack vertically. State lives in your struct. That's the whole model.
 
 **[Proton-Repo](https://github.com/CzaxStudio/Proton)**

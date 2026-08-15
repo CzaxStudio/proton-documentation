@@ -1,7 +1,7 @@
 # Texto
 
-Diez funciones de texto que cubren todos los tamaños, desde "Quiero que la gente lea esto desde
-al otro lado de la habitación" a "por favor, que nadie lea esta letra pequeña"
+Ten text functions covering every size from "I want people to read this from
+across the room" to "please nobody read this fine print"
 
 ---
 

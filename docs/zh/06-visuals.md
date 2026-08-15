@@ -7,7 +7,7 @@
 
 ## 分频器
 
-A thin horizontal rule. Use it between sections.
+细水平尺。在各部分之间使用它。
 
 ```go
 proton.H5(ctx, "Section One")
@@ -204,8 +204,8 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-`progress` is 0.0–1.0. `sizeDp` 是直径。 `strokeDp` is the ring
-厚度 — 4-6dp 适合大多数尺寸。
+`progress` is 0.0–1.0. `sizeDp` is the diameter. `strokeDp` is the ring
+thickness — 4–6dp looks good for most sizes.
 
 ---
 
@@ -228,13 +228,13 @@ proton.Table(ctx,
 proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
 ```
 
-`proton.TableRow` 只是 `[]string`。列同样宽。
+`proton.TableRow` is just `[]string`. Columns are equally wide.
 
 ---
 
 ## 步进器
 
-多步骤流程的水平步骤进度指示器。
+A horizontal step-progress indicator for multi-step flows.
 
 ```go
 proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
@@ -307,7 +307,7 @@ PNG 和 JPEG 均受支持。
 ＃＃ 标识
 
 您的应用程序徽标，加载一次并在任何地方绘制。参见[07-theming.md](./07-theming.md)
-进行完整设置。 The short version:
+进行完整设置。简短版本：
 
 ```go
 //go:embed logo.png
@@ -344,7 +344,7 @@ proton.CodeBlock(ctx proton.Context, code string)
 
 ---
 
-## 快捷方式提示
+## ShortcutHint
 
 一个小键盘徽章。在菜单项或按钮标签旁边显示这些内容
 传达键盘快捷键。
@@ -363,7 +363,7 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ---
 
-## 色样
+## ColorSwatch
 
 用户可以单击一行彩色圆圈来选择颜色。退货
 所选索引的索引，如果尚未选择，则为 -1。

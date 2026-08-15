@@ -1,13 +1,13 @@
-# Boutons
+# बटन
 
-Les boutons permettent aux utilisateurs de demander à votre application de faire des choses. Proton a quatre sortes,
-ainsi que des liens cliquables et un moyen de rendre littéralement tout exploitable.
+Buttons are how users tell your app to do things. Proton has four kinds,
+plus clickable links and a way to make literally anything tappable.
 
 ---
 
-## La seule règle
+## एक नियम
 
-Chaque bouton a besoin de son propre champ « proton.Clickable » dans votre structure d'état.
+आपकी राज्य संरचना में प्रत्येक बटन को अपने स्वयं के `proton.Clickable` फ़ील्ड की आवश्यकता होती है।
 
 ```go
 type UI struct {
@@ -17,18 +17,18 @@ type UI struct {
 }
 ```
 
-N'en partagez pas un entre deux boutons. Si vous le faites, cliquer sur l'un ou l'autre déclenche
-les deux – ce qui est un bug amusant à déboguer et une terrible UX.
+दो बटनों के बीच एक को साझा न करें। यदि आप ऐसा करते हैं, तो दोनों में से किसी एक पर क्लिक करने से आग लग जाती है
+दोनों - जो डिबग करने के लिए एक मज़ेदार बग और एक भयानक UX है।
 
-De plus, les boutons doivent être à l'intérieur d'un wrapper de mise en page (`Pad`, `Row`, `Column`, etc.)
-pour des clics pour vous inscrire. Voir [Mise en route](./00-getting-started.md) pour savoir pourquoi.
+साथ ही, बटन एक लेआउट रैपर ('पैड', 'पंक्ति', 'कॉलम', आदि) के अंदर होने चाहिए।
+रजिस्टर करने के लिए क्लिक के लिए। इसका कारण जानने के लिए [आरंभ करना](./00-getting-started.md) देखें।
 
 ---
 
-## Bouton
+## बटन
 
-Filled, solid, primary action. Use this for the thing you most want the
-user to click.
+भरी हुई, ठोस, प्राथमिक क्रिया। इसका उपयोग उस चीज़ के लिए करें जिसे आप सबसे अधिक चाहते हैं
+उपयोगकर्ता को क्लिक करना है.
 
 ```go
 var save proton.Clickable
@@ -40,8 +40,8 @@ proton.Pad(ctx, 8, func(ctx proton.Context) {
 })
 ```
 
-Renvoie « true » sur l'image sur laquelle on clique. Un clic, un « vrai ». Il
-ne continue pas à tirer lorsqu'il est maintenu enfoncé.
+जिस फ़्रेम पर क्लिक किया जाता है उस पर `सही` लौटाता है। एक क्लिक, एक `सत्य`। यह
+दबाए जाने पर फायरिंग नहीं करता है।
 
 ```go
 proton.Button(ctx proton.Context, state *proton.Clickable, label string) bool
@@ -49,11 +49,11 @@ proton.Button(ctx proton.Context, state *proton.Clickable, label string) bool
 
 ---
 
-## OutlineButton
+## आउटलाइनबटन
 
-Ghost/outline style. Same behavior as Button but without the filled
-background. Use it for secondary actions — things the user might want
-to do, but that aren't the primary action.
+भूत/रूपरेखा शैली. बटन जैसा ही व्यवहार लेकिन भरे बिना
+पृष्ठभूमि. इसका उपयोग द्वितीयक कार्यों के लिए करें - ऐसी चीज़ें जो उपयोगकर्ता चाहता हो
+करना है, लेकिन यह प्राथमिक कार्रवाई नहीं है।
 
 ```go
 var save   proton.Clickable
@@ -78,8 +78,8 @@ proton.Row(ctx,
 )
 ```
 
-La hiérarchie visuelle ici – aperçu pour Annuler, remplie pour Enregistrer – indique
-utilisateurs quelle est l’action principale sans un seul mot d’explication.
+यहां दृश्य पदानुक्रम - रद्द करने के लिए रूपरेखा, सहेजें के लिए भरा हुआ - बताता है
+उपयोगकर्ताओं को स्पष्टीकरण के एक भी शब्द के बिना प्राथमिक कार्रवाई कौन सी है।
 
 ```go
 proton.OutlineButton(ctx proton.Context, state *proton.Clickable, label string) bool
@@ -87,9 +87,9 @@ proton.OutlineButton(ctx proton.Context, state *proton.Clickable, label string) 
 
 ---
 
-## IconButton
+## आइकनबटन
 
-Un bouton contenant uniquement une icône. Pas de texte, juste une icône. Commun dans les barres d'outils.
+केवल-आइकन बटन. कोई पाठ नहीं, बस एक चिह्न. टूलबार में सामान्य.
 
 ```go
 // icon is a *proton.Icon — load one with widget.NewIcon() from gioui.org/widget
@@ -100,8 +100,8 @@ if proton.IconButton(ctx, &closeBtn, closeIcon, "Close window") {
 }
 ```
 
-Le quatrième argument est la description de l'accessibilité - quel lecteur d'écran
-dirait. Ne le sautez pas.
+चौथा तर्क पहुंच-योग्यता विवरण है - एक स्क्रीन रीडर क्या है
+कहूँगा. इसे छोड़ें मत.
 
 ```go
 proton.IconButton(ctx proton.Context, state *proton.Clickable, icon *proton.Icon, desc string) bool
@@ -109,11 +109,11 @@ proton.IconButton(ctx proton.Context, state *proton.Clickable, icon *proton.Icon
 
 ---
 
-## Exploitable
+## टैप करने योग्य
 
-Rend n'importe quel contenu cliquable. La zone entière que vous dessinez à l'intérieur du rappel
-devient la cible touchée. Utilisez-le pour les cartes, les lignes de liste, les boutons personnalisés ou
-tout ce où une étiquette de bouton standard n'est pas ce que vous voulez.
+Makes any content clickable. The entire area you draw inside the callback
+becomes the hit target. Use it for cards, list rows, custom buttons, or
+anything where a standard button label isn't what you want.
 
 ```go
 var rowClick proton.Clickable
@@ -135,7 +135,7 @@ proton.Tappable(ctx proton.Context, state *proton.Clickable, content func(proton
 
 ---
 
-## Lien et LinkSmall
+## लिंक और लिंकस्मॉल
 
 Underlined clickable text styled like a hyperlink. Handle the click yourself —
 Proton doesn't open URLs for you, it just tells you the user clicked.
@@ -148,7 +148,7 @@ if proton.Link(ctx, &githubLink, "View on GitHub") {
 }
 ```
 
-`LinkSmall` est la même chose mais utilise un texte de la taille d'une légende :
+`LinkSmall` is the same thing but uses caption-sized text:
 
 ```go
 var termsLink proton.Clickable
@@ -165,9 +165,9 @@ proton.LinkSmall(ctx proton.Context, state *proton.Clickable, text string) bool
 
 ---
 
-## Modèles courants
+## सामान्य पैटर्न
 
-### Confirmer / Annuler la ligne (aligné à droite)
+### पंक्ति की पुष्टि करें/रद्द करें (दाईं ओर संरेखित)
 
 ```go
 type UI struct {
@@ -194,10 +194,10 @@ proton.RowEnd(ctx,
 )
 ```
 
-`RowEnd` pousse tout vers le bord droit — placement standard pour
-confirmer/annuler les paires.
+`रोएंड` हर चीज़ को दाएँ किनारे पर धकेलता है - मानक प्लेसमेंट के लिए
+जोड़ियों की पुष्टि/रद्द करें।
 
-### Toolbar
+### टूलबार
 
 ```go
 type UI struct {
@@ -227,7 +227,7 @@ proton.Row(ctx,
 )
 ```
 
-### Lignes de liste cliquables
+### क्लिक करने योग्य सूची पंक्तियाँ
 
 ```go
 type UI struct {

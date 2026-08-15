@@ -1,6 +1,6 @@
-#Androïde
+# Android
 
-Créez des applications Android à l'aide de Proton !
+Créez des applications Android avec Proton !
 
 Les applications Proton fonctionnent sur Android via la prise en charge Android native de Gio.
 Le même code qui s'exécute sur votre bureau s'exécute sur Android — pas de réécriture,
@@ -88,7 +88,7 @@ Déclarez l'activité Gio dans `AndroidManifest.xml` :
 
 ---
 
-## Android 15+ (taille de page de 16 Ko)
+## Android 15+ (16kB page sizes)
 
 Google Play nécessite des APK compatibles avec une taille de page de 16 Ko à partir de novembre 2025.
 `gogio` gère cela automatiquement — il suffit de le garder à jour :
@@ -177,5 +177,5 @@ gogio -target android -appid com.example.counter .
 adb install counter.apk
 ```
 
-C'est ça. Le même binaire que vous exécutez avec « go run . » sur votre ordinateur portable devient
+C'est ça. Le même binaire que vous exécutez avec « go run ». sur votre ordinateur portable devient
 un APK Android avec une seule commande.

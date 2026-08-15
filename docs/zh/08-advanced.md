@@ -1,8 +1,8 @@
 ＃ 先进的
 
-键盘快捷键、异步 goroutine、Toast 通知、模式、选项卡、
-手风琴、上下文菜单以及其他所有不适合的内容
-较早的几页。
+Keyboard shortcuts, async goroutines, toast notifications, modals, tabs,
+accordion, context menus, and everything else that doesn't fit neatly into
+the earlier pages.
 
 ---
 
@@ -105,9 +105,9 @@ proton.OnKey(ctx, proton.ModCtrl|proton.ModShift, "N", func() { newFile() })
 proton.OnKey(ctx, proton.ModNone, proton.KeyEscape, func() { closeDialog() })
 ```
 
-在绘图函数中调用“OnKey”。它注册了该快捷方式
-框架。由于绘制函数每帧运行，因此快捷键保持活动状态
-只要窗户开着。
+Call `OnKey` inside your draw function. It registers the shortcut for that
+frame. Since the draw function runs every frame, shortcuts stay active as
+long as the window is open.
 
 ```go
 proton.OnKey(ctx proton.Context, modifiers proton.Modifier, keyName string, fn func())
@@ -140,7 +140,7 @@ proton.KeyLeft
 proton.KeyRight
 ```
 
-字母键只是字符串：`"S"`、`"Z"`、`"N"`、`"A"`。
+Letter keys are just strings: `"S"`, `"Z"`, `"N"`, `"A"`.
 
 ---
 
@@ -183,7 +183,7 @@ proton.Tabs(ctx proton.Context, labels []string, btns []proton.Clickable, state 
 
 ## 手风琴
 
-带有可点击标题的可折叠部分。
+A collapsible section with a clickable header.
 
 ```go
 type UI struct {
@@ -202,14 +202,14 @@ proton.Accordion(ctx, &u.sec1, &u.sec1btn, "Advanced Options", func(ctx proton.C
 proton.Accordion(ctx proton.Context, state *proton.AccordionState, btn *proton.Clickable, title string, content func(proton.Context))
 ```
 
-`state.Open` 跟踪它是否已扩展。可以直接设置启动
-手风琴打开：`u.sec1.Open = true`。
+`state.Open` tracks whether it's expanded. You can set it directly to start
+an accordion open: `u.sec1.Open = true`.
 
 ---
 
 ## 上下文菜单
 
-出现在光标位置的右键菜单。
+A right-click menu that appears at the cursor position.
 
 ```go
 type UI struct {
@@ -242,7 +242,7 @@ proton.ContextMenu(ctx proton.Context, state *proton.ContextMenuState, tag *prot
 
 ---
 
-## 异步更新和 Goroutine
+## 异步更新和 Goroutines
 
 您的绘图函数在主线程上运行。当 goroutine 完成工作时
 并更改状态，调用 ctx.Invalidate() 来请求重绘。
@@ -284,7 +284,7 @@ if u.loading {
 
 ---
 
-## 旋转器
+## Spinner
 
 动画加载指示器。调用“Spinner”会自动保留
 窗口重绘——不需要“Invalidate()”循环。
@@ -349,9 +349,9 @@ proton.If(ctx proton.Context, cond bool, content func(proton.Context))
 
 ## FocusArea — 作用域键处理
 
-当您需要仅在 UI 的特定区域内激活键盘事件时，
-不是全球性的。通常“OnKey”就足够了——当你有两个时就使用这个
-应具有独立键盘快捷键的面板。
+When you need keyboard events only active inside a specific region of the UI,
+not globally. Usually `OnKey` is enough — reach for this when you have two
+panels that should have independent keyboard shortcuts.
 
 ```go
 type UI struct {

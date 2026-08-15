@@ -1,11 +1,11 @@
-# Ejemplos
+# Examples
 
 Programas completos que puedes copiar, pegar y ejecutar. Cada uno de estos compila
 y funciona como está.
 
 ---
 
-## Hola Mundo
+## Hello World
 
 El mínimo absoluto. Abra una ventana, muestre algo de texto.
 
@@ -25,7 +25,7 @@ func main() {
 
 ---
 
-## Encimera
+## Counter
 
 Un número que sube y baja cuando haces clic en los botones. Demuestra
 el patrón fundamental: estado en una estructura, botones dentro de envoltorios de diseño.
@@ -156,9 +156,9 @@ func main() {
 
 ---
 
-## Formulario de inicio de sesión
+## Login Form
 
-Un formulario con campos de correo electrónico/contraseña y validación en línea.
+A form with email/password fields and inline validation.
 
 ```go
 package main
@@ -233,10 +233,10 @@ func validate(email, password string) string {
 
 ---
 
-## Panel de configuración
+## Settings Panel
 
-Alternadores, botones de opción, un control deslizante y un botón para guardar. El tipo de panel
-que vive en cada aplicación.
+Toggles, radio buttons, a slider, and a save button. The kind of panel
+that lives in every app.
 
 ```go
 package main

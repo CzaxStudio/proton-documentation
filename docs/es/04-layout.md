@@ -1,6 +1,6 @@
 # Disposición
 
-Los widgets se apilan verticalmente de forma predeterminada. Todo lo demás es voluntaria.
+Widgets stack vertically by default. Everything else is opt-in.
 
 ---
 
@@ -24,7 +24,7 @@ proton.Gap(ctx proton.Context, dp float32)
 
 ---
 
-## Fila - Lado a lado
+## Row — Side by Side
 
 Coloca a los niños horizontalmente, de izquierda a derecha.
 
@@ -72,7 +72,7 @@ proton.Column(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## RowSpread — Espacio entre
+## RowSpread — Space Between
 
 Como Row pero coloca el espacio horizontal sobrante entre los niños, empujando
 el primero hacia el borde izquierdo y el último hacia la derecha.
@@ -208,8 +208,8 @@ proton.HSplit(ctx proton.Context, topFraction float32, top func(proton.Context),
 
 ### ResizeSplit: el usuario puede arrastrar el divisor
 
-Como Split pero el usuario puede arrastrar el controlador entre los dos paneles para
-cambiar su tamaño. La `fracción predeterminada` es la posición inicial.
+Like Split but the user can drag the handle between the two panes to
+resize them. The `defaultFraction` is the initial position.
 
 ```go
 type UI struct {
@@ -219,8 +219,8 @@ type UI struct {
 proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
 ```
 
-`ResizeSplitState.Fraction` comienza en 0 y se establece en `defaultFraction`
-en el primer cuadro. Después de eso, se recuerda la posición de arrastre del usuario.
+`ResizeSplitState.Fraction` starts at 0 and gets set to `defaultFraction`
+on the first frame. After that the user's drag position is remembered.
 
 ```go
 proton.ResizeSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, left func(proton.Context), right func(proton.Context))
@@ -264,7 +264,7 @@ proton.PadH(ctx, 24, func(ctx proton.Context) {
 })
 ```
 
-### PadV: solo arriba y abajo
+### PadV — Top and Bottom Only
 
 ```go
 proton.PadV(ctx, 12, func(ctx proton.Context) {
@@ -306,8 +306,8 @@ proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
 )
 ```
 
-Las celdas se ajustan a nuevas filas automáticamente. Si la última fila tiene menos de
-Celdas `cols`, las ranuras restantes están vacías.
+Cells wrap onto new rows automatically. If the last row has fewer than
+`cols` cells, the remaining slots are empty.
 
 ```go
 proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Context))
@@ -362,7 +362,7 @@ proton.MinSize(ctx proton.Context, widthDp, heightDp float32, fn func(proton.Con
 proton.MaxWidth(ctx proton.Context, widthDp float32, fn func(proton.Context))
 ```
 
-Pase 0 para cualquier dimensión de `MinSize` para dejar ese eje sin restricciones.
+Pass 0 for either dimension of `MinSize` to leave that axis unconstrained.
 
 ---
 

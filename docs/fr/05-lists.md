@@ -4,7 +4,7 @@ Pour afficher des collections d'éléments et pour rendre les zones de contenu d
 
 ---
 
-## List — Liste à défilement vertical
+## List — Vertical Scrollable List
 
 La liste standard. Dessine uniquement les éléments actuellement visibles à l'écran, donc
 10 000 articles, c'est bien.
@@ -53,8 +53,8 @@ proton.HList(ctx proton.Context, state *proton.Scrollable, length int, draw func
 
 ## Scroll – Zone de contenu déroulante
 
-Pour le contenu arbitraire susceptible de déborder, et non pour les éléments indexés. Le contenu
-La fonction peut appeler autant de widgets qu’elle le souhaite.
+For arbitrary content that might overflow, not indexed items. The content
+function can call as many widgets as it wants.
 
 ```go
 type UI struct {
@@ -80,7 +80,7 @@ Utilisez « Liste » lorsque vous avez indexé des données. Utilisez « Scro
 
 ---
 
-## TextView – Texte défilant en lecture seule
+## TextView — Read-Only Scrollable Text
 
 Affiche un grand bloc de texte dans une vue défilante et monospace.
 Idéal pour le contenu des fichiers, le texte d'aide, la prévisualisation du code.
@@ -97,8 +97,8 @@ proton.TextView(ctx, &u.scroll, longText)
 proton.TextView(ctx proton.Context, state *proton.Scrollable, text string)
 ```
 
-Le texte est divisé en nouvelles lignes et chaque ligne est un élément de liste virtuelle, donc il
-gère des documents très longs sans problème.
+The text is split on newlines and each line is a virtual list item, so it
+handles very long documents without issue.
 
 ---
 
@@ -135,7 +135,7 @@ Le codage couleur s'effectue automatiquement en fonction du préfixe de ligne :
 
 ---
 
-## Rendre les lignes de la liste belles
+## Making List Rows Look Good
 
 Un simple « proton.Label » dans une ligne de liste fonctionne mais n'a pas fière allure. Ajoutez-en
 rembourrage et structure.
@@ -229,9 +229,9 @@ proton.Card(ctx, proton.RGB(0x1e1e2e), 10, 0, func(ctx proton.Context) {
 
 ## Performance
 
-`List` et `HList` utilisent le rendu virtuel — seuls les éléments visibles obtiennent leur
-fonction de dessin appelée. Une tranche de 50 000 éléments défile à 60 ips sans
-transpirer.
+`List` and `HList` use virtual rendering — only visible items get their
+draw function called. A slice of 50,000 items scrolls at 60fps without
+breaking a sweat.
 
 `Scroll` restitue tout dans la fonction de contenu à chaque image. Utilisez-le pour
 des pages avec un nombre raisonnable de widgets, pas pour d'énormes ensembles de données dynamiques.

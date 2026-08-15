@@ -8,8 +8,8 @@ las páginas anteriores.
 
 ## Notificaciones de brindis
 
-Un mensaje cronometrado que aparece, permanece durante unos segundos y desaparece
-propio. Sin diálogo, sin bloquear al usuario.
+A timed message that appears, stays for a few seconds, and disappears on its
+own. No dialog, no blocking the user.
 
 ```go
 type UI struct {
@@ -23,7 +23,7 @@ u.toast.Show("File saved!", 2*time.Second)
 proton.Toast(ctx, &u.toast)
 ```
 
-Si no hay ningún brindis activo, "Toast" no genera nada. No es necesario comprobarlo primero.
+If there's no active toast, `Toast` draws nothing. No need to check first.
 
 ```go
 func (t *ToastState) Show(msg string, duration time.Duration)
@@ -105,9 +105,9 @@ proton.OnKey(ctx, proton.ModCtrl|proton.ModShift, "N", func() { newFile() })
 proton.OnKey(ctx, proton.ModNone, proton.KeyEscape, func() { closeDialog() })
 ```
 
-Llame a `OnKey` dentro de su función de dibujo. Registra el acceso directo para eso.
-marco. Dado que la función de dibujo se ejecuta en cada cuadro, los atajos permanecen activos como
-mientras la ventana esté abierta.
+Call `OnKey` inside your draw function. It registers the shortcut for that
+frame. Since the draw function runs every frame, shortcuts stay active as
+long as the window is open.
 
 ```go
 proton.OnKey(ctx proton.Context, modifiers proton.Modifier, keyName string, fn func())
@@ -183,7 +183,7 @@ de forma idiomática cuando declaras una matriz de tamaño fijo en tu estructura
 
 ## acordeón
 
-Una sección plegable con un encabezado en el que se puede hacer clic.
+A collapsible section with a clickable header.
 
 ```go
 type UI struct {
@@ -202,8 +202,8 @@ proton.Accordion(ctx, &u.sec1, &u.sec1btn, "Advanced Options", func(ctx proton.C
 proton.Accordion(ctx proton.Context, state *proton.AccordionState, btn *proton.Clickable, title string, content func(proton.Context))
 ```
 
-`state.Open` rastrea si está expandido. Puedes configurarlo directamente para comenzar
-un acordeón abierto: `u.sec1.Open = true`.
+`state.Open` tracks whether it's expanded. You can set it directly to start
+an accordion open: `u.sec1.Open = true`.
 
 ---
 
@@ -237,8 +237,8 @@ if chosen >= 0 {
 proton.ContextMenu(ctx proton.Context, state *proton.ContextMenuState, tag *proton.FrameTag, items []proton.ContextMenuItem, content func(proton.Context)) int
 ```
 
-Devuelve -1 cuando no se seleccionó nada y el índice del elemento en el marco
-se hace clic en algo. El menú se cierra automáticamente después de una selección.
+Returns -1 when nothing was selected, and the item index on the frame
+something gets clicked. The menu closes automatically after a selection.
 
 ---
 
@@ -326,7 +326,7 @@ proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []str
 
 ---
 
-## Si - Representación condicional
+## If — Conditional Rendering
 
 Presenta contenido solo cuando una condición es verdadera. Guarda un bloque "si" cuando
 Sólo quiero mostrar u ocultar un único widget.
@@ -390,12 +390,12 @@ proton.Maximized()  proton.WindowOption
 
 ---
 
-## Mantener las animaciones en ejecución
+## Keeping Animations Running
 
-Proton solo se vuelve a dibujar cuando hay entrada del usuario o usted llama a `ctx.Invalidate()`.
-Para animaciones: barras de progreso que se van llenando con el tiempo, cuentas atrás, cualquier cosa.
-basado en el tiempo: llame a "Invalidar" al final de cada cuadro para mantener los redibujados
-yendo:
+Proton only redraws when there's user input or you call `ctx.Invalidate()`.
+For animations — progress bars that fill over time, countdowns, anything
+time-based — call `Invalidate` at the end of each frame to keep the redraws
+going:
 
 ```go
 func draw(ctx proton.Context, u *UI) {
@@ -411,6 +411,6 @@ func draw(ctx proton.Context, u *UI) {
 }
 ```
 
-Cuando `u.animating` se vuelve falso, `Invalidate` deja de llamarse y Proton
-vuelve a volver a dibujar solo según la entrada del usuario. El widget Spinner hace esto
-automáticamente: no es necesario que lo administres tú mismo.
+When `u.animating` goes false, `Invalidate` stops being called and Proton
+goes back to redrawing only on user input. The Spinner widget does this
+automatically — you don't need to manage it yourself.

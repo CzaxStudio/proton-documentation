@@ -16,7 +16,7 @@ type Palette struct {
 }
 ```
 
-Appliquez-le après `proton.New()` et avant `a.Run()` :
+Apply it after `proton.New()` and before `a.Run()`:
 
 ```go
 a := proton.New("myapp")
@@ -38,7 +38,7 @@ a.Run()
 
 46 palettes. Une ligne chacun.
 
-### Thèmes sombres
+### Dark Themes
 
 ```go
 a.ApplyPalette(proton.DarkPalette)           // neutral dark
@@ -129,7 +129,7 @@ a.ColorCode("primary",   "#1f6feb")
 a.ColorCode("primaryfg", "#ffffff")
 ```
 
-Noms d'emplacement valides : `"bg"`, `"background"`, `"fg"`, `"foreground"`, `"text"`,
+Valid slot names: `"bg"`, `"background"`, `"fg"`, `"foreground"`, `"text"`,
 `"primary"`, `"accent"`, `"primaryfg"`, `"primarytext"`.
 
 Formats hexadécimaux acceptés : `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, `"#rrggbbaa"`.
@@ -175,9 +175,9 @@ Appelez après `proton.New()` et avant `a.Run()`. « 1.0 » est la valeur par d�
 
 ---
 
-## Widget de sélection de thèmes en direct
+## Live Theme Picker Widget
 
-Laissez les utilisateurs choisir leur propre thème au moment de l’exécution. Déposez-le dans n’importe quelle fenêtre de paramètres.
+Let users pick their own theme at runtime. Drop this into any settings window.
 
 ```go
 type UI struct {
@@ -187,14 +187,14 @@ type UI struct {
 proton.ThemePicker(ctx, &u.picker, a)
 ```
 
-Le sélecteur affiche les 46 palettes intégrées avec chacune quatre échantillons de couleurs.
-En cliquant sur l’un d’eux, vous l’appliquez immédiatement à l’application en cours d’exécution.
+The picker shows all 46 built-in palettes with four color swatches each.
+Clicking one applies it to the running app immediately.
 
 ---
 
-## Aide MakePalette
+## MakePalette Helper
 
-Si vous préférez les entiers hexadécimaux à la syntaxe littérale struct :
+If you prefer hex integers over the struct literal syntax:
 
 ```go
 // MakePalette(bg, fg, primary, primaryFg uint32)
@@ -204,7 +204,7 @@ a.ApplyPalette(p)
 
 ---
 
-## AllPalettes — Itérer sur chaque palette intégrée
+## AllPalettes — Iterate Over Every Built-in Palette
 
 ```go
 // proton.AllPalettes is []proton.NamedPalette
@@ -227,9 +227,10 @@ imprimer les 46 noms pour voir ce qui est disponible.
 
 ## Copier-Coller des palettes personnalisées
 
-Quelques favoris si vous ne souhaitez pas choisir parmi les éléments intégrés :
+Some favorites if you don't want to pick from the built-ins:
 
-**GitHub sombre**```go
+**GitHub Dark**
+```go
 a.ThemeBuilder().Bg("#0d1117").Fg("#e6edf3").Primary("#1f6feb").PrimaryFg("#ffffff").Apply()
 ```
 
@@ -245,6 +246,7 @@ a.ThemeBuilder().Bg("#0f172a").Fg("#f8fafc").Primary("#38bdf8").PrimaryFg("#0f17
 a.ThemeBuilder().Bg("#f5f0e8").Fg("#2c2416").Primary("#8b4513").PrimaryFg("#f5f0e8").Apply()
 ```
 
-**Cyberpunk**```go
+**Cyberpunk**
+```go
 a.ThemeBuilder().Bg("#1a0b0b").Fg("#ff2a6d").Primary("#d1ff00").PrimaryFg("#000000").Apply()
 ```

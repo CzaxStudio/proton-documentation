@@ -1,4 +1,4 @@
-# Widgets visuels
+# Visual Widgets
 
 Formes, cartes, images, badges, anneaux de progression, tableaux, avatars — les choses
 qui donnent à votre application l'impression qu'elle a été conçue exprès.
@@ -73,7 +73,7 @@ proton.RoundRect(ctx proton.Context, c color.NRGBA, widthDp, heightDp, radiusDp 
 
 ---
 
-## Carte
+## Card
 
 Contenu à l’intérieur d’un fond rectangulaire rembourré avec une ombre subtile.
 Le conteneur incontournable pour regrouper le contenu associé.
@@ -154,7 +154,7 @@ proton.Row(ctx,
 
 ---
 
-## Point d'état
+## StatutDot
 
 Un petit cercle coloré. Indicateurs en ligne/hors ligne, statut de build, tout
 qui a besoin d'un point coloré à côté d'un texte.
@@ -247,7 +247,7 @@ proton.Stepper(ctx proton.Context, current int, steps []string)
 ```
 
 L'étape 0 est la première étape. Les étapes terminées (index <actuel) obtiennent un remplissage
-couleur d'accent. L'étape en cours est mise en surbrillance. Les prochaines étapes sont floues.
+couleur d'accent. L'étape en cours est mise en surbrillance. Les prochaines étapes sont sombres.
 
 ---
 
@@ -274,8 +274,8 @@ proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx p
 proton.Tooltip(ctx proton.Context, state *proton.Clickable, tip string, content func(proton.Context))
 ```
 
-Les pistes cliquables « état » survolent la zone d'info-bulle. C'est séparé de
-n’importe quel bouton à l’intérieur du contenu – déclarez-en un dédié pour chaque info-bulle.
+The `state` Clickable tracks hover for the tooltip area. It's separate from
+any button inside the content — declare a dedicated one for each tooltip.
 
 ---
 
@@ -363,7 +363,7 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ---
 
-## Échantillon de couleurs
+## ColorSwatch
 
 Une rangée de cercles colorés sur lesquels l'utilisateur peut cliquer pour sélectionner une couleur. Retours
 l'index de celui sélectionné, ou -1 si aucun n'est encore sélectionné.

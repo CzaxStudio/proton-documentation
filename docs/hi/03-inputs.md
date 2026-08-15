@@ -1,11 +1,11 @@
-# 输入
+# इनपुट
 
-文本字段、复选框、切换开关、单选按钮、滑块、数字步进器、
-下拉菜单和带有清除按钮的搜索字段。
+टेक्स्ट फ़ील्ड, चेकबॉक्स, टॉगल, रेडियो बटन, स्लाइडर, नंबर स्टेपर,
+ड्रॉपडाउन, और एक स्पष्ट बटन के साथ एक खोज फ़ील्ड।
 
 ---
 
-## 输入 — 单行文本字段
+## इनपुट - सिंगल-लाइन टेक्स्ट फ़ील्ड
 
 ```go
 type UI struct {
@@ -18,7 +18,7 @@ proton.Input(ctx, &u.email, "your@email.com")
 fmt.Println(u.email.Text())
 ```
 
-第二个参数是字段为空时显示的占位符文本。
+दूसरा तर्क प्लेसहोल्डर टेक्स्ट है जो फ़ील्ड खाली होने पर दिखाया जाता है।
 
 ```go
 proton.Input(ctx proton.Context, state *proton.Editor, hint string)
@@ -26,10 +26,10 @@ proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## TextArea — 多行文本字段
+## टेक्स्टएरिया - मल्टी-लाइन टेक्स्ट फ़ील्ड
 
-与输入相同，但用户可以按 Enter 键添加行。适合留言，
-注释，任何比单行更长的东西。
+इनपुट के समान लेकिन उपयोगकर्ता लाइनें जोड़ने के लिए Enter दबा सकता है। संदेशों के लिए अच्छा है,
+नोट्स, एक पंक्ति से अधिक लंबी कोई भी चीज़।
 
 ```go
 type UI struct {
@@ -47,10 +47,10 @@ proton.TextArea(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## SearchInput
+## सर्चइनपुट
 
-左侧带有搜索图标和一个清除 (×) 按钮的文本字段
-当有东西需要清除时出现。返回当前的查询字符串。
+बाईं ओर एक खोज आइकन वाला एक टेक्स्ट फ़ील्ड और एक स्पष्ट (×) बटन
+तब प्रकट होता है जब कुछ साफ़ करना होता है। वर्तमान क्वेरी स्ट्रिंग लौटाता है.
 
 ```go
 type UI struct {
@@ -63,8 +63,8 @@ q := proton.SearchInput(ctx, &u.search, "Search notes...")
 filtered := filter(items, q)
 ```
 
-“SearchState”同时包含“Editor”和内部清除按钮 - 声明
-一个在你的结构中，不要自己构建它。
+`SearchState` में `Editor` और आंतरिक स्पष्ट बटन - घोषित करें दोनों हैं
+आपकी संरचना में से एक, इसे स्वयं न बनाएं।
 
 ```go
 proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder string) string
@@ -72,7 +72,7 @@ proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder st
 
 ---
 
-## 复选框
+## चेकबॉक्स
 
 Returns `true` on the frame the user toggles it. Read the current value from
 `state.Value`.
@@ -99,10 +99,10 @@ proton.Checkbox(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## 切换
+## टॉगल करें
 
-A material-style on/off switch. Same API as Checkbox, different look.
-Use for settings that take effect immediately rather than needing a Save button.
+एक सामग्री-शैली चालू/बंद स्विच। चेकबॉक्स के समान एपीआई, अलग लुक।
+उन सेटिंग्स के लिए उपयोग करें जो सेव बटन की आवश्यकता के बजाय तुरंत प्रभावी होती हैं।
 
 ```go
 type UI struct {
@@ -124,7 +124,7 @@ proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## RadioButton
+## रेडियो की बटन
 
 For picking exactly one option from a group. All buttons in a group share
 one `proton.Enum` state field. The `key` is what gets stored in `group.Value`
@@ -144,13 +144,13 @@ proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
-Returns `true` on the frame the selection changes.
+चयन परिवर्तन के फ़्रेम पर `सही` लौटाता है।
 
 ```go
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
 ```
 
-水平单选按钮 - 将它们包裹在“Row”中：
+क्षैतिज रेडियो बटन - उन्हें `पंक्ति` में लपेटें:
 
 ```go
 proton.Row(ctx,
@@ -164,10 +164,10 @@ proton.Row(ctx,
 
 ---
 
-＃＃ 滑块
+## स्लाइडर
 
-A horizontal drag handle for a value between 0.0 and 1.0. Scale it to
-whatever range you need.
+0.0 और 1.0 के बीच मान के लिए एक क्षैतिज ड्रैग हैंडल। इसे स्केल करें
+आपको जो भी रेंज चाहिए।
 
 ```go
 type UI struct {
@@ -181,7 +181,7 @@ volume := int(v * 100)
 proton.Caption(ctx, fmt.Sprintf("Volume: %d%%", volume))
 ```
 
-您还可以直接从状态读取值：
+आप सीधे राज्य से भी मूल्य पढ़ सकते हैं:
 
 ```go
 proton.Slider(ctx, &u.vol)
@@ -194,10 +194,10 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ---
 
-## 进度条
+## प्रोगेस बार
 
-Not interactive — just shows progress as a filled bar. Pass a float32
-between 0.0 and 1.0.
+इंटरएक्टिव नहीं - बस प्रगति को एक भरे हुए बार के रूप में दिखाता है। एक फ़्लोट32 पास करें
+0.0 और 1.0 के बीच.
 
 ```go
 proton.ProgressBar(ctx, 0.65)    // 65% done
@@ -211,10 +211,10 @@ proton.ProgressBar(ctx proton.Context, progress float32)
 
 ---
 
-## 数字输入
+## नंबरइन्पुट
 
-带有 - 和 + 按钮的步进器。为您处理最小、最大和步长。
-返回当前值。
+- और + बटन वाला एक स्टेपर। आपके लिए न्यूनतम, अधिकतम और चरण आकार संभालता है।
+वर्तमान मान लौटाता है.
 
 ```go
 type UI struct {
@@ -235,14 +235,14 @@ proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
 proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step float64) float64
 ```
 
-第一次使用时该值从“min”开始。 Step >= 1 显示整数；
-步骤 < 1 显示两位小数。
+पहली बार उपयोग करने पर मान `मिनट` से शुरू होता है। चरण >= 1 पूर्णांक प्रदर्शित करता है;
+चरण <1 दो दशमलव स्थान प्रदर्शित करता है।
 
 ---
 
-## SelectBox
+## चयन बॉक्स
 
-下拉选择器。返回当前选定选项的索引。
+एक ड्रॉपडाउन चयनकर्ता. वर्तमान में चयनित विकल्प का सूचकांक लौटाता है।
 
 ```go
 type UI struct {
@@ -255,19 +255,19 @@ i := proton.SelectBox(ctx, &u.lang, langs)
 proton.Caption(ctx, "You picked: "+langs[i])
 ```
 
-单击时，下拉菜单将出现在按钮下方。单击任意位置
-外面它关闭它。
+क्लिक करने पर बटन के नीचे ड्रॉपडाउन दिखाई देता है। कहीं भी क्लिक करना
+बाहर यह इसे बंद कर देता है।
 
 ```go
 proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int
 ```
 
-`Selected` 从 0 开始。如果需要知道，请检查 `state.Selected >= 0`
-用户是否明确选择了某些内容。
+`चयनित` 0 से शुरू होता है। यदि आपको जानना है तो `state.Selected >= 0` जांचें
+क्या उपयोगकर्ता ने स्पष्ट रूप से कुछ चुना है।
 
 ---
 
-## 完整表格示例
+## फुल फॉर्म उदाहरण
 
 ```go
 type SettingsUI struct {

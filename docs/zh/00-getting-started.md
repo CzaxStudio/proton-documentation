@@ -1,6 +1,6 @@
 ＃ 入门
 
-您想用 Go 构建一个桌面应用程序。你来对地方了
+您想用 Go 构建一个桌面应用程序。您来对地方了。
 
 ---
 
@@ -12,8 +12,8 @@
 go version
 ```
 
-如果您使用的是 Linux，则还需要三个系统软件包。 macOS 和 Windows 用户
-可以跳过这个并感到沾沾自喜：
+If you're on Linux, you also need three system packages. macOS and Windows users
+can skip this and feel smug:
 
 ```bash
 sudo apt install libwayland-dev libxkbcommon-dev libvulkan-dev
@@ -30,8 +30,8 @@ go get github.com/CzaxStudio/proton
 go mod tidy
 ```
 
-“go mod tidy”步骤很重要——它拉动了 Gio 的传递依赖
-并将它们写入“go.sum”。跳过它，你会看到到处都是红色的曲线。
+The `go mod tidy` step is important — it pulls Gio's transitive dependencies
+and writes them to `go.sum`. Skip it and you'll see red squiggles everywhere.
 
 ---
 
@@ -116,7 +116,7 @@ type UI struct {
 ```
 
 每个小部件一个字段。不要在两个按钮之间共享“Clickable”——它们会
-两者都会在同一次点击时触发，这几乎不是您想要的。
+两者都在同一次点击时触发，这几乎不是您想要的。
 
 ---
 

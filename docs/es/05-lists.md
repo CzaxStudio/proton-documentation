@@ -176,7 +176,7 @@ proton.List(ctx, &u.scroll, len(contacts), func(ctx proton.Context, i int) {
 })
 ```
 
-### Filas en las que se puede hacer clic con resaltado al pasar el mouse
+### Clickable rows with hover highlight
 
 ```go
 type UI struct {

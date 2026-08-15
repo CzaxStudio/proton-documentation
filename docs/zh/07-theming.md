@@ -36,9 +36,9 @@ a.Run()
 
 ## 内置调色板
 
-46 个调色板。各一行。
+46 palettes. One line each.
 
-### 黑暗主题
+### Dark Themes
 
 ```go
 a.ApplyPalette(proton.DarkPalette)           // neutral dark
@@ -136,7 +136,7 @@ a.ColorCode("primaryfg", "#ffffff")
 
 ---
 
-## 背景颜色
+## Background Colors
 
 这些用更有趣的东西覆盖调色板的“Bg”颜色。
 
@@ -163,7 +163,7 @@ a.SetBackgroundRainbow()
 
 ## 字体比例
 
-全局放大或缩小所有文本。
+Make all text bigger or smaller globally.
 
 ```go
 a.SetFontScale(1.1)  // 10% bigger — good for accessibility
@@ -177,7 +177,7 @@ a.SetFontScale(0.9)  // a bit smaller
 
 ## 实时主题选择器小部件
 
-让用户在运行时选择自己的主题。将其放入任何设置窗口中。
+Let users pick their own theme at runtime. Drop this into any settings window.
 
 ```go
 type UI struct {
@@ -192,7 +192,7 @@ proton.ThemePicker(ctx, &u.picker, a)
 
 ---
 
-## MakePalette 助手
+## MakePalette Helper
 
 如果您更喜欢十六进制整数而不是结构文字语法：
 
@@ -245,6 +245,7 @@ a.ThemeBuilder().Bg("#0f172a").Fg("#f8fafc").Primary("#38bdf8").PrimaryFg("#0f17
 a.ThemeBuilder().Bg("#f5f0e8").Fg("#2c2416").Primary("#8b4513").PrimaryFg("#f5f0e8").Apply()
 ```
 
-**赛博朋克**```go
+**Cyberpunk**
+```go
 a.ThemeBuilder().Bg("#1a0b0b").Fg("#ff2a6d").Primary("#d1ff00").PrimaryFg("#000000").Apply()
 ```

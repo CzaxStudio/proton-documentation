@@ -1,12 +1,12 @@
-＃ 布局
+# लेआउट
 
-默认情况下，小部件垂直堆叠。其他一切都是选择加入。
+विजेट डिफ़ॉल्ट रूप से लंबवत रूप से स्टैक होते हैं। बाकी सब कुछ ऑप्ट-इन है।
 
 ---
 
-## 间隙——在事物之间放置空间
+## गैप - चीजों के बीच में जगह रखें
 
-最常用的布局功能。插入空白垂直空间。
+सबसे अधिक उपयोग किया जाने वाला लेआउट फ़ंक्शन. रिक्त ऊर्ध्वाधर स्थान सम्मिलित करता है.
 
 ```go
 proton.H4(ctx, "Section Title")
@@ -20,13 +20,13 @@ proton.H4(ctx, "Next Section")
 proton.Gap(ctx proton.Context, dp float32)
 ```
 
-8dp是一个很小的差距。 16dp 是中等。 24dp很大。这三个涵盖了大多数情况。
+8dp एक छोटा सा अंतर है. 16dp मध्यम है. 24dp बड़ा है. वे तीन अधिकांश मामलों को कवर करते हैं।
 
 ---
 
-## 行 — 并排
+## पंक्ति - अगल-बगल
 
-Places children horizontally, left to right.
+बच्चों को क्षैतिज रूप से बाएँ से दाएँ रखें।
 
 ```go
 proton.Row(ctx,
@@ -36,7 +36,7 @@ proton.Row(ctx,
 )
 ```
 
-Each child is a `func(proton.Context)`. Call whatever widgets you want inside it.
+प्रत्येक बच्चा एक `func(proton.Context)` है। इसके अंदर आपको जो भी विजेट चाहिए उसे कॉल करें।
 
 ```go
 proton.Row(ctx proton.Context, widgets ...func(proton.Context))
@@ -44,11 +44,11 @@ proton.Row(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## 列 — 显式垂直组
+## कॉलम - स्पष्ट लंबवत समूह
 
-将子项垂直堆叠为命名组。高层很少需要
-（小部件自动堆叠），但在“Row”或“Split”中很有用
-右侧需要是多个堆叠的东西。
+नामित समूह के रूप में बच्चों को लंबवत रूप से ढेर करें। शीर्ष स्तर पर शायद ही इसकी आवश्यकता हो
+(विजेट स्वचालित रूप से स्टैक हो जाते हैं), लेकिन 'पंक्ति' या 'स्प्लिट' के अंदर उपयोगी होते हैं
+दाहिनी ओर अनेक वस्तुओं का ढेर होना आवश्यक है।
 
 ```go
 proton.Row(ctx,
@@ -72,10 +72,10 @@ proton.Column(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## RowSpread — 间距
+## रोस्प्रेड - बीच में जगह
 
-与 Row 类似，但在子级之间放置剩余的水平空间，推动
-第一个位于左边缘，最后一个位于右边缘。
+पंक्ति की तरह, लेकिन बच्चों के बीच बचे हुए क्षैतिज स्थान को धक्का देकर डालता है
+पहला बाएँ किनारे से और अंतिम दाएँ किनारे से।
 
 ```go
 // title on the left, version on the right
@@ -91,9 +91,9 @@ proton.RowSpread(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## RowEnd — 一切都在右边
+## रोएंड - सब कुछ दाहिनी ओर
 
-将所有子项推到右边缘。
+सभी बच्चों को दाहिनी ओर धकेलता है।
 
 ```go
 proton.RowEnd(ctx,
@@ -117,11 +117,11 @@ proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## GrowRow 和 GrowColumn — 弹性布局
+## GrowRow and GrowColumn — Stretchy Layouts
 
-When one child needs to fill all remaining space and the others stay their
-natural size, use `GrowRow` (horizontal) or `GrowColumn` (vertical) with
-`GrowItem` and `FixedItem`.
+जब एक बच्चे को बची हुई सारी जगह भरने की ज़रूरत होती है और दूसरे बच्चे उनके बने रहते हैं
+प्राकृतिक आकार, `GrowRow` (क्षैतिज) या `GrowColumn` (ऊर्ध्वाधर) का उपयोग करें
+`ग्रोआइटम` और `फिक्स्डआइटम`।
 
 ```go
 // search bar: label fixed, input stretches, button fixed
@@ -140,8 +140,8 @@ proton.GrowRow(ctx,
 )
 ```
 
-`GrowItem` takes all remaining space. `FixedItem` takes only what it needs.
-Multiple `GrowItem`s split remaining space evenly.
+`GrowItem` शेष सारी जगह ले लेता है। `FixedItem` केवल वही लेता है जिसकी उसे आवश्यकता है।
+एकाधिक `GrowItem` ने शेष स्थान को समान रूप से विभाजित किया।
 
 ```go
 proton.GrowRow(ctx proton.Context, children ...proton.FlexItem)
@@ -150,10 +150,10 @@ proton.GrowItem(ctx proton.Context, fn func(proton.Context)) proton.FlexItem
 proton.FixedItem(ctx proton.Context, fn func(proton.Context)) proton.FlexItem
 ```
 
-### FlexSpacer — 将兄弟姐妹推开
+### फ्लेक्सस्पेसर - भाई-बहनों को अलग करें
 
-一个有弹性的空旷空间。将其放在“FixedItem”之间以将它们推向相反的位置
-不使用“RowSpread”的边缘。
+एक खिंचावदार खाली स्थान. उन्हें विपरीत दिशा में धकेलने के लिए इसे `FixedItem` के बीच रखें
+`RowSpread` का उपयोग किए बिना किनारे।
 
 ```go
 proton.GrowRow(ctx,
@@ -169,10 +169,10 @@ proton.FlexSpacer() proton.FlexItem
 
 ---
 
-## 拆分 — 并排窗格
+## Split — Side-by-Side Panes
 
-划分两个部分之间的可用宽度。 `leftFraction` 是比例
-左窗格的值从 0.0 到 1.0。
+Divides available width between two sections. `leftFraction` is the proportion
+the left pane gets, from 0.0 to 1.0.
 
 ```go
 proton.Split(ctx, 0.35,
@@ -191,9 +191,9 @@ proton.Split(ctx, 0.35,
 proton.Split(ctx proton.Context, leftFraction float32, left func(proton.Context), right func(proton.Context))
 ```
 
-### HSplit — 顶部和底部
+### एचएसप्लिट - ऊपर और नीचे
 
-相同的想法，但垂直。
+वही विचार लेकिन लंबवत.
 
 ```go
 proton.HSplit(ctx, 0.7,
@@ -206,10 +206,10 @@ proton.HSplit(ctx, 0.7,
 proton.HSplit(ctx proton.Context, topFraction float32, top func(proton.Context), bottom func(proton.Context))
 ```
 
-### ResizeSplit — 用户可以拖动分隔线
+### ResizeSplit - उपयोगकर्ता डिवाइडर को खींच सकता है
 
-与“拆分”类似，但用户可以拖动两个窗格之间的手柄来
-调整它们的大小。 `defaultFraction` 是初始位置。
+स्प्लिट की तरह लेकिन उपयोगकर्ता दो पैन के बीच हैंडल को खींच सकता है
+उनका आकार बदलें. `डिफ़ॉल्टफ़्रैक्शन` प्रारंभिक स्थिति है।
 
 ```go
 type UI struct {
@@ -219,8 +219,8 @@ type UI struct {
 proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
 ```
 
-`ResizeSplitState.Fraction` 从 0 开始并设置为 `defaultFraction`
-在第一帧上。之后用户的拖动位置就会被记住。
+`ResizeSplitState.Fraction` 0 से शुरू होता है और `defaultFraction` पर सेट हो जाता है
+पहले फ्रेम पर. इसके बाद यूजर की ड्रैग पोजीशन याद आ जाती है.
 
 ```go
 proton.ResizeSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, left func(proton.Context), right func(proton.Context))
@@ -229,10 +229,10 @@ proton.ResizeHSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultF
 
 ---
 
-＃＃ 中心
+## केंद्र
 
-将内容放置在可用空间的中心。非常适合空状态
-和加载屏幕。
+सामग्री को उपलब्ध स्थान के केंद्र में रखें। खाली राज्यों के लिए बढ़िया
+और स्क्रीन लोड हो रही है।
 
 ```go
 proton.Center(ctx, func(ctx proton.Context) {
@@ -246,9 +246,9 @@ proton.Center(ctx proton.Context, fn func(proton.Context))
 
 ---
 
-## 填充
+## Padding
 
-### 垫 — 所有四个面
+### पैड - सभी चार भुजाएँ
 
 ```go
 proton.Pad(ctx, 16, func(ctx proton.Context) {
@@ -256,7 +256,7 @@ proton.Pad(ctx, 16, func(ctx proton.Context) {
 })
 ```
 
-### PadH — 仅左和右
+### PadH - केवल बाएँ और दाएँ
 
 ```go
 proton.PadH(ctx, 24, func(ctx proton.Context) {
@@ -264,7 +264,7 @@ proton.PadH(ctx, 24, func(ctx proton.Context) {
 })
 ```
 
-### PadV — 仅顶部和底部
+### पैडवी - केवल ऊपर और नीचे
 
 ```go
 proton.PadV(ctx, 12, func(ctx proton.Context) {
@@ -272,9 +272,9 @@ proton.PadV(ctx, 12, func(ctx proton.Context) {
 })
 ```
 
-### PadSides — 每条边单独
+### पैडसाइड्स - प्रत्येक किनारा व्यक्तिगत रूप से
 
-Arguments are top, right, bottom, left — same order as CSS margin/padding.
+तर्क ऊपर, दाएँ, नीचे, बाएँ हैं - सीएसएस मार्जिन/पैडिंग के समान क्रम।
 
 ```go
 proton.PadSides(ctx, 8, 16, 8, 16, func(ctx proton.Context) {
@@ -291,10 +291,10 @@ proton.PadSides(ctx proton.Context, top, right, bottom, left float32, fn func(pr
 
 ---
 
-## 网格 — 固定列网格
+## ग्रिड - फिक्स्ड-कॉलम ग्रिड
 
-将子项排列在具有固定列数的网格中。每个细胞
-获得相等份额的可用宽度。
+बच्चों को निश्चित संख्या में कॉलम वाले ग्रिड में व्यवस्थित करता है। प्रत्येक कोशिका
+उपलब्ध चौड़ाई का बराबर हिस्सा मिलता है।
 
 ```go
 proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
@@ -306,8 +306,8 @@ proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
 )
 ```
 
-单元格自动换行到新行。如果最后一行少于
-`cols` 单元格，剩余槽位为空。
+कोशिकाएँ स्वचालित रूप से नई पंक्तियों में लपेट जाती हैं। यदि अंतिम पंक्ति में इससे कम है
+`cols` सेल, शेष स्लॉट खाली हैं।
 
 ```go
 proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Context))
@@ -315,10 +315,10 @@ proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Co
 
 ---
 
-## ZStack — 在彼此之上绘制东西
+## ZStack - चीज़ों को एक-दूसरे के ऊपर बनाएँ
 
-在同一位置分层多个小部件。第一个孩子是在
-底部；最后一个在上面。
+एक ही स्थान पर एकाधिक विजेट परतें। पहला बच्चा है
+तल; अंतिम शीर्ष पर है.
 
 ```go
 proton.ZStack(ctx,
@@ -341,7 +341,7 @@ proton.ZStack(ctx proton.Context, layers ...func(proton.Context))
 
 ---
 
-## MinSize 和 MaxWidth — 尺寸约束
+## MinSize and MaxWidth — Size Constraints
 
 ```go
 // at least 200dp wide and 48dp tall
@@ -362,11 +362,11 @@ proton.MinSize(ctx proton.Context, widthDp, heightDp float32, fn func(proton.Con
 proton.MaxWidth(ctx proton.Context, widthDp float32, fn func(proton.Context))
 ```
 
-Pass 0 for either dimension of `MinSize` to leave that axis unconstrained.
+उस अक्ष को अप्रतिबंधित छोड़ने के लिए `MinSize` के किसी भी आयाम के लिए 0 पास करें।
 
 ---
 
-## 典型的两栏应用程序
+## A Typical Two-Column App
 
 ```go
 func draw(ctx proton.Context, u *UI) {

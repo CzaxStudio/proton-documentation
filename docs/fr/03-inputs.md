@@ -26,7 +26,7 @@ proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## TextArea — Champ de texte multiligne
+## TextArea — Multi-line Text Field
 
 Identique à Input mais l'utilisateur peut appuyer sur Entrée pour ajouter des lignes. Bon pour les messages,
 notes, quelque chose de plus long qu’une seule ligne.
@@ -126,7 +126,7 @@ proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 
 ## Bouton Radio
 
-Pour avoir choisi exactement une option dans un groupe. Tous les boutons d'un partage de groupe
+Pour choisir exactement une option dans un groupe. Tous les boutons d'un partage de groupe
 un champ d'état `proton.Enum`. La « clé » est ce qui est stocké dans « group.Value »
 lorsque cette option est sélectionnée.
 
@@ -144,7 +144,7 @@ proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
-Renvoie « true » sur le cadre où la sélection change.
+Returns `true` on the frame the selection changes.
 
 ```go
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
@@ -194,10 +194,10 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ---
 
-## Barre de progression
+## ProgressBar
 
-Non interactif – affiche simplement la progression sous forme de barre remplie. Passer un flotteur32
-entre 0,0 et 1,0.
+Not interactive — just shows progress as a filled bar. Pass a float32
+between 0.0 and 1.0.
 
 ```go
 proton.ProgressBar(ctx, 0.65)    // 65% done
@@ -235,14 +235,14 @@ proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
 proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step float64) float64
 ```
 
-La valeur commence à « min » lors de la première utilisation. Étape >= 1 affiche des nombres entiers ;
-l'étape < 1 affiche deux décimales.
+The value starts at `min` on first use. Step >= 1 displays integers;
+step < 1 displays two decimal places.
 
 ---
 
 ## Boîte de sélection
 
-Un sélecteur déroulant. Renvoie l'index de l'option actuellement sélectionnée.
+A dropdown selector. Returns the index of the currently selected option.
 
 ```go
 type UI struct {

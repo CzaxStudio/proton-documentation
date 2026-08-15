@@ -1,6 +1,6 @@
 ＃ 安卓
 
-使用 Proton 构建 Android 应用程序！
+Build Android Apps using Proton!
 
 Proton 应用程序通过 Gio 的原生 Android 支持在 Android 上运行。
 在桌面上运行的相同代码也可以在 Android 上运行 - 无需重写，
@@ -26,7 +26,7 @@ Proton 应用程序通过 Gio 的原生 Android 支持在 Android 上运行。
 go install gioui.org/cmd/gogio@latest
 ```
 
-您还需要 Android SDK 和 NDK。最简单的路径是 Android Studio：
+You also need the Android SDK and NDK. The easiest path is Android Studio:
 [developer.android.com/studio](https://developer.android.com/studio)
 
 设置环境变量以便gogio可以找到SDK：
@@ -60,7 +60,7 @@ gogio -target android -appid com.yourname.yourapp -run .
 
 ---
 
-## 构建 AAR（嵌入现有 Android 项目）
+## 构建一个 AAR（嵌入到现有的 Android 项目中）
 
 ```bash
 gogio -target android -buildmode archive -appid com.yourname.yourapp .
@@ -88,10 +88,10 @@ dependencies {
 
 ---
 
-## Android 15+（16kB 页面大小）
+## Android 15+ (16kB page sizes)
 
 从 2025 年 11 月起，Google Play 要求页面大小兼容的 APK 为 16kB。
-`gogio` 会自动处理这个问题——只需保持最新：
+`gogio` 会自动处理这个问题 - 只需保持最新即可：
 
 ```bash
 go install gioui.org/cmd/gogio@latest

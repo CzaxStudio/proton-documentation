@@ -27,9 +27,9 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 proton.List(ctx proton.Context, state *proton.Scrollable, length int, draw func(proton.Context, int))
 ```
 
-Δηλώστε ένα «proton.Scrollable» ανά λίστα. Παρακολουθεί τη θέση κύλισης.
-Μην μοιράζεστε μία μεταξύ δύο λιστών — θα τσακωθούν για τη θέση κύλισης και
-χάνουν και οι δύο.
+Declare one `proton.Scrollable` per list. It tracks the scroll position.
+Don't share one between two lists — they'll fight over scroll position and
+both lose.
 
 ---
 
@@ -104,8 +104,8 @@ proton.TextView(ctx proton.Context, state *proton.Scrollable, text string)
 
 ## LogView — Έξοδος καταγραφής αυτόματης κύλισης
 
-Όπως το TextView, αλλά πραγματοποιεί αυτόματη κύλιση προς τα κάτω κάθε φορά που προστίθεται νέο περιεχόμενο.
-Τα κοινά προθέματα ημερολογίου κωδικοποιεί αυτόματα τα χρώματα.
+Like TextView but auto-scrolls to the bottom whenever new content is added.
+Color-codes common log prefixes automatically.
 
 ```go
 type UI struct {
@@ -229,9 +229,9 @@ proton.Card(ctx, proton.RGB(0x1e1e2e), 10, 0, func(ctx proton.Context) {
 
 ## Απόδοση
 
-Το "List" και το "HList" χρησιμοποιούν εικονική απόδοση — μόνο τα ορατά στοιχεία έχουν τη δική τους
-καλείται η συνάρτηση σχεδίασης. Ένα κομμάτι 50.000 αντικειμένων κυλά στα 60 fps χωρίς
-σπάζοντας τον ιδρώτα.
+`List` and `HList` use virtual rendering — only visible items get their
+draw function called. A slice of 50,000 items scrolls at 60fps without
+breaking a sweat.
 
-Η "κύλιση" αποδίδει τα πάντα στη λειτουργία περιεχομένου σε κάθε πλαίσιο. Χρησιμοποιήστε το για
-σελίδες με λογικό αριθμό γραφικών στοιχείων, όχι για τεράστια δυναμικά σύνολα δεδομένων.
+`Scroll` renders everything in the content function every frame. Use it for
+pages with a reasonable number of widgets, not for huge dynamic datasets.

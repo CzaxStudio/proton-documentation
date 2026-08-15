@@ -1,13 +1,13 @@
-# Exemples
+# उदाहरण
 
-Complete programs you can copy, paste, and run. Every one of these compiles
-and works as-is.
+संपूर्ण प्रोग्राम जिन्हें आप कॉपी, पेस्ट और चला सकते हैं। इनमें से हर एक संकलित होता है
+और वैसे ही काम करता है।
 
 ---
 
-## Bonjour le monde
+## हैलो वर्ल्ड
 
-Le minimum absolu. Ouvrez une fenêtre, affichez du texte.
+परम न्यूनतम. एक विंडो खोलें, कुछ टेक्स्ट दिखाएं।
 
 ```go
 package main
@@ -25,7 +25,7 @@ func main() {
 
 ---
 
-## Comptoir
+## विरोध करना
 
 A number that goes up and down when you click buttons. Demonstrates
 the fundamental pattern: state in a struct, buttons inside layout wrappers.
@@ -86,9 +86,9 @@ func main() {
 
 ---
 
-## Liste de tâches
+## करने के लिए सूची
 
-The demo that every UI framework is required to have by law.
+वह डेमो जो प्रत्येक यूआई फ्रेमवर्क के लिए कानून द्वारा आवश्यक है।
 
 ```go
 package main
@@ -156,9 +156,9 @@ func main() {
 
 ---
 
-## Login Form
+## लॉगिन फॉर्म
 
-Un formulaire avec des champs email/mot de passe et une validation en ligne.
+ईमेल/पासवर्ड फ़ील्ड और इनलाइन सत्यापन वाला एक फॉर्म।
 
 ```go
 package main
@@ -233,10 +233,10 @@ func validate(email, password string) string {
 
 ---
 
-## Panneau de paramètres
+## सेटिंग्स पैनल
 
-Toggles, radio buttons, a slider, and a save button. The kind of panel
-that lives in every app.
+टॉगल, रेडियो बटन, एक स्लाइडर और एक सेव बटन। पैनल का प्रकार
+जो हर ऐप में रहता है.
 
 ```go
 package main
@@ -308,9 +308,9 @@ func main() {
 
 ---
 
-## Application avec logo
+## लोगो के साथ ऐप
 
-Load a logo from an embedded file and display it in the header.
+एम्बेडेड फ़ाइल से एक लोगो लोड करें और इसे हेडर में प्रदर्शित करें।
 
 ```go
 package main
@@ -366,13 +366,13 @@ func main() {
 }
 ```
 
-Place `logo.png` in the same directory as `main.go` before running.
+चलाने से पहले `logo.png` को `main.go` जैसी ही निर्देशिका में रखें।
 
 ---
 
-## Application à deux volets
+## दो-फलक ऐप
 
-Une répartition barre latérale/contenu redimensionnable – le modèle de mise en page derrière la plupart des applications de bureau.
+एक आकार बदलने योग्य साइडबार/सामग्री विभाजन - अधिकांश डेस्कटॉप ऐप्स के पीछे का लेआउट पैटर्न।
 
 ```go
 package main
@@ -456,9 +456,9 @@ func main() {
 
 ---
 
-## Running the Built-in Examples
+## अंतर्निहित उदाहरण चलाना
 
-Le dépôt est livré avec 9 exemples d'applications complets :
+रेपो 9 संपूर्ण उदाहरण ऐप्स के साथ आता है:
 
 ```bash
 go run ./examples/hello        # one window, one label
@@ -472,5 +472,5 @@ go run ./examples/logoapp      # custom logo with go:embed
 go run ./examples/kitchen      # stress test for all features
 ```
 
-Exécutez d'abord `showcase` — c'est la démonstration visuelle la plus complète de ce que
-Proton peut le faire.
+Run `showcase` first — it's the most complete visual demonstration of what
+Proton can do.

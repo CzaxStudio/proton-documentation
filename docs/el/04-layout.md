@@ -1,6 +1,6 @@
 # Διάταξη
 
-Τα γραφικά στοιχεία στοιβάζονται κατακόρυφα από προεπιλογή. Όλα τα άλλα είναι opt-in.
+Widgets stack vertically by default. Everything else is opt-in.
 
 ---
 
@@ -20,7 +20,7 @@ proton.H4(ctx, "Next Section")
 proton.Gap(ctx proton.Context, dp float32)
 ```
 
-Το 8dp είναι ένα μικρό κενό. 16dp είναι μέτρια. Το 24dp είναι μεγάλο. Αυτά τα τρία καλύπτουν τις περισσότερες περιπτώσεις.
+8dp is a small gap. 16dp is medium. 24dp is large. Those three cover most cases.
 
 ---
 
@@ -48,7 +48,7 @@ proton.Row(ctx proton.Context, widgets ...func(proton.Context))
 
 Στοιβάζει τα παιδιά κάθετα ως ομάδα με όνομα. Σπάνια χρειάζεται στο κορυφαίο επίπεδο
 (τα γραφικά στοιχεία στοιβάζονται αυτόματα), αλλά χρήσιμα μέσα στη «Σειρά» ή στο «Διαίρεση» όταν το
-Η δεξιά πλευρά πρέπει να είναι πολλά στοιβαγμένα πράγματα.
+η δεξιά πλευρά πρέπει να είναι πολλά στοιβαγμένα πράγματα.
 
 ```go
 proton.Row(ctx,
@@ -208,7 +208,7 @@ proton.HSplit(ctx proton.Context, topFraction float32, top func(proton.Context),
 
 ### ResizeSplit — Ο χρήστης μπορεί να σύρει το διαχωριστικό
 
-Μου αρέσει το Split, αλλά ο χρήστης μπορεί να σύρει τη λαβή ανάμεσα στα δύο παράθυρα σε
+Μου αρέσει το Split αλλά ο χρήστης μπορεί να σύρει τη λαβή ανάμεσα στα δύο παράθυρα σε
 αλλάξτε το μέγεθός τους. Το «defaultFraction» είναι η αρχική θέση.
 
 ```go
@@ -220,7 +220,7 @@ proton.ResizeSplit(ctx, &u.split, 0.30, leftFn, rightFn)
 ```
 
 Το "ResizeSplitState.Fraction" ξεκινά από το 0 και ορίζεται σε "defaultFraction"
-στο πρώτο πλαίσιο. Μετά από αυτό, η θέση μεταφοράς του χρήστη απομνημονεύεται.
+στο πρώτο πλαίσιο. Στη συνέχεια απομνημονεύεται η θέση μεταφοράς του χρήστη.
 
 ```go
 proton.ResizeSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultFraction float32, left func(proton.Context), right func(proton.Context))
@@ -264,7 +264,7 @@ proton.PadH(ctx, 24, func(ctx proton.Context) {
 })
 ```
 
-### PadV — Μόνο πάνω και κάτω
+### PadV — Top and Bottom Only
 
 ```go
 proton.PadV(ctx, 12, func(ctx proton.Context) {
@@ -291,10 +291,10 @@ proton.PadSides(ctx proton.Context, top, right, bottom, left float32, fn func(pr
 
 ---
 
-## Πλέγμα — Πλέγμα σταθερής στήλης
+## Grid — Fixed-Column Grid
 
-Τακτοποιεί τα παιδιά σε ένα πλέγμα με σταθερό αριθμό στηλών. Κάθε κύτταρο
-παίρνει ίσο μερίδιο του διαθέσιμου πλάτους.
+Arranges children in a grid with a fixed number of columns. Each cell
+gets an equal share of the available width.
 
 ```go
 proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap

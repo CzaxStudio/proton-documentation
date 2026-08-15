@@ -1,7 +1,7 @@
 # Είσοδοι
 
-Πεδία κειμένου, πλαίσια ελέγχου, εναλλαγές, κουμπιά επιλογής, ρυθμιστικά, βήματα αριθμών,
-αναπτυσσόμενα μενού και ένα πεδίο αναζήτησης με ένα κουμπί διαγραφής.
+Text fields, checkboxes, toggles, radio buttons, sliders, number steppers,
+dropdowns, and a search field with a clear button.
 
 ---
 
@@ -26,10 +26,10 @@ proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## Περιοχή κειμένου — Πεδίο κειμένου πολλών γραμμών
+## TextArea — Multi-line Text Field
 
-Το ίδιο με το Input αλλά ο χρήστης μπορεί να πατήσει Enter για να προσθέσει γραμμές. Καλό για μηνύματα,
-σημειώσεις, οτιδήποτε μεγαλύτερο από μία γραμμή.
+Same as Input but the user can press Enter to add lines. Good for messages,
+notes, anything longer than a single line.
 
 ```go
 type UI struct {
@@ -63,8 +63,8 @@ q := proton.SearchInput(ctx, &u.search, "Search notes...")
 filtered := filter(items, q)
 ```
 
-Το «SearchState» κρατά και το «Editor» και το εσωτερικό κουμπί διαγραφής — δήλωση
-ένα στη δομή σας, μην το κατασκευάζετε μόνοι σας.
+`SearchState` holds both the `Editor` and the internal clear button — declare
+one in your struct, don't construct it yourself.
 
 ```go
 proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder string) string
@@ -101,8 +101,8 @@ proton.Checkbox(ctx proton.Context, state *proton.Bool, label string) bool
 
 ## Εναλλαγή
 
-Διακόπτης on/off σε στυλ υλικού. Ίδιο API με το πλαίσιο ελέγχου, διαφορετική εμφάνιση.
-Χρησιμοποιήστε το για ρυθμίσεις που τίθενται σε ισχύ αμέσως αντί να χρειάζεστε ένα κουμπί Αποθήκευση.
+A material-style on/off switch. Same API as Checkbox, different look.
+Use for settings that take effect immediately rather than needing a Save button.
 
 ```go
 type UI struct {
@@ -150,7 +150,7 @@ fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
 ```
 
-Οριζόντια κουμπιά επιλογής — τυλίξτε τα σε `Σειρά`:
+Horizontal radio buttons — wrap them in `Row`:
 
 ```go
 proton.Row(ctx,

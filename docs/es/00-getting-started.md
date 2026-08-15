@@ -1,10 +1,10 @@
 # Empezando
 
-Quieres crear una aplicación de escritorio en Go. Has venido al lugar correcto
+You want to build a desktop app in Go. You've come to the right place.
 
 ---
 
-## Requisitos previos
+## Prerequisites
 
 Vaya a 1.22 o más reciente. Consulta con:
 
@@ -62,8 +62,8 @@ sin "implementos Runnable", sin marco de inyección de dependencia, sin paquete 
 
 ## Agregar estado
 
-Los widgets que hacen algo (botones, entradas de texto, casillas de verificación) necesitan un estado
-campo en su propia estructura. Declarelos una vez, pase punteros a los widgets.
+Widgets that do something — buttons, text inputs, checkboxes — need a state
+field in your own struct. Declare them once, pass pointers to the widgets.
 
 ```go
 package main
@@ -135,7 +135,7 @@ proton.Gap(ctx, 16)
 proton.Toggle(ctx, &u.darkMode, "Dark mode")
 ```
 
-Para el diseño de lado a lado, utilice "Fila". Para obtener más control, consulte [04-layout.md](./04-layout.md).
+For side-by-side layout, use `Row`. For more control, see [04-layout.md](./04-layout.md).
 
 ---
 

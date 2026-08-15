@@ -33,12 +33,13 @@ jobs:
           import re
           from deep_translator import GoogleTranslator
 
-          # Spanish, French, and Greek
+          # Supported languages (Spanish, French, Greek, Chinese, and Hindi)
           languages = {
-              'es': 'es',
-              'fr': 'fr',
-              'el': 'el',
-              'zh': 'zh-CN'
+              'es': 'es', 
+              'fr': 'fr', 
+              'el': 'el', 
+              'zh': 'zh-CN',
+              'hi': 'hi'
           }
 
           # Find all English markdown files directly in the docs/ folder
@@ -47,22 +48,20 @@ jobs:
           for folder_name, api_code in languages.items():
               target_dir = os.path.join('docs', folder_name)
               os.makedirs(target_dir, exist_ok=True)
-              
               translator = GoogleTranslator(source='en', target=api_code)
               
               for file_path in md_files:
                   filename = os.path.basename(file_path)
                   output_path = os.path.join(target_dir, filename)
-                  
                   print(f"Translating {filename} to {api_code}...")
                   
                   with open(file_path, 'r', encoding='utf-8') as f:
                       content = f.read()
-                  
+
                   # 1. Safely split the document by Markdown code blocks first
                   parts = re.split(r'(```[\s\S]*?```)', content)
                   translated_parts = []
-                  
+
                   for part in parts:
                       # 2. If it is a code block, DO NOT translate it. Keep it exactly the same.
                       if part.startswith('```'):
@@ -71,7 +70,6 @@ jobs:
                           # 3. If it is regular text, split into paragraphs and translate
                           paragraphs = part.split('\n\n')
                           trans_paras = []
-                          
                           for para in paragraphs:
                               if para.strip():
                                   try:
@@ -81,12 +79,11 @@ jobs:
                                   except Exception as e:
                                       print(f"Skipped a paragraph due to error: {e}")
                                       trans_paras.append(para)
-                                      time.sleep(1)
+                                  time.sleep(1)
                               else:
                                   trans_paras.append('')
-                                  
                           translated_parts.append('\n\n'.join(trans_paras))
-                          
+
                   # 4. Glue the untouched code and translated text back together
                   translated_content = "".join(translated_parts)
                   

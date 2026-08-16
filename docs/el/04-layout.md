@@ -1,6 +1,6 @@
 # Διάταξη
 
-Widgets stack vertically by default. Everything else is opt-in.
+Τα γραφικά στοιχεία στοιβάζονται κατακόρυφα από προεπιλογή. Όλα τα άλλα είναι opt-in.
 
 ---
 
@@ -20,7 +20,7 @@ proton.H4(ctx, "Next Section")
 proton.Gap(ctx proton.Context, dp float32)
 ```
 
-8dp is a small gap. 16dp is medium. 24dp is large. Those three cover most cases.
+Το 8dp είναι ένα μικρό κενό. 16dp είναι μέτρια. Το 24dp είναι μεγάλο. Αυτά τα τρία καλύπτουν τις περισσότερες περιπτώσεις.
 
 ---
 
@@ -264,7 +264,7 @@ proton.PadH(ctx, 24, func(ctx proton.Context) {
 })
 ```
 
-### PadV — Top and Bottom Only
+### PadV — Μόνο πάνω και κάτω
 
 ```go
 proton.PadV(ctx, 12, func(ctx proton.Context) {
@@ -291,10 +291,10 @@ proton.PadSides(ctx proton.Context, top, right, bottom, left float32, fn func(pr
 
 ---
 
-## Grid — Fixed-Column Grid
+## Πλέγμα — Πλέγμα σταθερής στήλης
 
-Arranges children in a grid with a fixed number of columns. Each cell
-gets an equal share of the available width.
+Τακτοποιεί τα παιδιά σε ένα πλέγμα με σταθερό αριθμό στηλών. Κάθε κύτταρο
+παίρνει ίσο μερίδιο του διαθέσιμου πλάτους.
 
 ```go
 proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
@@ -306,7 +306,7 @@ proton.Grid(ctx, 3, 8,   // 3 columns, 8dp gap
 )
 ```
 
-Τα κελιά αναδιπλώνονται αυτόματα σε νέες σειρές. Αν η τελευταία σειρά έχει λιγότερα από
+Τα κελιά αναδιπλώνονται αυτόματα σε νέες σειρές. Εάν η τελευταία σειρά έχει λιγότερα από
 κελιά "cols", οι υπόλοιπες υποδοχές είναι κενές.
 
 ```go

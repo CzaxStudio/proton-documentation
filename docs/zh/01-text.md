@@ -1,7 +1,7 @@
 ＃ 文本
 
-Ten text functions covering every size from "I want people to read this from
-across the room" to "please nobody read this fine print"
+十种文本功能，涵盖“我希望人们阅读此内容”中的各种尺寸
+房间对面”到“请没人阅读此细则”
 
 ---
 
@@ -16,11 +16,10 @@ proton.H5(ctx, "Medium-small")
 proton.H6(ctx, "Small heading with dignity")
 ```
 
-Same size scale as HTML. H1 is for when you really want to make a statement.
-H4 and H5 are the ones you'll actually use most often.
+与 HTML 相同的尺寸比例。 H1 适合当你真的想发表声明时。
+H4 和 H5 是您实际最常使用的。
 
-**Signature** (same for all six):
-```go
+**签名**（六个签名相同）：```go
 proton.H1(ctx proton.Context, text string)
 ```
 
@@ -73,8 +72,8 @@ proton.Caption(ctx proton.Context, text string)
 
 ## 静音
 
-Body2-sized text in a dimmer color. For secondary labels, helper text,
-descriptions that support the main content without competing with it.
+Body2 大小的文本，颜色较暗。对于辅助标签、辅助文本、
+支持主要内容而不与之竞争的描述。
 
 ```go
 proton.Label(ctx, "Alice Johnson")
@@ -89,8 +88,8 @@ proton.Muted(ctx proton.Context, text string)
 
 ## 文本 — 自定义样式
 
-When the preset sizes don't work, `Text` lets you control size, color,
-and weight directly.
+当预设尺寸不起作用时，“文本”可让您控制尺寸、颜色、
+并直接称重。
 
 ```go
 // 28sp, coral red, bold
@@ -151,7 +150,7 @@ proton.ColoredText(ctx proton.Context, text string, c color.NRGBA)
 
 ---
 
-## Colors
+＃＃ 颜色
 
 ```go
 // from a 24-bit hex value
@@ -172,10 +171,10 @@ proton.HexColor("#f66")     // shorthand also works
 
 ---
 
-## Text Wrapping
+## 文本换行
 
-Long text wraps automatically within whatever width is available.
-You don't need to do anything special.
+长文本会在任何可用宽度内自动换行。
+你不需要做任何特别的事情。
 
 ```go
 proton.Label(ctx, "This is a very long sentence that will wrap gracefully "+

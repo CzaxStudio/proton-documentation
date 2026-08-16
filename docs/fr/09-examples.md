@@ -1,7 +1,7 @@
 # Exemples
 
-Complete programs you can copy, paste, and run. Every one of these compiles
-and works as-is.
+Programmes complets que vous pouvez copier, coller et exécuter. Chacune de ces compilations
+et fonctionne tel quel.
 
 ---
 
@@ -27,8 +27,8 @@ func main() {
 
 ## Comptoir
 
-A number that goes up and down when you click buttons. Demonstrates
-the fundamental pattern: state in a struct, buttons inside layout wrappers.
+Un nombre qui monte et descend lorsque vous cliquez sur des boutons. Démontre
+le modèle fondamental : état dans une structure, boutons à l'intérieur des wrappers de mise en page.
 
 ```go
 package main
@@ -88,7 +88,7 @@ func main() {
 
 ## Liste de tâches
 
-The demo that every UI framework is required to have by law.
+La démo que chaque framework d'interface utilisateur doit avoir par la loi.
 
 ```go
 package main
@@ -156,7 +156,7 @@ func main() {
 
 ---
 
-## Login Form
+## Formulaire de connexion
 
 Un formulaire avec des champs email/mot de passe et une validation en ligne.
 
@@ -235,8 +235,8 @@ func validate(email, password string) string {
 
 ## Panneau de paramètres
 
-Toggles, radio buttons, a slider, and a save button. The kind of panel
-that lives in every app.
+Des bascules, des boutons radio, un curseur et un bouton Enregistrer. Le genre de panneau
+qui vit dans chaque application.
 
 ```go
 package main
@@ -310,7 +310,7 @@ func main() {
 
 ## Application avec logo
 
-Load a logo from an embedded file and display it in the header.
+Chargez un logo à partir d'un fichier intégré et affichez-le dans l'en-tête.
 
 ```go
 package main
@@ -366,7 +366,7 @@ func main() {
 }
 ```
 
-Place `logo.png` in the same directory as `main.go` before running.
+Placez `logo.png` dans le même répertoire que `main.go` avant d'exécuter.
 
 ---
 
@@ -456,7 +456,7 @@ func main() {
 
 ---
 
-## Running the Built-in Examples
+## Exécution des exemples intégrés
 
 Le dépôt est livré avec 9 exemples d'applications complets :
 

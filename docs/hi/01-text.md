@@ -1,4 +1,4 @@
-# Text
+# मूलपाठ
 
 प्रत्येक आकार को कवर करने वाले दस टेक्स्ट फ़ंक्शन "मैं चाहता हूं कि लोग इसे यहां से पढ़ें
 पूरे कमरे में" से "कृपया कोई भी इस बढ़िया प्रिंट को न पढ़े"
@@ -19,14 +19,13 @@ proton.H6(ctx, "Small heading with dignity")
 HTML के समान आकार का पैमाना. H1 तब के लिए है जब आप वास्तव में कोई वक्तव्य देना चाहते हैं।
 H4 और H5 वे हैं जिनका आप वास्तव में सबसे अधिक उपयोग करेंगे।
 
-**Signature** (same for all six):
-```go
+**हस्ताक्षर** (सभी छह के लिए समान):```go
 proton.H1(ctx proton.Context, text string)
 ```
 
 ---
 
-## Label
+## लेबल
 
 नियमित मुख्य पाठ. आपके ऐप में अधिकांश शब्द यही हैं।
 
@@ -87,10 +86,10 @@ proton.Muted(ctx proton.Context, text string)
 
 ---
 
-## Text — Custom Styling
+## टेक्स्ट - कस्टम स्टाइलिंग
 
-When the preset sizes don't work, `Text` lets you control size, color,
-and weight directly.
+जब पूर्व निर्धारित आकार काम नहीं करते हैं, तो `टेक्स्ट` आपको आकार, रंग, नियंत्रित करने देता है
+और वजन सीधे.
 
 ```go
 // 28sp, coral red, bold

@@ -27,8 +27,8 @@ func main() {
 
 ## विरोध करना
 
-A number that goes up and down when you click buttons. Demonstrates
-the fundamental pattern: state in a struct, buttons inside layout wrappers.
+एक संख्या जो आपके बटन क्लिक करने पर ऊपर-नीचे होती रहती है। प्रदर्शित करता है
+मौलिक पैटर्न: एक संरचना में स्थिति, लेआउट रैपर के अंदर बटन।
 
 ```go
 package main
@@ -472,5 +472,5 @@ go run ./examples/logoapp      # custom logo with go:embed
 go run ./examples/kitchen      # stress test for all features
 ```
 
-Run `showcase` first — it's the most complete visual demonstration of what
-Proton can do.
+पहले `शोकेस' चलाएँ - यह किस चीज़ का सबसे संपूर्ण दृश्य प्रदर्शन है
+प्रोटोन कर सकता है.

@@ -70,10 +70,10 @@ proton.Caption(ctx proton.Context, text string)
 
 ---
 
-## Muted
+## Muet
 
-Body2-sized text in a dimmer color. For secondary labels, helper text,
-descriptions that support the main content without competing with it.
+Texte de taille Body2 dans une couleur plus sombre. Pour les étiquettes secondaires, le texte d'assistance,
+des descriptions qui prennent en charge le contenu principal sans le concurrencer.
 
 ```go
 proton.Label(ctx, "Alice Johnson")
@@ -88,8 +88,8 @@ proton.Muted(ctx proton.Context, text string)
 
 ## Texte — Style personnalisé
 
-When the preset sizes don't work, `Text` lets you control size, color,
-and weight directly.
+Lorsque les tailles prédéfinies ne fonctionnent pas, « Texte » vous permet de contrôler la taille, la couleur,
+et le poids directement.
 
 ```go
 // 28sp, coral red, bold
@@ -106,14 +106,14 @@ proton.Text(ctx, "Normal weight, bigger", 20, proton.NRGBA{}, false)
 proton.Text(ctx proton.Context, s string, size float32, c color.NRGBA, bold bool)
 ```
 
-La taille est en `sp` (pixels mis à l'échelle). La taille du corps par défaut est d'environ 14 sp.
+La taille est en `sp` (pixels mis à l'échelle). La taille du corps par défaut est d'environ 14sp.
 
 ---
 
 ## Aides aux couleurs sémantiques
 
-Shortcuts for common status text. Each one does nothing if the string is empty,
-which makes them safe to use conditionally without an extra `if`.
+Raccourcis pour le texte d’état commun. Chacun ne fait rien si la chaîne est vide,
+ce qui les rend sûrs à utiliser sous condition sans « si » supplémentaire.
 
 ```go
 proton.ErrorText(ctx, "Invalid email address.")     // red

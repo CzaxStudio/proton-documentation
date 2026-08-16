@@ -1,4 +1,4 @@
-# Android
+#Androïde
 
 Créez des applications Android avec Proton !
 
@@ -88,7 +88,7 @@ Déclarez l'activité Gio dans `AndroidManifest.xml` :
 
 ---
 
-## Android 15+ (16kB page sizes)
+## Android 15+ (taille de page de 16 Ko)
 
 Google Play nécessite des APK compatibles avec une taille de page de 16 Ko à partir de novembre 2025.
 `gogio` gère cela automatiquement — il suffit de le garder à jour :

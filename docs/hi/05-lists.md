@@ -4,10 +4,10 @@
 
 ---
 
-## List — Vertical Scrollable List
+## सूची - लंबवत स्क्रॉल करने योग्य सूची
 
-The standard list. Only draws the items currently visible on screen, so
-10,000 items is fine.
+मानक सूची. केवल वर्तमान में स्क्रीन पर दिखाई देने वाली वस्तुओं को ही खींचता है, इसलिए
+10,000 आइटम ठीक है.
 
 ```go
 type UI struct {
@@ -80,7 +80,7 @@ proton.Scroll(ctx proton.Context, state *proton.Scrollable, content func(proton.
 
 ---
 
-## TextView — Read-Only Scrollable Text
+## टेक्स्ट व्यू - केवल पढ़ने योग्य स्क्रॉल करने योग्य टेक्स्ट
 
 स्क्रॉल करने योग्य, मोनोस्पेस दृश्य में पाठ का एक बड़ा ब्लॉक प्रदर्शित करता है।
 फ़ाइल सामग्री, सहायता पाठ, पूर्वावलोकन कोड के लिए अच्छा है।

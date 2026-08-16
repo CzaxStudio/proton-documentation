@@ -27,8 +27,8 @@ pour des clics pour vous inscrire. Voir [Mise en route](./00-getting-started.md)
 
 ## Bouton
 
-Filled, solid, primary action. Use this for the thing you most want the
-user to click.
+Action primaire, pleine et solide. Utilisez-le pour ce que vous voulez le plus
+l'utilisateur à cliquer.
 
 ```go
 var save proton.Clickable
@@ -49,11 +49,11 @@ proton.Button(ctx proton.Context, state *proton.Clickable, label string) bool
 
 ---
 
-## OutlineButton
+## Bouton de contour
 
-Ghost/outline style. Same behavior as Button but without the filled
-background. Use it for secondary actions — things the user might want
-to do, but that aren't the primary action.
+Style fantôme/contour. Même comportement que Button mais sans le remplissage
+arrière-plan. Utilisez-le pour des actions secondaires – des choses que l'utilisateur pourrait souhaiter
+faire, mais ce n'est pas l'action principale.
 
 ```go
 var save   proton.Clickable
@@ -87,7 +87,7 @@ proton.OutlineButton(ctx proton.Context, state *proton.Clickable, label string) 
 
 ---
 
-## IconButton
+## IcôneBouton
 
 Un bouton contenant uniquement une icône. Pas de texte, juste une icône. Commun dans les barres d'outils.
 
@@ -137,8 +137,8 @@ proton.Tappable(ctx proton.Context, state *proton.Clickable, content func(proton
 
 ## Lien et LinkSmall
 
-Underlined clickable text styled like a hyperlink. Handle the click yourself —
-Proton doesn't open URLs for you, it just tells you the user clicked.
+Texte cliquable souligné ressemblant à un lien hypertexte. Gérez le clic vous-même –
+Proton n'ouvre pas les URL pour vous, il vous indique simplement que l'utilisateur a cliqué.
 
 ```go
 var githubLink proton.Clickable
@@ -197,7 +197,7 @@ proton.RowEnd(ctx,
 `RowEnd` pousse tout vers le bord droit — placement standard pour
 confirmer/annuler les paires.
 
-### Toolbar
+### Barre d'outils
 
 ```go
 type UI struct {

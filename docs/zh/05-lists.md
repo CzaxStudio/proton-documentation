@@ -1,4 +1,4 @@
-# Lists and Scrolling
+# 列表和滚动
 
 用于显示事物的集合，并使内容区域可滚动。
 
@@ -27,13 +27,13 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 proton.List(ctx proton.Context, state *proton.Scrollable, length int, draw func(proton.Context, int))
 ```
 
-Declare one `proton.Scrollable` per list. It tracks the scroll position.
-Don't share one between two lists — they'll fight over scroll position and
-both lose.
+每个列表声明一个“proton.Scrollable”。它跟踪滚动位置。
+不要在两个列表之间共享一个——它们会争夺滚动位置并且
+双方都输了。
 
 ---
 
-## HList — Horizontal Scrollable List
+## HList — 水平滚动列表
 
 与列表相同，但项目从左到右排列。
 
@@ -126,7 +126,7 @@ proton.LogView(ctx proton.Context, state *proton.Scrollable, text string)
 
 颜色编码根据行前缀自动发生：
 
-|前缀 |颜色 |
+|前缀|颜色 |
 |---|---|
 | `[确定]`、`完成`、`成功` |绿色|
 | `[警告]`、`警告` |黄色|
@@ -140,7 +140,7 @@ proton.LogView(ctx proton.Context, state *proton.Scrollable, text string)
 列表行中的裸露“proton.Label”可以工作，但看起来不太好。添加一些
 填充和结构。
 
-### Padded rows
+### 填充行
 
 ```go
 proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
@@ -155,7 +155,7 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 })
 ```
 
-### Two columns of text
+### 两列文本
 
 ```go
 type Contact struct {
@@ -208,7 +208,7 @@ proton.List(ctx, &u.scroll, len(items), func(ctx proton.Context, i int) {
 })
 ```
 
-### List inside a Card
+### 卡片内的列表
 
 ```go
 proton.Card(ctx, proton.RGB(0x1e1e2e), 10, 0, func(ctx proton.Context) {

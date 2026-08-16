@@ -204,8 +204,8 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-`progress` is 0.0–1.0. `sizeDp` is the diameter. `strokeDp` is the ring
-thickness — 4–6dp looks good for most sizes.
+“进度”为 0.0–1.0。 `sizeDp` 是直径。 `StrokeDp` 是环
+厚度 — 4-6dp 适合大多数尺寸。
 
 ---
 
@@ -228,13 +228,13 @@ proton.Table(ctx,
 proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
 ```
 
-`proton.TableRow` is just `[]string`. Columns are equally wide.
+`proton.TableRow` 只是 `[]string`。列同样宽。
 
 ---
 
 ## 步进器
 
-A horizontal step-progress indicator for multi-step flows.
+多步骤流程的水平步骤进度指示器。
 
 ```go
 proton.Stepper(ctx, 1, []string{"Account", "Profile", "Payment", "Done"})
@@ -344,7 +344,7 @@ proton.CodeBlock(ctx proton.Context, code string)
 
 ---
 
-## ShortcutHint
+## 快捷方式提示
 
 一个小键盘徽章。在菜单项或按钮标签旁边显示这些内容
 传达键盘快捷键。
@@ -363,7 +363,7 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ---
 
-## ColorSwatch
+## 色样
 
 用户可以单击一行彩色圆圈来选择颜色。退货
 所选索引的索引，如果尚未选择，则为 -1。

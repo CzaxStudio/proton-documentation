@@ -74,8 +74,8 @@ proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder st
 
 ## चेकबॉक्स
 
-Returns `true` on the frame the user toggles it. Read the current value from
-`state.Value`.
+उपयोगकर्ता द्वारा टॉगल किए गए फ़्रेम पर `सही` लौटाता है। से वर्तमान मूल्य पढ़ें
+`राज्य.मूल्य`.
 
 ```go
 type UI struct {
@@ -126,9 +126,9 @@ proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 
 ## रेडियो की बटन
 
-For picking exactly one option from a group. All buttons in a group share
-one `proton.Enum` state field. The `key` is what gets stored in `group.Value`
-when that option is selected.
+किसी समूह से बिल्कुल एक विकल्प चुनने के लिए। समूह के सभी बटन साझा करते हैं
+एक `proton.Enum` राज्य फ़ील्ड। `कुंजी` वह है जो `group.Value` में संग्रहीत होती है
+जब वह विकल्प चुना जाता है.
 
 ```go
 type UI struct {
@@ -196,7 +196,7 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ## प्रोगेस बार
 
-इंटरएक्टिव नहीं - बस प्रगति को एक भरे हुए बार के रूप में दिखाता है। एक फ़्लोट32 पास करें
+इंटरैक्टिव नहीं - बस प्रगति को एक भरे हुए बार के रूप में दिखाता है। एक फ़्लोट32 पास करें
 0.0 और 1.0 के बीच.
 
 ```go

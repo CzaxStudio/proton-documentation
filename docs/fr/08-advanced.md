@@ -1,12 +1,12 @@
-# Advanced
+# Avancé
 
-Keyboard shortcuts, async goroutines, toast notifications, modals, tabs,
-accordion, context menus, and everything else that doesn't fit neatly into
-the earlier pages.
+Raccourcis clavier, goroutines asynchrones, notifications toast, modaux, onglets,
+accordéon, menus contextuels et tout ce qui ne rentre pas parfaitement dans
+les pages précédentes.
 
 ---
 
-## Toast Notifications
+## Notifications Toast
 
 Un message chronométré qui apparaît, reste quelques secondes et disparaît sur son
 propre. Pas de dialogue, pas de blocage de l'utilisateur.
@@ -23,7 +23,7 @@ u.toast.Show("File saved!", 2*time.Second)
 proton.Toast(ctx, &u.toast)
 ```
 
-If there's no active toast, `Toast` draws nothing. No need to check first.
+S'il n'y a pas de toast actif, « Toast » ne dessine rien. Pas besoin de vérifier au préalable.
 
 ```go
 func (t *ToastState) Show(msg string, duration time.Duration)
@@ -96,7 +96,7 @@ chaque image sans aucune condition d'emballage.
 
 ## Raccourcis clavier
 
-Register a function to fire when a key combination is pressed.
+Enregistrez une fonction à déclencher lorsqu'une combinaison de touches est enfoncée.
 
 ```go
 proton.OnKey(ctx, proton.ModCtrl, "S", func() { save() })
@@ -392,10 +392,10 @@ proton.Maximized()  proton.WindowOption
 
 ## Maintenir les animations en cours d'exécution
 
-Proton only redraws when there's user input or you call `ctx.Invalidate()`.
-For animations — progress bars that fill over time, countdowns, anything
-time-based — call `Invalidate` at the end of each frame to keep the redraws
-going:
+Proton ne redessine que lorsqu'il y a une entrée de l'utilisateur ou que vous appelez `ctx.Invalidate()`.
+Pour les animations : barres de progression qui se remplissent au fil du temps, comptes à rebours, n'importe quoi
+basé sur le temps — appelez « Invalidate » à la fin de chaque image pour conserver les redessins
+va:
 
 ```go
 func draw(ctx proton.Context, u *UI) {

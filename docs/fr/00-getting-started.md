@@ -30,8 +30,8 @@ go get github.com/CzaxStudio/proton
 go mod tidy
 ```
 
-The `go mod tidy` step is important — it pulls Gio's transitive dependencies
-and writes them to `go.sum`. Skip it and you'll see red squiggles everywhere.
+L'étape « go mod spice » est importante : elle extrait les dépendances transitives de Gio.
+et les écrit dans `go.sum`. Sautez-le et vous verrez des gribouillis rouges partout.
 
 ---
 
@@ -102,7 +102,7 @@ est cliqué. Le bloc `if` s'exécute, imprime le nom, et c'est tout.
 
 ## Les types d'état
 
-Declare these in your UI struct. They're all zero-value ready — no constructors.
+Déclarez-les dans la structure de votre interface utilisateur. Ils sont tous prêts à valeur nulle – pas de constructeurs.
 
 ```go
 type UI struct {
@@ -115,15 +115,15 @@ type UI struct {
 }
 ```
 
-One field per widget. Don't share a `Clickable` between two buttons — they'll
-both fire on the same click, which is almost never what you want.
+Un champ par widget. Ne partagez pas un « cliquable » entre deux boutons : ils le feront
+les deux se déclenchent sur le même clic, ce qui n'est presque jamais ce que vous souhaitez.
 
 ---
 
 ## Comment fonctionne la mise en page
 
-Without any layout wrappers, widgets stack vertically top to bottom. `Gap`
-adds space between them.
+Sans aucun wrapper de mise en page, les widgets s'empilent verticalement de haut en bas. « Écart »
+ajoute de l'espace entre eux.
 
 ```go
 proton.H4(ctx, "Settings")
@@ -142,7 +142,7 @@ Pour une disposition côte à côte, utilisez « Row ». Pour plus de contrôl
 ## Les boutons nécessitent un wrapper de mise en page
 
 Les boutons (et autres widgets interactifs) doivent se trouver dans un assistant de mise en page pour
-clique pour s’inscrire correctement. C'est une affaire de Gio - la passe de mise en page est ce que
+clics pour vous inscrire correctement. C'est une affaire de Gio - la passe de mise en page est ce que
 établit les zones touchées à l'écran.
 
 ```go
@@ -169,7 +169,7 @@ wrapper minimum si vous ne souhaitez aucun remplissage visuel.
 
 ---
 
-## Theming
+## Thème
 
 ```go
 a := proton.New("myapp")
@@ -197,10 +197,10 @@ sont fermés.
 
 ---
 
-## Next Steps
+## Prochaines étapes
 
-- **[01-text.md](./01-text.md)** — text widgets
-- **[02-buttons.md](./02-buttons.md)** — buttons and clickable areas
-- **[03-inputs.md](./03-inputs.md)** — text fields, toggles, sliders
-- **[04-layout.md](./04-layout.md)** — arranging things on screen
-- **[09-examples.md](./09-examples.md)** — complete working programs to copy
+- **[01-text.md](./01-text.md)** — widgets de texte
+- **[02-buttons.md](./02-buttons.md)** — boutons et zones cliquables
+- **[03-inputs.md](./03-inputs.md)** — champs de texte, bascules, curseurs
+- **[04-layout.md](./04-layout.md)** — organiser les choses à l'écran
+- **[09-examples.md](./09-examples.md)** — programmes de travail complets à copier

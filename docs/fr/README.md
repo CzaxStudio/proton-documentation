@@ -1,6 +1,6 @@
 # Documents sur les protons
 
-**Lisez la documentation dans votre langue :** [anglais](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Espagnol](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md)
+**Lisez la documentation dans votre langue :** [anglais](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Espagnol](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md) | [हिन्दी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/hi/README.md)
 
 Copyright © [CzaxStudio](https://github.com/CzaxStudio/) (Nexus-Proton)
 
@@ -48,6 +48,6 @@ a.Window("App", 400, 300, func(win proton.Context) {
 })
 ```
 
-Widgets stack vertically. State lives in your struct. That's the whole model.
+Les widgets s'empilent verticalement. L'état vit dans votre structure. C'est tout le modèle.
 
 **[Proton-Repo](https://github.com/CzaxStudio/Proton)**

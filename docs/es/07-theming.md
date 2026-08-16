@@ -5,7 +5,7 @@ No se permite buscar en las hojas de estilo de los componentes. No hay guerras d
 
 ---
 
-## The Palette
+## La paleta
 
 ```go
 type Palette struct {
@@ -129,10 +129,10 @@ a.ColorCode("primary",   "#1f6feb")
 a.ColorCode("primaryfg", "#ffffff")
 ```
 
-Valid slot names: `"bg"`, `"background"`, `"fg"`, `"foreground"`, `"text"`,
-`"primary"`, `"accent"`, `"primaryfg"`, `"primarytext"`.
+Nombres de ranura válidos: `"bg"`, `"fondo"`, `"fg"`, `"primer plano"`, `"texto"`,
+`"primario"`, `"acento"`, `"primariofg"`, `"textoprimario"`.
 
-Accepted hex formats: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, `"#rrggbbaa"`.
+Formatos hexadecimales aceptados: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, `"#rrggbbaa"`.
 
 ---
 
@@ -163,7 +163,7 @@ automáticamente para controlar la animación.
 
 ## Escala de fuente
 
-Make all text bigger or smaller globally.
+Haz que todo el texto sea más grande o más pequeño globalmente.
 
 ```go
 a.SetFontScale(1.1)  // 10% bigger — good for accessibility
@@ -220,8 +220,8 @@ type NamedPalette struct {
 }
 ```
 
-Useful for building custom theme pickers, palette browsers, or just
-printing all 46 names to see what's available.
+Útil para crear selectores de temas personalizados, navegadores de paletas o simplemente
+imprimiendo los 46 nombres para ver qué hay disponible.
 
 ---
 

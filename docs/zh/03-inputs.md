@@ -47,7 +47,7 @@ proton.TextArea(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## SearchInput
+## 搜索输入
 
 左侧带有搜索图标和一个清除 (×) 按钮的文本字段
 当有东西需要清除时出现。返回当前的查询字符串。
@@ -74,8 +74,8 @@ proton.SearchInput(ctx proton.Context, state *proton.SearchState, placeholder st
 
 ## 复选框
 
-Returns `true` on the frame the user toggles it. Read the current value from
-`state.Value`.
+在用户切换的框架上返回“true”。读取当前值
+`状态.值`。
 
 ```go
 type UI struct {
@@ -101,8 +101,8 @@ proton.Checkbox(ctx proton.Context, state *proton.Bool, label string) bool
 
 ## 切换
 
-A material-style on/off switch. Same API as Checkbox, different look.
-Use for settings that take effect immediately rather than needing a Save button.
+材质风格的开关。与 Checkbox 相同的 API，但外观不同。
+用于立即生效而不需要“保存”按钮的设置。
 
 ```go
 type UI struct {
@@ -124,11 +124,11 @@ proton.Toggle(ctx proton.Context, state *proton.Bool, label string) bool
 
 ---
 
-## RadioButton
+## 单选按钮
 
-For picking exactly one option from a group. All buttons in a group share
-one `proton.Enum` state field. The `key` is what gets stored in `group.Value`
-when that option is selected.
+用于从一组中准确选择一个选项。组中的所有按钮共享
+一个“proton.Enum”状态字段。 “key”是存储在“group.Value”中的内容
+当选择该选项时。
 
 ```go
 type UI struct {
@@ -144,7 +144,7 @@ proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
-Returns `true` on the frame the selection changes.
+在选择更改的框架上返回“true”。
 
 ```go
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
@@ -166,8 +166,8 @@ proton.Row(ctx,
 
 ＃＃ 滑块
 
-A horizontal drag handle for a value between 0.0 and 1.0. Scale it to
-whatever range you need.
+水平拖动手柄的值介于 0.0 和 1.0 之间。将其缩放至
+无论您需要什么范围。
 
 ```go
 type UI struct {
@@ -196,8 +196,8 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ## 进度条
 
-Not interactive — just shows progress as a filled bar. Pass a float32
-between 0.0 and 1.0.
+不是交互式的——只是将进度显示为填充条。传递一个 float32
+0.0 到 1.0 之间。
 
 ```go
 proton.ProgressBar(ctx, 0.65)    // 65% done
@@ -240,7 +240,7 @@ proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step
 
 ---
 
-## SelectBox
+## 选择框
 
 下拉选择器。返回当前选定选项的索引。
 

@@ -74,7 +74,7 @@ proton.Column(ctx proton.Context, widgets ...func(proton.Context))
 
 ## रोस्प्रेड - बीच में जगह
 
-पंक्ति की तरह, लेकिन बच्चों के बीच बचे हुए क्षैतिज स्थान को धक्का देकर डालता है
+पंक्ति की तरह, लेकिन बच्चों के बीच बचे हुए क्षैतिज स्थान को धकेलते हुए रखता है
 पहला बाएँ किनारे से और अंतिम दाएँ किनारे से।
 
 ```go
@@ -117,7 +117,7 @@ proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## GrowRow and GrowColumn — Stretchy Layouts
+## ग्रोरो और ग्रोकॉलम - स्ट्रेची लेआउट
 
 जब एक बच्चे को बची हुई सारी जगह भरने की ज़रूरत होती है और दूसरे बच्चे उनके बने रहते हैं
 प्राकृतिक आकार, `GrowRow` (क्षैतिज) या `GrowColumn` (ऊर्ध्वाधर) का उपयोग करें
@@ -169,10 +169,10 @@ proton.FlexSpacer() proton.FlexItem
 
 ---
 
-## Split — Side-by-Side Panes
+## विभाजन - अगल-बगल के फलक
 
-Divides available width between two sections. `leftFraction` is the proportion
-the left pane gets, from 0.0 to 1.0.
+उपलब्ध चौड़ाई को दो खंडों के बीच विभाजित करता है। `leftFraction` अनुपात है
+बायां फलक 0.0 से 1.0 तक हो जाता है।
 
 ```go
 proton.Split(ctx, 0.35,
@@ -246,7 +246,7 @@ proton.Center(ctx proton.Context, fn func(proton.Context))
 
 ---
 
-## Padding
+## पैडिंग
 
 ### पैड - सभी चार भुजाएँ
 
@@ -341,7 +341,7 @@ proton.ZStack(ctx proton.Context, layers ...func(proton.Context))
 
 ---
 
-## MinSize and MaxWidth — Size Constraints
+## न्यूनतम आकार और अधिकतम चौड़ाई - आकार की बाधाएँ
 
 ```go
 // at least 200dp wide and 48dp tall
@@ -366,7 +366,7 @@ proton.MaxWidth(ctx proton.Context, widthDp float32, fn func(proton.Context))
 
 ---
 
-## A Typical Two-Column App
+## एक विशिष्ट दो-कॉलम ऐप
 
 ```go
 func draw(ctx proton.Context, u *UI) {

@@ -166,8 +166,8 @@ proton.Row(ctx,
 
 ## control deslizante
 
-A horizontal drag handle for a value between 0.0 and 1.0. Scale it to
-whatever range you need.
+Un controlador de arrastre horizontal para un valor entre 0,0 y 1,0. Escalarlo a
+cualquier rango que necesites.
 
 ```go
 type UI struct {
@@ -211,10 +211,10 @@ proton.ProgressBar(ctx proton.Context, progress float32)
 
 ---
 
-## NumberInput
+## Entrada numérica
 
-A stepper with − and + buttons. Handles min, max, and step size for you.
-Returns the current value.
+Un paso a paso con botones − y +. Maneja el tamaño mínimo, máximo y de paso por usted.
+Devuelve el valor actual.
 
 ```go
 type UI struct {
@@ -242,7 +242,7 @@ el paso < 1 muestra dos decimales.
 
 ## Seleccionar cuadro
 
-A dropdown selector. Returns the index of the currently selected option.
+Un selector desplegable. Devuelve el índice de la opción actualmente seleccionada.
 
 ```go
 type UI struct {
@@ -255,8 +255,8 @@ i := proton.SelectBox(ctx, &u.lang, langs)
 proton.Caption(ctx, "You picked: "+langs[i])
 ```
 
-The dropdown appears below the button when clicked. Clicking anywhere
-outside it closes it.
+El menú desplegable aparece debajo del botón cuando se hace clic. Haciendo clic en cualquier lugar
+afuera lo cierra.
 
 ```go
 proton.SelectBox(ctx proton.Context, state *proton.SelectBoxState, options []string) int

@@ -26,7 +26,7 @@ proton.Gap(ctx proton.Context, dp float32)
 
 ## 行 — 并排
 
-Places children horizontally, left to right.
+从左到右水平放置子项。
 
 ```go
 proton.Row(ctx,
@@ -36,7 +36,7 @@ proton.Row(ctx,
 )
 ```
 
-Each child is a `func(proton.Context)`. Call whatever widgets you want inside it.
+每个孩子都是一个“func(proton.Context)”。在其中调用您想要的任何小部件。
 
 ```go
 proton.Row(ctx proton.Context, widgets ...func(proton.Context))
@@ -119,9 +119,9 @@ proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 
 ## GrowRow 和 GrowColumn — 弹性布局
 
-When one child needs to fill all remaining space and the others stay their
-natural size, use `GrowRow` (horizontal) or `GrowColumn` (vertical) with
-`GrowItem` and `FixedItem`.
+当一个孩子需要填满所有剩余空间而其他孩子则留在自己的位置时
+自然大小，使用“GrowRow”（水平）或“GrowColumn”（垂直）
+“GrowItem”和“FixedItem”。
 
 ```go
 // search bar: label fixed, input stretches, button fixed
@@ -140,8 +140,8 @@ proton.GrowRow(ctx,
 )
 ```
 
-`GrowItem` takes all remaining space. `FixedItem` takes only what it needs.
-Multiple `GrowItem`s split remaining space evenly.
+`GrowItem` 占用所有剩余空间。 `FixedItem` 只获取它需要的内容。
+多个“GrowItem”均匀分割剩余空间。
 
 ```go
 proton.GrowRow(ctx proton.Context, children ...proton.FlexItem)
@@ -274,7 +274,7 @@ proton.PadV(ctx, 12, func(ctx proton.Context) {
 
 ### PadSides — 每条边单独
 
-Arguments are top, right, bottom, left — same order as CSS margin/padding.
+参数是上、右、下、左——与 CSS 边距/填充的顺序相同。
 
 ```go
 proton.PadSides(ctx, 8, 16, 8, 16, func(ctx proton.Context) {
@@ -362,7 +362,7 @@ proton.MinSize(ctx proton.Context, widthDp, heightDp float32, fn func(proton.Con
 proton.MaxWidth(ctx proton.Context, widthDp float32, fn func(proton.Context))
 ```
 
-Pass 0 for either dimension of `MinSize` to leave that axis unconstrained.
+为“MinSize”的任一维度传递 0 以使该轴不受约束。
 
 ---
 

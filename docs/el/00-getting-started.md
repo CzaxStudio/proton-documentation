@@ -62,8 +62,8 @@ go run .
 
 ## Προσθήκη κατάστασης
 
-Widgets that do something — buttons, text inputs, checkboxes — need a state
-field in your own struct. Declare them once, pass pointers to the widgets.
+Τα γραφικά στοιχεία που κάνουν κάτι — κουμπιά, εισαγωγή κειμένου, πλαίσια ελέγχου — χρειάζονται μια κατάσταση
+πεδίο στη δική σας κατασκευή. Δηλώστε τα μια φορά, περάστε δείκτες στα γραφικά στοιχεία.
 
 ```go
 package main
@@ -95,8 +95,8 @@ func main() {
 }
 ```
 
-The draw function runs every frame. `Button` returns `true` on the frame it
-gets clicked. The `if` block runs, prints the name, and that's it.
+Η συνάρτηση σχεδίασης εκτελεί κάθε καρέ. Το "Button" επιστρέφει "true" στο πλαίσιο του
+γίνεται κλικ. Το μπλοκ "if" εκτελείται, εκτυπώνει το όνομα και αυτό είναι.
 
 ---
 
@@ -120,7 +120,7 @@ type UI struct {
 
 ---
 
-## How the Layout Works
+## Πώς λειτουργεί η διάταξη
 
 Χωρίς περιτυλίγματα διάταξης, τα γραφικά στοιχεία στοιβάζονται κάθετα από πάνω προς τα κάτω. «Κενό».
 προσθέτει χώρο μεταξύ τους.
@@ -192,12 +192,12 @@ a.Window("Settings", 400, 300, drawSettings)
 a.Run() // opens both
 ```
 
-All windows share the same `*App`. The process stays alive until all windows
-are closed.
+Όλα τα παράθυρα μοιράζονται την ίδια «*Εφαρμογή». Η διαδικασία παραμένει ζωντανή μέχρι όλα τα παράθυρα
+είναι κλειστά.
 
 ---
 
-## Next Steps
+## Επόμενα βήματα
 
 - **[01-text.md](./01-text.md)** — γραφικά στοιχεία κειμένου
 - **[02-buttons.md](./02-buttons.md)** — κουμπιά και περιοχές με δυνατότητα κλικ

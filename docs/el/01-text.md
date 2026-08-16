@@ -5,7 +5,7 @@
 
 ---
 
-## Headings
+## Επικεφαλίδες
 
 ```go
 proton.H1(ctx, "I am enormous")
@@ -41,8 +41,8 @@ proton.Label(ctx proton.Context, text string)
 
 ## Σώμα 2
 
-Slightly smaller than Label. For secondary information that matters but
-shouldn't compete with the main content.
+Ελαφρώς μικρότερο από το Label. Για δευτερεύουσες πληροφορίες που έχουν σημασία αλλά
+δεν πρέπει να ανταγωνίζεται το κύριο περιεχόμενο.
 
 ```go
 proton.Label(ctx, "Price: $29.99")
@@ -110,7 +110,7 @@ proton.Text(ctx proton.Context, s string, size float32, c color.NRGBA, bold bool
 
 ---
 
-## Σημασιολογικοί βοηθοί χρωμάτων
+## Βοηθοί σημασιολογικών χρωμάτων
 
 Συντομεύσεις για κείμενο κοινής κατάστασης. Καθένας δεν κάνει τίποτα αν η συμβολοσειρά είναι άδεια,
 γεγονός που τα καθιστά ασφαλή για χρήση υπό όρους χωρίς επιπλέον «αν».
@@ -171,7 +171,7 @@ proton.HexColor("#f66")     // shorthand also works
 
 ---
 
-## Text Wrapping
+## Αναδίπλωση κειμένου
 
 Το μεγάλο κείμενο αναδιπλώνεται αυτόματα σε όποιο πλάτος είναι διαθέσιμο.
 Δεν χρειάζεται να κάνετε κάτι ιδιαίτερο.

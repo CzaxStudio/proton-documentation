@@ -1,4 +1,4 @@
-# Visual Widgets
+#Aparatos visuales
 
 Formas, tarjetas, imágenes, insignias, anillos de progreso, tablas, avatares: las cosas
 que hacen que su aplicación parezca diseñada específicamente.
@@ -25,7 +25,7 @@ proton.Divider(ctx proton.Context)
 
 ###Divisor etiquetado
 
-Same as Divider but with a centered text label.
+Igual que Divisor pero con una etiqueta de texto centrada.
 
 ```go
 proton.LabeledDivider(ctx, "Advanced Settings")
@@ -58,9 +58,9 @@ proton.Rect(ctx, proton.RGB(0x1a1a2e), 0, 0)
 proton.Rect(ctx proton.Context, c color.NRGBA, widthDp, heightDp float32)
 ```
 
-### RoundRect
+### RedondoRecto
 
-Same as Rect but with rounded corners.
+Igual que Rect pero con esquinas redondeadas.
 
 ```go
 proton.RoundRect(ctx, proton.RGB(0x2a2a3e), 200, 60, 12)  // 12dp corner radius
@@ -73,7 +73,7 @@ proton.RoundRect(ctx proton.Context, c color.NRGBA, widthDp, heightDp, radiusDp 
 
 ---
 
-## Card
+## Tarjeta
 
 Contenido dentro de un fondo acolchado de rectángulo redondeado con una sombra sutil.
 El contenedor de referencia para agrupar contenido relacionado.
@@ -94,11 +94,11 @@ proton.Card(ctx, proton.RGB(0x2a2a3e), 12, 16, func(ctx proton.Context) {
 proton.Card(ctx proton.Context, bg color.NRGBA, cornerDp, padDp float32, content func(proton.Context))
 ```
 
-- `bg` — background color
-- `cornerDp` — corner radius (8–12 looks good for most cards)
-- `padDp` — padding between the card edge and the content
+- `bg` — color de fondo
+- `cornerDp` — radio de esquina (8–12 se ve bien para la mayoría de las tarjetas)
+- `padDp` — relleno entre el borde de la tarjeta y el contenido
 
-### HoverCard
+### Tarjeta flotante
 
 Una tarjeta que cambia el color de fondo al pasar el mouse. Devuelve verdadero si se hace clic.
 
@@ -156,8 +156,8 @@ proton.Row(ctx,
 
 ## Punto de estado
 
-A small colored circle. Online/offline indicators, build status, anything
-that needs a colored dot next to some text.
+Un pequeño círculo de color. Indicadores en línea/fuera de línea, estado de compilación, cualquier cosa
+eso necesita un punto de color al lado de algún texto.
 
 ```go
 proton.Row(ctx,
@@ -175,8 +175,8 @@ proton.StatusDot(ctx proton.Context, c color.NRGBA, sizeDp float32)
 
 ##Avatar
 
-A circular badge showing initials. For user profile pictures when no image
-is available — which is most of the time.
+Una insignia circular que muestra las iniciales. Para imágenes de perfil de usuario cuando no hay imagen
+está disponible, que es la mayor parte del tiempo.
 
 ```go
 proton.Avatar(ctx, "AJ", proton.RGB(0x5e81ac), proton.RGB(0xeceff4), 40)
@@ -204,8 +204,8 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-`progress` is 0.0–1.0. `sizeDp` is the diameter. `strokeDp` is the ring
-thickness — 4–6dp looks good for most sizes.
+El "progreso" es 0,0–1,0. `sizeDp` es el diámetro. `strokeDp` es el anillo
+espesor: 4 a 6 dp se ve bien para la mayoría de los tamaños.
 
 ---
 

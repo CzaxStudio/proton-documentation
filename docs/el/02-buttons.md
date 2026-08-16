@@ -25,7 +25,7 @@ type UI struct {
 
 ---
 
-## Button
+## Κουμπί
 
 Γεμάτη, συμπαγή, πρωταρχική δράση. Χρησιμοποιήστε το για αυτό που θέλετε περισσότερο
 χρήστη να κάνει κλικ.
@@ -51,9 +51,9 @@ proton.Button(ctx proton.Context, state *proton.Clickable, label string) bool
 
 ## OutlineButton
 
-Ghost/outline style. Same behavior as Button but without the filled
-background. Use it for secondary actions — things the user might want
-to do, but that aren't the primary action.
+Στυλ φάντασμα/περιγράμματος. Ίδια συμπεριφορά με το Button αλλά χωρίς το γεμάτο
+φόντο. Χρησιμοποιήστε το για δευτερεύουσες ενέργειες — πράγματα που μπορεί να θέλει ο χρήστης
+να κάνουμε, αλλά αυτή δεν είναι η κύρια ενέργεια.
 
 ```go
 var save   proton.Clickable
@@ -89,7 +89,7 @@ proton.OutlineButton(ctx proton.Context, state *proton.Clickable, label string) 
 
 ## Κουμπί εικονιδίου
 
-An icon-only button. No text, just an icon. Common in toolbars.
+Ένα κουμπί μόνο για εικονίδιο. Χωρίς κείμενο, μόνο ένα εικονίδιο. Κοινό στις γραμμές εργαλείων.
 
 ```go
 // icon is a *proton.Icon — load one with widget.NewIcon() from gioui.org/widget
@@ -135,7 +135,7 @@ proton.Tappable(ctx proton.Context, state *proton.Clickable, content func(proton
 
 ---
 
-## Link and LinkSmall
+## Link και LinkSmall
 
 Υπογραμμισμένο κείμενο με δυνατότητα κλικ με στυλ υπερσύνδεσμου. Διαχειριστείτε μόνοι σας το κλικ —
 Το Proton δεν ανοίγει διευθύνσεις URL για εσάς, απλώς σας λέει ότι ο χρήστης έκανε κλικ.
@@ -167,7 +167,7 @@ proton.LinkSmall(ctx proton.Context, state *proton.Clickable, text string) bool
 
 ## Κοινά μοτίβα
 
-### Confirm / Cancel row (right-aligned)
+### Επιβεβαίωση / Ακύρωση σειράς (δεξιά στοίχιση)
 
 ```go
 type UI struct {

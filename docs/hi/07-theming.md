@@ -5,7 +5,7 @@
 
 ---
 
-## The Palette
+## पैलेट
 
 ```go
 type Palette struct {
@@ -38,7 +38,7 @@ a.Run()
 
 46 पैलेट. एक-एक पंक्ति.
 
-### Dark Themes
+### डार्क थीम
 
 ```go
 a.ApplyPalette(proton.DarkPalette)           // neutral dark
@@ -109,7 +109,7 @@ a.ThemeBuilder().
     Apply()
 ```
 
-Start from scratch or build on an existing palette:
+शुरुआत से शुरू करें या किसी मौजूदा पैलेट पर निर्माण करें:
 
 ```go
 // start from Nord, override just the primary color
@@ -132,13 +132,13 @@ a.ColorCode("primaryfg", "#ffffff")
 मान्य स्लॉट नाम: `"बीजी"`, `"बैकग्राउंड"`, `"एफजी"`, `"फोरग्राउंड"`, `"टेक्स्ट"`,
 `"प्राथमिक"`, `"उच्चारण"`, `"प्राथमिकfg"`, `"प्राथमिकपाठ"`।
 
-Accepted hex formats: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, `"#rrggbbaa"`.
+स्वीकृत हेक्स प्रारूप: ''#rrggbb'', ''rrggbb'', ''#rgb'', ''#rrggbbaa''।
 
 ---
 
 ## पृष्ठभूमि के रंग
 
-These override the palette's `Bg` color with something more interesting.
+ये पैलेट के `बीजी` रंग को और अधिक दिलचस्प चीज़ से ओवरराइड करते हैं।
 
 ```go
 // solid color — three ways to say the same thing
@@ -204,7 +204,7 @@ a.ApplyPalette(p)
 
 ---
 
-## AllPalettes — Iterate Over Every Built-in Palette
+## ऑलपैलेट्स - प्रत्येक अंतर्निर्मित पैलेट पर पुनरावृति करें
 
 ```go
 // proton.AllPalettes is []proton.NamedPalette
@@ -233,8 +233,7 @@ type NamedPalette struct {
 a.ThemeBuilder().Bg("#0d1117").Fg("#e6edf3").Primary("#1f6feb").PrimaryFg("#ffffff").Apply()
 ```
 
-**Hacker Green**
-```go
+**हैकर ग्रीन**```go
 a.ThemeBuilder().Bg("#000000").Fg("#00ff00").Primary("#008f11").PrimaryFg("#000000").Apply()
 ```
 

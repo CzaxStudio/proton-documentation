@@ -1,6 +1,6 @@
-# Proton Docs
+# Έγγραφα Proton
 
-**Διαβάστε την τεκμηρίωση στη γλώσσα σας:** [Αγγλικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md)
+**Διαβάστε την τεκμηρίωση στη γλώσσα σας:** [Αγγλικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md) | [हिन्दी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/hi/README.md)
 
 Πνευματικά δικαιώματα © [CzaxStudio](https://github.com/CzaxStudio/) (Nexus-Proton)
 

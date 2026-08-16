@@ -1,6 +1,6 @@
 # प्रोटॉन डॉक्स
 
-**अपनी भाषा में दस्तावेज़ पढ़ें:** [अंग्रेजी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [फ़्रांसीसी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md)
+**अपनी भाषा में दस्तावेज़ पढ़ें:** [अंग्रेजी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [फ़्रांसीसी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md) | [हिन्दी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/hi/README.md)
 
 कॉपीराइट © [CzaxStudio](https://github.com/CzaxStudio/) (नेक्सस-प्रोटॉन)
 

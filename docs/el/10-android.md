@@ -18,9 +18,9 @@
 
 ---
 
-## Install the build tool
+## Εγκαταστήστε το εργαλείο δημιουργίας
 
-You need `gogio`, Gio's cross-compilation tool:
+Χρειάζεστε το «gogio», το εργαλείο πολλαπλής μεταγλώττισης του Gio:
 
 ```bash
 go install gioui.org/cmd/gogio@latest
@@ -29,7 +29,7 @@ go install gioui.org/cmd/gogio@latest
 Χρειάζεστε επίσης το Android SDK και NDK. Η πιο εύκολη διαδρομή είναι το Android Studio:
 [developer.android.com/studio](https://developer.android.com/studio)
 
-Set the environment variables so gogio can find the SDK:
+Ορίστε τις μεταβλητές περιβάλλοντος ώστε το gogio να μπορεί να βρει το SDK:
 
 ```bash
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -38,7 +38,7 @@ export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/<version>
 
 ---
 
-## Build an APK
+## Δημιουργήστε ένα APK
 
 Από τη ρίζα του έργου σας:
 
@@ -88,10 +88,10 @@ dependencies {
 
 ---
 
-## Android 15+ (16kB page sizes)
+## Android 15+ (μεγέθη σελίδας 16 kB)
 
-Google Play requires 16kB page-size compatible APKs from November 2025.
-`gogio` handles this automatically — just keep it up to date:
+Το Google Play απαιτεί APK 16 kB συμβατά με μέγεθος σελίδας από τον Νοέμβριο του 2025.
+Το "gogio" το χειρίζεται αυτόματα — απλώς κρατήστε το ενημερωμένο:
 
 ```bash
 go install gioui.org/cmd/gogio@latest
@@ -99,7 +99,7 @@ go install gioui.org/cmd/gogio@latest
 
 ---
 
-## Logo / app icon
+## Λογότυπο / εικονίδιο εφαρμογής
 
 Ρυθμίστε το εικονίδιο της εφαρμογής σας μέσω του τυπικού μηχανισμού Android (στο δικό σας
 «AndroidManifest.xml» μέσω «android:icon») ή χρησιμοποιήστε τη λειτουργία λογότυπου της Proton
@@ -139,7 +139,7 @@ func main() {
 
 ---
 
-## A full example
+## Ένα πλήρες παράδειγμα
 
 ```go
 package main

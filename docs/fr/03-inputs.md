@@ -26,7 +26,7 @@ proton.Input(ctx proton.Context, state *proton.Editor, hint string)
 
 ---
 
-## TextArea — Multi-line Text Field
+## TextArea — Champ de texte multiligne
 
 Identique à Input mais l'utilisateur peut appuyer sur Entrée pour ajouter des lignes. Bon pour les messages,
 notes, quelque chose de plus long qu’une seule ligne.
@@ -144,7 +144,7 @@ proton.RadioButton(ctx, &u.plan, "team", "Team — $29/mo")
 fmt.Println("selected:", u.plan.Value) // "free", "pro", or "team"
 ```
 
-Returns `true` on the frame the selection changes.
+Renvoie « true » sur le cadre où la sélection change.
 
 ```go
 proton.RadioButton(ctx proton.Context, group *proton.Enum, key string, label string) bool
@@ -194,10 +194,10 @@ proton.Slider(ctx proton.Context, state *proton.Float) float32
 
 ---
 
-## ProgressBar
+## Barre de progression
 
-Not interactive — just shows progress as a filled bar. Pass a float32
-between 0.0 and 1.0.
+Non interactif – affiche simplement la progression sous forme de barre remplie. Passer un flotteur32
+entre 0,0 et 1,0.
 
 ```go
 proton.ProgressBar(ctx, 0.65)    // 65% done
@@ -235,14 +235,14 @@ proton.Caption(ctx, fmt.Sprintf("%.1f / 5.0", rating))
 proton.NumberInput(ctx proton.Context, state *proton.NumberState, min, max, step float64) float64
 ```
 
-The value starts at `min` on first use. Step >= 1 displays integers;
-step < 1 displays two decimal places.
+La valeur commence à « min » lors de la première utilisation. Étape >= 1 affiche des nombres entiers ;
+l'étape < 1 affiche deux décimales.
 
 ---
 
 ## Boîte de sélection
 
-A dropdown selector. Returns the index of the currently selected option.
+Un sélecteur déroulant. Renvoie l'index de l'option actuellement sélectionnée.
 
 ```go
 type UI struct {

@@ -7,7 +7,7 @@
 
 ## Διαιρέτης
 
-A thin horizontal rule. Use it between sections.
+Ένας λεπτός οριζόντιος κανόνας. Χρησιμοποιήστε το μεταξύ των ενοτήτων.
 
 ```go
 proton.H5(ctx, "Section One")
@@ -191,8 +191,8 @@ proton.Avatar(ctx proton.Context, initials string, bg, fg color.NRGBA, sizeDp fl
 
 ## ProgressRing
 
-A circular progress indicator. Good for stat cards and dashboards where
-the circular shape communicates percentage more visually than a bar does.
+Ένας κυκλικός δείκτης προόδου. Καλό για κάρτες στατιστικών και πίνακες εργαλείων όπου
+το κυκλικό σχήμα επικοινωνεί περισσότερο οπτικά το ποσοστό από μια μπάρα.
 
 ```go
 proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
@@ -204,12 +204,12 @@ proton.ProgressRing(ctx, 0.72, 48, 5, proton.RGB(0x88c0d0))
 proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c color.NRGBA)
 ```
 
-`progress` is 0.0–1.0. `sizeDp` is the diameter. `strokeDp` is the ring
-thickness — 4–6dp looks good for most sizes.
+Η «πρόοδος» είναι 0,0–1,0. Το "sizeDp" είναι η διάμετρος. Το "strokeDp" είναι το δαχτυλίδι
+πάχος — 4–6dp φαίνεται καλό για τα περισσότερα μεγέθη.
 
 ---
 
-## Table
+## Πίνακας
 
 Ένας πίνακας δεδομένων με μια σειρά κεφαλίδας και εναλλασσόμενη σκίαση σειρών.
 
@@ -274,14 +274,14 @@ proton.Tooltip(ctx, &u.saveHover, "Saves your work to disk (Ctrl+S)", func(ctx p
 proton.Tooltip(ctx proton.Context, state *proton.Clickable, tip string, content func(proton.Context))
 ```
 
-The `state` Clickable tracks hover for the tooltip area. It's separate from
-any button inside the content — declare a dedicated one for each tooltip.
+Τα κομμάτια "κατάσταση" με δυνατότητα κλικ αιωρούνται για την περιοχή συμβουλών εργαλείων. Είναι ξεχωριστό από
+οποιοδήποτε κουμπί μέσα στο περιεχόμενο — δηλώστε ένα αποκλειστικό για κάθε επεξήγηση εργαλείου.
 
 ---
 
 ## Εικόνες
 
-Load once at startup. Draw every frame.
+Φόρτωση μία φορά κατά την εκκίνηση. Σχεδιάστε κάθε πλαίσιο.
 
 ```go
 // load at startup — not in the draw function
@@ -365,8 +365,8 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ## ColorSwatch
 
-A row of colored circles the user can click to select a color. Returns
-the index of the selected one, or -1 if none selected yet.
+Μια σειρά από έγχρωμους κύκλους στους οποίους ο χρήστης μπορεί να κάνει κλικ για να επιλέξει ένα χρώμα. Επιστροφές
+το ευρετήριο του επιλεγμένου ή -1 εάν δεν έχει επιλεγεί ακόμη κανένα.
 
 ```go
 type UI struct {

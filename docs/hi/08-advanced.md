@@ -32,7 +32,7 @@ proton.Toast(ctx proton.Context, state *proton.ToastState)
 
 ---
 
-## Overlay / Modal
+## ओवरले/मोडल
 
 हर चीज़ के शीर्ष पर केंद्रित सामग्री के साथ एक धुंधली पृष्ठभूमि।
 
@@ -94,9 +94,9 @@ proton.Overlay(ctx proton.Context, state *proton.OverlayState, content func(prot
 
 ---
 
-## Keyboard Shortcuts
+## कुंजीपटल अल्प मार्ग
 
-Register a function to fire when a key combination is pressed.
+कुंजी संयोजन दबाए जाने पर फ़ंक्शन को सक्रिय करने के लिए पंजीकृत करें।
 
 ```go
 proton.OnKey(ctx, proton.ModCtrl, "S", func() { save() })
@@ -105,15 +105,15 @@ proton.OnKey(ctx, proton.ModCtrl|proton.ModShift, "N", func() { newFile() })
 proton.OnKey(ctx, proton.ModNone, proton.KeyEscape, func() { closeDialog() })
 ```
 
-Call `OnKey` inside your draw function. It registers the shortcut for that
-frame. Since the draw function runs every frame, shortcuts stay active as
-long as the window is open.
+अपने ड्रा फ़ंक्शन के अंदर `ऑनकी` को कॉल करें। यह उसके लिए शॉर्टकट पंजीकृत करता है
+ढाँचा। चूंकि ड्रॉ फ़ंक्शन हर फ़्रेम पर चलता है, इसलिए शॉर्टकट सक्रिय रहते हैं
+जब तक खिड़की खुली है.
 
 ```go
 proton.OnKey(ctx proton.Context, modifiers proton.Modifier, keyName string, fn func())
 ```
 
-**Modifier constants:**
+**संशोधक स्थिरांक:**
 
 ```go
 proton.ModNone   // no modifier — just the key
@@ -140,14 +140,14 @@ proton.KeyLeft
 proton.KeyRight
 ```
 
-अक्षर कुंजियाँ केवल तार हैं: `"S"`, `"Z"`, `"N"`, `"A"`।
+अक्षर कुंजियाँ केवल स्ट्रिंग हैं: `"S"`, `"Z"`, `"N"`, `"A"`।
 
 ---
 
 ## टैब्स
 
-A horizontal tab bar with one content area that switches based on the
-selected tab.
+एक सामग्री क्षेत्र के साथ एक क्षैतिज टैब बार जो इसके आधार पर स्विच करता है
+चयनित टैब.
 
 ```go
 type UI struct {
@@ -169,19 +169,19 @@ proton.Tabs(ctx,
 )
 ```
 
-`u.tabs.Selected` holds the active tab index. You can set it programmatically
-to switch tabs from code.
+`u.tabs.Selected` सक्रिय टैब इंडेक्स रखता है। आप इसे प्रोग्रामेटिक रूप से सेट कर सकते हैं
+कोड से टैब स्विच करने के लिए.
 
 ```go
 proton.Tabs(ctx proton.Context, labels []string, btns []proton.Clickable, state *proton.TabState, content func(proton.Context, int))
 ```
 
-The `btns` slice needs one `Clickable` per tab. Passing `u.tabBtns[:]` is
-the idiomatic way when you declare a fixed-size array in your struct.
+`बीटीएनएस` स्लाइस को प्रति टैब एक `क्लिक करने योग्य` की आवश्यकता है। `u.tabBtns[:]` पास करना है
+मुहावरेदार तरीका जब आप अपनी संरचना में एक निश्चित आकार की सरणी घोषित करते हैं।
 
 ---
 
-## Accordion
+## अकॉर्डियन
 
 क्लिक करने योग्य हेडर के साथ एक संक्षिप्त करने योग्य अनुभाग।
 
@@ -369,7 +369,7 @@ proton.FocusArea(ctx proton.Context, tag *proton.FrameTag, keyName string, conte
 
 ---
 
-## Window Options
+## विंडो विकल्प
 
 ```go
 // fullscreen

@@ -1,6 +1,6 @@
 # Mise en page
 
-Widgets stack vertically by default. Everything else is opt-in.
+Les widgets s'empilent verticalement par défaut. Tout le reste est opt-in.
 
 ---
 
@@ -20,7 +20,7 @@ proton.H4(ctx, "Next Section")
 proton.Gap(ctx proton.Context, dp float32)
 ```
 
-8dp is a small gap. 16dp is medium. 24dp is large. Those three cover most cases.
+8dp est un petit écart. 16dp est moyen. 24dp est grand. Ces trois couvrent la plupart des cas.
 
 ---
 
@@ -47,7 +47,7 @@ proton.Row(ctx proton.Context, widgets ...func(proton.Context))
 Colonne ## — Groupe vertical explicite
 
 Empile les enfants verticalement en tant que groupe nommé. Rarement nécessaire au plus haut niveau
-(les widgets s'empilent automatiquement), mais utile dans `Row` ou `Split` lorsque le
+(les widgets s'empilent automatiquement), mais utile à l'intérieur de `Row` ou `Split` lorsque le
 le côté droit doit être composé de plusieurs éléments empilés.
 
 ```go
@@ -117,7 +117,7 @@ proton.RowEnd(ctx proton.Context, widgets ...func(proton.Context))
 
 ---
 
-## GrowRow et GrowColumn — Mises en page extensibles
+## GrowRow et GrowColumn — Dispositions extensibles
 
 Lorsqu'un enfant doit remplir tout l'espace restant et que les autres restent leur
 taille naturelle, utilisez `GrowRow` (horizontal) ou `GrowColumn` (vertical) avec
@@ -193,7 +193,7 @@ proton.Split(ctx proton.Context, leftFraction float32, left func(proton.Context)
 
 ### HSplit — Haut et bas
 
-Same idea but vertical.
+Même idée mais vertical.
 
 ```go
 proton.HSplit(ctx, 0.7,
@@ -229,7 +229,7 @@ proton.ResizeHSplit(ctx proton.Context, state *proton.ResizeSplitState, defaultF
 
 ---
 
-## Center
+## Centre
 
 Place le contenu au centre de l'espace disponible. Idéal pour les états vides
 et écrans de chargement.
@@ -315,7 +315,7 @@ proton.Grid(ctx proton.Context, cols int, gapDp float32, cells ...func(proton.Co
 
 ---
 
-## ZStack — Draw Things on Top of Each Other
+## ZStack — Dessinez des objets les uns sur les autres
 
 Superpose plusieurs widgets à la même position. Le premier enfant est sur le
 en bas ; le dernier est au dessus.

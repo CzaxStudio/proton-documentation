@@ -1,4 +1,4 @@
-# Buttons
+# Botones
 
 Los botones son la forma en que los usuarios le dicen a su aplicación que haga cosas. El protón tiene cuatro tipos,
 además de enlaces en los que se puede hacer clic y una forma de hacer que, literalmente, se pueda tocar cualquier cosa.
@@ -20,8 +20,8 @@ type UI struct {
 No compartas uno entre dos botones. Si lo hace, al hacer clic en cualquiera de ellos se activa
 ambos, lo cual es un error divertido de depurar y una experiencia de usuario terrible.
 
-Also, buttons must be inside a layout wrapper (`Pad`, `Row`, `Column`, etc.)
-for clicks to register. See [Getting Started](./00-getting-started.md) for why.
+Además, los botones deben estar dentro de un contenedor de diseño (`Pad`, `Fila`, `Columna`, etc.)
+para hacer clic para registrarse. Consulte [Cómo comenzar](./00-getting-started.md) para saber por qué.
 
 ---
 
@@ -51,9 +51,9 @@ proton.Button(ctx proton.Context, state *proton.Clickable, label string) bool
 
 ## Botón de esquema
 
-Ghost/outline style. Same behavior as Button but without the filled
-background. Use it for secondary actions — things the user might want
-to do, but that aren't the primary action.
+Estilo fantasma/contorno. Mismo comportamiento que Button pero sin el relleno
+fondo. Úselo para acciones secundarias: cosas que el usuario podría querer.
+hacer, pero esa no es la acción principal.
 
 ```go
 var save   proton.Clickable
@@ -165,7 +165,7 @@ proton.LinkSmall(ctx proton.Context, state *proton.Clickable, text string) bool
 
 ---
 
-## Common Patterns
+## Patrones comunes
 
 ### Confirmar/Cancelar fila (alineada a la derecha)
 
@@ -227,7 +227,7 @@ proton.Row(ctx,
 )
 ```
 
-### Clickable list rows
+### Filas de lista en las que se puede hacer clic
 
 ```go
 type UI struct {

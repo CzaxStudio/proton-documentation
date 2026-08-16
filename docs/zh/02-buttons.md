@@ -1,4 +1,4 @@
-# Buttons
+# 按钮
 
 按钮是用户告诉您的应用程序执行操作的方式。质子有四种，
 加上可点击的链接和一种使任何东西都可点击的方法。
@@ -167,7 +167,7 @@ proton.LinkSmall(ctx proton.Context, state *proton.Clickable, text string) bool
 
 ## 常见模式
 
-### Confirm / Cancel row (right-aligned)
+### 确认/取消行（右对齐）
 
 ```go
 type UI struct {
@@ -197,7 +197,7 @@ proton.RowEnd(ctx,
 `RowEnd` 将所有内容推到右边缘 - 标准位置
 确认/取消对。
 
-### Toolbar
+### 工具栏
 
 ```go
 type UI struct {

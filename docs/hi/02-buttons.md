@@ -1,7 +1,7 @@
 # बटन
 
-Buttons are how users tell your app to do things. Proton has four kinds,
-plus clickable links and a way to make literally anything tappable.
+बटन वे तरीके हैं जिनसे उपयोगकर्ता आपके ऐप को काम करने के लिए कहते हैं। प्रोटॉन चार प्रकार के होते हैं
+साथ ही क्लिक करने योग्य लिंक और वस्तुतः किसी भी चीज़ को टैप करने योग्य बनाने का एक तरीका।
 
 ---
 
@@ -101,7 +101,7 @@ if proton.IconButton(ctx, &closeBtn, closeIcon, "Close window") {
 ```
 
 चौथा तर्क पहुंच-योग्यता विवरण है - एक स्क्रीन रीडर क्या है
-कहूँगा. इसे छोड़ें मत.
+कहूँगा. इसे छोड़ें नहीं.
 
 ```go
 proton.IconButton(ctx proton.Context, state *proton.Clickable, icon *proton.Icon, desc string) bool
@@ -111,9 +111,9 @@ proton.IconButton(ctx proton.Context, state *proton.Clickable, icon *proton.Icon
 
 ## टैप करने योग्य
 
-Makes any content clickable. The entire area you draw inside the callback
-becomes the hit target. Use it for cards, list rows, custom buttons, or
-anything where a standard button label isn't what you want.
+किसी भी सामग्री को क्लिक करने योग्य बनाता है. वह संपूर्ण क्षेत्र जिसे आप कॉलबैक के अंदर खींचते हैं
+हिट लक्ष्य बन जाता है. इसे कार्ड, सूची पंक्तियों, कस्टम बटन आदि के लिए उपयोग करें
+कुछ भी जहां मानक बटन लेबल वह नहीं है जो आप चाहते हैं।
 
 ```go
 var rowClick proton.Clickable
@@ -137,8 +137,8 @@ proton.Tappable(ctx proton.Context, state *proton.Clickable, content func(proton
 
 ## लिंक और लिंकस्मॉल
 
-Underlined clickable text styled like a hyperlink. Handle the click yourself —
-Proton doesn't open URLs for you, it just tells you the user clicked.
+हाइपरलिंक की तरह स्टाइल किया गया रेखांकित क्लिक करने योग्य टेक्स्ट। क्लिक को स्वयं संभालें -
+प्रोटॉन आपके लिए यूआरएल नहीं खोलता है, यह सिर्फ आपको बताता है कि उपयोगकर्ता ने क्लिक किया है।
 
 ```go
 var githubLink proton.Clickable
@@ -148,7 +148,7 @@ if proton.Link(ctx, &githubLink, "View on GitHub") {
 }
 ```
 
-`LinkSmall` is the same thing but uses caption-sized text:
+`LinkSmall` एक ही चीज़ है लेकिन कैप्शन-आकार के टेक्स्ट का उपयोग करता है:
 
 ```go
 var termsLink proton.Clickable

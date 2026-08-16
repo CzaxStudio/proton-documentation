@@ -98,7 +98,7 @@ proton.Card(ctx proton.Context, bg color.NRGBA, cornerDp, padDp float32, content
 - `कॉर्नरडीपी` - कोने का त्रिज्या (अधिकांश कार्डों के लिए 8-12 अच्छा लगता है)
 - `पैडडीपी` - कार्ड किनारे और सामग्री के बीच पैडिंग
 
-### HoverCard
+### होवरकार्ड
 
 एक कार्ड जो होवर पर पृष्ठभूमि का रंग बदलता है। क्लिक करने पर सत्य लौटाता है।
 
@@ -154,7 +154,7 @@ proton.Row(ctx,
 
 ---
 
-## StatusDot
+## स्टेटसडॉट
 
 एक छोटा सा रंगीन घेरा. ऑनलाइन/ऑफ़लाइन संकेतक, निर्माण स्थिति, कुछ भी
 इसके लिए किसी पाठ के आगे एक रंगीन बिंदु की आवश्यकता होती है।
@@ -211,7 +211,7 @@ proton.ProgressRing(ctx proton.Context, progress, sizeDp, strokeDp float32, c co
 
 ## मेज़
 
-A data table with a header row and alternating row shading.
+हेडर पंक्ति और वैकल्पिक पंक्ति छायांकन के साथ एक डेटा तालिका।
 
 ```go
 proton.Table(ctx,
@@ -228,11 +228,11 @@ proton.Table(ctx,
 proton.Table(ctx proton.Context, columns []string, rows []proton.TableRow)
 ```
 
-`proton.TableRow` is just `[]string`. Columns are equally wide.
+`proton.TableRow` सिर्फ `[]स्ट्रिंग` है। स्तम्भ समान रूप से चौड़े हैं।
 
 ---
 
-## Stepper
+## स्टेपर
 
 बहु-चरणीय प्रवाह के लिए एक क्षैतिज चरण-प्रगति संकेतक।
 
@@ -251,7 +251,7 @@ proton.Stepper(ctx proton.Context, current int, steps []string)
 
 ---
 
-## Tooltip
+## टूलटिप
 
 एक छोटा लेबल जो तब दिखाई देता है जब उपयोगकर्ता किसी चीज़ पर घूमता है।
 
@@ -329,8 +329,8 @@ proton.HasLogo(ctx proton.Context) bool
 
 ## कोडब्लॉक
 
-Monospace text in a rounded bordered box. For showing commands, file paths,
-snippets — anything the user is likely to copy.
+गोल बॉर्डर वाले बॉक्स में मोनोस्पेस टेक्स्ट। आदेश, फ़ाइल पथ दिखाने के लिए,
+स्निपेट्स - उपयोगकर्ता द्वारा कॉपी की जाने वाली कोई भी चीज़।
 
 ```go
 proton.CodeBlock(ctx, "go get github.com/CzaxStudio/proton")
@@ -344,7 +344,7 @@ proton.CodeBlock(ctx proton.Context, code string)
 
 ---
 
-## ShortcutHint
+## शॉर्टकट संकेत
 
 एक छोटा कीबोर्ड बैज. इन्हें मेनू आइटम या बटन लेबल के बगल में दिखाएं
 कुंजीपटल शॉर्टकट संचार करने के लिए.
@@ -365,8 +365,8 @@ proton.ShortcutHint(ctx proton.Context, keys string)
 
 ## रंग आदर्श
 
-A row of colored circles the user can click to select a color. Returns
-the index of the selected one, or -1 if none selected yet.
+रंगीन वृत्तों की एक पंक्ति जिसे उपयोगकर्ता रंग चुनने के लिए क्लिक कर सकता है। रिटर्न
+चयनित का सूचकांक, या -1 यदि अभी तक कोई भी चयनित नहीं हुआ है।
 
 ```go
 type UI struct {

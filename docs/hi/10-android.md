@@ -10,11 +10,11 @@
 
 ## क्या कार्य करता है
 
-Every Proton widget, layout, and theme works on Android exactly as it
-does on desktop. Touch events map to pointer events. The soft keyboard
-integrates with `Input` and `TextArea`. `Invalidate()` works correctly
-on mobile. The one restriction from Gio's side: Android supports only
-one window per app.
+प्रत्येक प्रोटॉन विजेट, लेआउट और थीम एंड्रॉइड पर बिल्कुल उसी तरह काम करता है
+डेस्कटॉप पर करता है. पॉइंटर इवेंट के लिए इवेंट मैप को स्पर्श करें। नरम कीबोर्ड
+`इनपुट` और `टेक्स्टएरिया` के साथ एकीकृत होता है। `अमान्य()` सही ढंग से काम करता है
+मोबाइल पर. जियो की ओर से एक प्रतिबंध: एंड्रॉइड केवल समर्थन करता है
+प्रति ऐप एक विंडो।
 
 ---
 
@@ -88,7 +88,7 @@ dependencies {
 
 ---
 
-## Android 15+ (16kB page sizes)
+## एंड्रॉइड 15+ (16kB पृष्ठ आकार)
 
 Google Play को नवंबर 2025 से 16kB पेज-आकार के संगत APK की आवश्यकता है।
 `गोगियो` इसे स्वचालित रूप से संभालता है - बस इसे अद्यतित रखें:
@@ -177,5 +177,5 @@ gogio -target android -appid com.example.counter .
 adb install counter.apk
 ```
 
-That's it. The same binary you run with `go run .` on your laptop becomes
-an Android APK with one command.
+इतना ही। वही बाइनरी जो आप अपने लैपटॉप पर `गो रन' के साथ चलाते हैं, बन जाती है
+एक कमांड के साथ एक एंड्रॉइड एपीके।

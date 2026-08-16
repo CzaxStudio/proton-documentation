@@ -77,7 +77,7 @@ a.ApplyPalette(proton.IcebergPalette)
 a.ApplyPalette(proton.SynthwavePalette)      // 80s neon
 ```
 
-### Light Themes
+### Φωτεινά θέματα
 
 ```go
 a.ApplyPalette(proton.LightPalette)
@@ -132,7 +132,7 @@ a.ColorCode("primaryfg", "#ffffff")
 Έγκυρα ονόματα θέσεων: `"bg"`, `"φόντο"`, `"fg"`, `"προσκηνίου"`, "κείμενο"`,
 ""κύριο"", ""προφορά"", ""πρωτεύον"", "πρωτεύον κείμενο"".
 
-Αποδεκτές μορφές δεκαεξαδικού: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, "#rrggbbaa"`.
+Αποδεκτές δεκαεξαδικές μορφές: `"#rrggbb"`, `"rrggbb"`, `"#rgb"`, "#rrggbbaa"`.
 
 ---
 

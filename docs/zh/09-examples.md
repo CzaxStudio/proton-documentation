@@ -7,7 +7,7 @@
 
 ＃＃ 你好世界
 
-The absolute minimum. Open a window, show some text.
+绝对最小值。打开一个窗口，显示一些文本。
 
 ```go
 package main
@@ -366,11 +366,11 @@ func main() {
 }
 ```
 
-运行前将 `logo.png` 放在与 `main.go` 相同的目录中。
+运行前将“logo.png”放在与“main.go”相同的目录中。
 
 ---
 
-## Two-Pane App
+## 两窗格应用程序
 
 可调整大小的侧边栏/内容分割——大多数桌面应用程序背后的布局模式。
 
@@ -458,7 +458,7 @@ func main() {
 
 ## 运行内置示例
 
-The repo ships with 9 complete example apps:
+该存储库附带 9 个完整的示例应用程序：
 
 ```bash
 go run ./examples/hello        # one window, one label

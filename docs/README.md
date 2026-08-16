@@ -1,6 +1,6 @@
 # Proton Docs
 
-**Read the documentation in your language:** [English](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md)
+**Read the documentation in your language:** [English](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/README.md) | [Español](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/es/README.md) | [Français](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/fr/README.md) | [Ελληνικά](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/el/README.md) | [हिन्दी](https://github.com/CzaxStudio/proton-documentation/blob/main/docs/hi/README.md)
 
 
 Copyright © [CzaxStudio](https://github.com/CzaxStudio/) (Nexus-Proton)
